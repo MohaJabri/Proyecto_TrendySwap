@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  django_server:
+    container_name: '${PROJECT_NAME}_server'
+    build: Docker/Django/
+    volumes:
+      - './backend/:/usr/src/app/'
+    ports:
+      - '${SERVER_PORT}:8000'
+    environment:
+            DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
+            DB_ENGINE: ${DB_ENGINE}
+            DB_NAME: ${DB_NAME}
+            DB_USER: ${DB_USER}
+            DB_PASSWORD: ${DB_PASSWORD}
+            DB_HOST: ${DB_HOST}
+            DB_PORT: ${DB_PORT}
+  database:
+    container_name: '${PROJECT_NAME}_db'
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      PGUSER: ${DB_USER}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgresdb:/var/lib/postgresql
+volumes:
+  postgresdb:
