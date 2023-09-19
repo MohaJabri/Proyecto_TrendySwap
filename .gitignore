@@ -1,2 +1,8 @@
-#Ingorar la carperta de node_modules que se encuentra en /Frontend.
+.env
 Frontend/node_modules
+Backend/apps/user/migrations/*
+Backend/apps/user/__pycache__
+Backend/core/__pycache__
+
+
+!Backend/apps/user/migrations/__init__.py
