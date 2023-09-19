@@ -1,11 +1,36 @@
 version: '3.8'
 
 services:
+
+
+  database:
+    container_name: '${PROJECT_NAME}_db'
+    image: postgres:alpine3.18
+    restart: always
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      PGUSER: ${DB_USER}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgresdb:/var/lib/postgresql/data/
+  
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${DB_USER}", "-d", "${DB_NAME}", "-h", "localhost", "-p", "5432"]
+      interval: 1s
+      retries: 60
+
+
   django_server:
     container_name: '${PROJECT_NAME}_server'
     build: Docker/Django/
+    depends_on:
+      database:
+          condition: service_healthy
     volumes:
-      - './backend/:/usr/src/app/'
+      - './Backend/:/usr/src/app/'
     ports:
       - '${SERVER_PORT}:8000'
     environment:
@@ -16,18 +41,28 @@ services:
             DB_PASSWORD: ${DB_PASSWORD}
             DB_HOST: ${DB_HOST}
             DB_PORT: ${DB_PORT}
-  database:
-    container_name: '${PROJECT_NAME}_db'
-    image: postgres
-    restart: always
-    environment:
-      POSTGRES_DB: ${DB_NAME}
-      PGUSER: ${DB_USER}
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-    ports:
-      - '5432:5432'
+
+
+  
+
+
+  react_client:
+    container_name: '${PROJECT_NAME}_client'
+    build: Docker/React-Vite/
+    depends_on:
+      - django_server
     volumes:
-      - postgresdb:/var/lib/postgresql
+      - './Frontend/public:/app/public/'
+      - './Frontend/src:/app/src/'
+      - './Frontend/.eslintrc.cjs:/app/.eslintrc.cjs'
+      - './Frontend/vite.config.js:/app/vite.config.js'
+      - './Frontend/index.html:/app/index.html'
+    ports:
+      - '${CLIENT_PORT}:5173'
+  
+
+    
+    
+    
 volumes:
-  postgresdb:
+  postgresdb: 

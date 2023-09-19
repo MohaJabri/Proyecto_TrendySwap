@@ -37,4 +37,5 @@ class UserLoggedSerializer(serializers.ModelSerializer):
 
 #Autenticacion
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    #retunr
     pass
