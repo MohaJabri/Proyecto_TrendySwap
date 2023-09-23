@@ -7,4 +7,4 @@ RUN npm install
 #CMD [ "npm", "install" ]
 #CMD [ "npm", "run", "dev" ]
 #ejectar el comando npm install y el comando npm run dev por consola de linux en una sola linea
-CMD npm install && npm run dev
+CMD npm run dev

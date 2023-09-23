@@ -52,11 +52,14 @@ services:
     depends_on:
       - django_server
     volumes:
+      - './Docker/React-Vite/package.json:/app/package.json'
       - './Frontend/public:/app/public/'
       - './Frontend/src:/app/src/'
       - './Frontend/.eslintrc.cjs:/app/.eslintrc.cjs'
       - './Frontend/vite.config.js:/app/vite.config.js'
       - './Frontend/index.html:/app/index.html'
+      - './Frontend/postcss.config.js:/app/postcss.config.js'
+      - './Frontend/tailwind.config.js:/app/tailwind.config.js'
     ports:
       - '${CLIENT_PORT}:5173'
   
