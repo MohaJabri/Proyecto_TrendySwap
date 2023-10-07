@@ -62,7 +62,9 @@ services:
       - './Frontend/tailwind.config.js:/app/tailwind.config.js'
     ports:
       - '${CLIENT_PORT}:5173'
-  
+    
+    environment:
+      VITE_API_URL: ${API_URL}
 
     
     

@@ -1,8 +1,9 @@
-function Error404(){
+import Layout from "../../hocs/Layout"
+const Error404=()=>{
     return(
-        <div>
+        <Layout>
             Error404
-        </div>
+        </Layout>
     )
 }
 export default Error404
