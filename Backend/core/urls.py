@@ -8,7 +8,7 @@ urlpatterns = [
 
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')),
-    
+    path('api/category/', include('apps.category.urls')),
     
     path('admin/', admin.site.urls),
     

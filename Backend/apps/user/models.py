@@ -32,11 +32,11 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     last_name=models.CharField(max_length=255)
     is_active=models.BooleanField(default=True)
     is_staff=models.BooleanField(default=False)
-
+    is_professional=models.BooleanField(default=False)
     objects=userAccountManager()
 
     USERNAME_FIELD='email'
-    REQUIRED_FIELDS=['first_name', 'last_name']
+    REQUIRED_FIELDS=['first_name', 'last_name', 'is_professional']
 
 
     def get_full_name(self):

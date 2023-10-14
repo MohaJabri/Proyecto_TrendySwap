@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { Menu, Popover, Transition } from "@headlessui/react";
 import { Link } from "react-router-dom";
 import Alert from "../../components/alert";
@@ -65,6 +65,14 @@ function classNames(...classes) {
 
 function Navbar({ isAuthenticated, user, logout }) {
   const navigate = useNavigate();
+  const [authReady, setAuthReady] = useState(false);
+
+  useEffect(() => {
+    if (isAuthenticated !== null) {
+      setAuthReady(true);
+    }
+  }, [isAuthenticated]);
+
 
   const handleLogout = () => {
     logout();
@@ -158,6 +166,7 @@ function Navbar({ isAuthenticated, user, logout }) {
   );
 
   const guestLinks = (
+    authReady &&
     <Fragment>
       <Link
         to="/login"
@@ -200,7 +209,7 @@ function Navbar({ isAuthenticated, user, logout }) {
               </Popover.Button>
             </div>
             <div className="hidden md:flex-1 md:flex md:items-center md:justify-between">
-              <Popover.Group as="nav" className="flex space-x-10 flex items-center" >
+              <Popover.Group as="nav" className="space-x-10 flex items-center" >
                 <a
                   href="#"
                   className="text-base font-medium text-gray-500 hover:text-gray-900"

@@ -31,7 +31,12 @@ DJANGO_APPS = [
 
 PROJECT_APPS=[
     'apps.user',
-]                                   
+]
+
+TRENDYSWAP_APPS=[
+    'apps.category',
+
+]
 
 THIRD_PARTY_APPS=[
     'rest_framework',
@@ -44,7 +49,7 @@ THIRD_PARTY_APPS=[
     'ckeditor_uploader',
 ]
 
-INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRD_PARTY_APPS
+INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRD_PARTY_APPS + TRENDYSWAP_APPS
 
 CKEDITOR_CONFIGS = {
     'default': {
@@ -181,6 +186,8 @@ SIMPLE_JWT={
     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
 
 }
+
+DOMAIN = 'localhost:5173'
 
 DJOSER={
     'LOGIN_FIELD':'email',
