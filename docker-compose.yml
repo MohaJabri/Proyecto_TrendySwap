@@ -26,6 +26,7 @@ services:
   django_server:
     container_name: '${PROJECT_NAME}_server'
     build: Docker/Django/
+    image: '${PROJECT_NAME}_server'
     depends_on:
       database:
           condition: service_healthy
@@ -49,6 +50,7 @@ services:
   react_client:
     container_name: '${PROJECT_NAME}_client'
     build: Docker/React-Vite/
+    image: '${PROJECT_NAME}_client'
     depends_on:
       - django_server
     volumes:

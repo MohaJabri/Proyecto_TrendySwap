@@ -35,6 +35,7 @@ PROJECT_APPS=[
 
 TRENDYSWAP_APPS=[
     'apps.category',
+    'apps.service',
 
 ]
 

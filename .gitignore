@@ -6,3 +6,10 @@ Backend/core/__pycache__
 
 
 !Backend/apps/user/migrations/__init__.py
+
+
+#ignorar la carpeta y los archivos de vscode
+.vscode
+
+
+

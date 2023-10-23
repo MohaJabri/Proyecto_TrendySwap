@@ -210,12 +210,12 @@ function Navbar({ isAuthenticated, user, logout }) {
             </div>
             <div className="hidden md:flex-1 md:flex md:items-center md:justify-between">
               <Popover.Group as="nav" className="space-x-10 flex items-center" >
-                <a
-                  href="#"
+                <Link
+                  to="/swap"
                   className="text-base font-medium text-gray-500 hover:text-gray-900"
                 >
-                  Pricing
-                </a>
+                  Intercambiar
+                </Link>
 
                 <div>
                   
