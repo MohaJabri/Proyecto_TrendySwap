@@ -10,6 +10,8 @@ Backend/core/__pycache__
 
 #ignorar la carpeta y los archivos de vscode
 .vscode
+#ignoara la caperta /Backend/media
+Backend/media
 
 
 

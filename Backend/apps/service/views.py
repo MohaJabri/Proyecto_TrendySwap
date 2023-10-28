@@ -1,7 +1,7 @@
 
 
 from rest_framework.views import APIView
-from .models import Service
+from apps.service.models import Service
 from apps.category.models import Category
 from rest_framework import status
 from rest_framework import permissions
@@ -42,7 +42,7 @@ class ServiceDetailView(APIView):
             return Response({'error':'service does not exist'},status=status.HTTP_404_NOT_FOUND)
         
 class ServiceListView(APIView):
-    permissions_classes=(permissions.AllowAny,)
+    permission_classes=(permissions.AllowAny,)
     def get(self,request,format=None):
         sortBy=request.query_params.get('sortBy')
         if not (sortBy=='date_created' or sortBy=='name'):
@@ -63,8 +63,8 @@ class ServiceListView(APIView):
             limit=6
     
         if order=='desc':
-            order='-'+sortBy
-            services=Service.objects.all().order_by(order)[:limit]
+            sortBy='-'+ sortBy
+            services=Service.objects.all().order_by(sortBy)[:limit]
         elif order=='asc':
             services=Service.objects.all().order_by(sortBy)[:limit]
         else:
@@ -77,7 +77,7 @@ class ServiceListView(APIView):
             return Response({'error':'no services found'},status=status.HTTP_404_NOT_FOUND)
         
 class ServiceSearchView(APIView):
-    permissions_classes=(permissions.AllowAny,)
+    permission_classes=(permissions.AllowAny,)
     
     def post(self,request,format=None):
         data=request.data
@@ -116,5 +116,100 @@ class ServiceSearchView(APIView):
 
                 filtered_categories=tuple(filtered_categories)
                 search_results=search_results.order_by('-date_created').filter(category__in=filtered_categories)
+        
 
+        search_results=ServiceSerializer(search_results,many=True)
+        return Response({'services': search_results.data},status=status.HTTP_200_OK)
+    
+class RelatedServicesListView(APIView):
+    permissions_classes=(permissions.AllowAny,)
+    def get(self,request,serviceId,format=None):
+        try:
+            service_id=int(serviceId)
+        except:
+            return Response({'error':'invalid service id'},status=status.HTTP_400_BAD_REQUEST)
+        
+        if not Service.objects.filter(id=service_id).exists():
+            return Response({'error':'service does not exist'},status=status.HTTP_404_NOT_FOUND)
+        
+        service=Service.objects.get(id=service_id)
+        category=service.category
+        if Service.objects.filter(category=category).exists():
+
+            if category.parent:
+                related_services=Service.objects.filter(category=category)
+            else:
+                if not Category.objects.filter(parent=category).exists():
+                    related_services=Service.objects.filter(category=category).exclude(id=service_id)
+                else:
+                    categories=Category.objects.filter(parent=category)
+                    filtered_categories=[category]
+                    for category in categories:
+                        filtered_categories.append(category)
                 
+                    filtered_categories=tuple(filtered_categories)
+                    related_services=Service.objects.filter(category__in=filtered_categories).exclude(id=service_id)
+            
+            related_services=ServiceSerializer(related_services,many=True)
+            if len(related_services.data)>3:
+                return Response({'related_services': related_services.data[:3]},status=status.HTTP_200_OK)
+            elif len(related_services.data)>0:
+                return Response({'related_services': related_services.data},status=status.HTTP_200_OK)
+            else:
+                return Response({'error':'no related services found'},status=status.HTTP_200_OK)
+        
+        else:
+            return Response({'error':'service does not exist'},status=status.HTTP_200_OK)
+            
+class ListBySearchView(APIView):
+    permission_classes=(permissions.AllowAny,)
+    def post(self, request, format=None):
+        data=self.request.data
+        print(data)
+        try:
+            category_id=int(data['category_id'])
+        except:
+            return Response({'error':'invalid category id'},status=status.HTTP_400_BAD_REQUEST)
+        sort_by=data['sort_by']
+        
+        if not (sort_by=='date_created' or sort_by=='name'):
+            sort_by='date_created'
+
+        order=data['order']
+
+        if category_id==0:
+            service_results=Service.objects.all()
+        elif not Category.objects.filter(id=category_id).exists():
+            return Response({'error':'category does not exist'},status=status.HTTP_404_NOT_FOUND)
+        
+        else:
+            category=Category.objects.get(id=category_id)
+            print(category)
+            if category.parent:
+                service_results=Service.objects.filter(category=category)
+            else:
+                if not Category.objects.filter(parent=category).exists():
+                    service_results=Service.objects.filter(category=category)
+                else:
+                    categories=Category.objects.filter(parent=category)
+                    filtered_categories=[category]
+                    for category in categories:
+                        filtered_categories.append(category)
+                    
+                    filtered_categories=tuple(filtered_categories)
+                    service_results=Service.objects.filter(category__in=filtered_categories)
+
+        if order=='desc':
+            sort_by='-'+sort_by
+            service_results=service_results.order_by(sort_by)
+        elif order=='asc':
+            service_results=service_results.order_by(sort_by)
+        else:
+            service_results=service_results.order_by(sort_by)
+
+        service_results=ServiceSerializer(service_results,many=True)
+
+        if len(service_results.data)>0:
+            return Response({'filtered_services': service_results.data},status=status.HTTP_200_OK)
+        else:
+            return Response({'error':'no services found'},status=status.HTTP_200_OK)
