@@ -14,9 +14,12 @@ Backend/media
 vscode-profile.code-profile
 
 
-# Ignora todas las carpetas "migrations"
+# Ignora todas las carpetas "migrations" y __pycache__ en todas las carpetas
 **/migrations/
+**/__pycache__/
 
 # Pero permite rastrear el archivo "__init__.py" en todas las carpetas "migrations"
 **/migrations/__init__.py
+
+
 
