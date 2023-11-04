@@ -57,7 +57,7 @@ export const get_services_by_arrival = () => async (dispatch) => {
 
   try {
     const res = await axios.get(
-      `${backend_url}/api/service/get-servives?sortBy=date_created&order=desc&limit=3`,
+      `${backend_url}/api/service/get-services?sortBy=date_created&order=desc&limit=3`,
       config
     );
 
@@ -169,7 +169,7 @@ export const get_related_services = (serviceId) => async (dispatch) => {
 };
 
 export const get_filtered_services =
-  (category_id, price_range, sort_by, order) => async (dispatch) => {
+  (category_id, sort_by, order) => async (dispatch) => {
     const config = {
       headers: {
         Accept: "application/json",
@@ -179,14 +179,14 @@ export const get_filtered_services =
 
     const body = JSON.stringify({
       category_id,
-      price_range,
+
       sort_by,
       order,
     });
 
     try {
       const res = await axios.post(
-        `${backend_url}/api/service/by/search`,
+        `${backend_url}/api/service/by/search/`,
         body,
         config
       );
@@ -208,7 +208,7 @@ export const get_filtered_services =
     }
   };
 
-export const get_search_SERVICES =
+export const get_search_services =
   (search, category_id) => async (dispatch) => {
     const config = {
       headers: {

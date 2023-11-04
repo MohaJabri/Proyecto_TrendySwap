@@ -184,7 +184,7 @@ class ListBySearchView(APIView):
         
         else:
             category=Category.objects.get(id=category_id)
-            print(category)
+           
             if category.parent:
                 service_results=Service.objects.filter(category=category)
             else:
