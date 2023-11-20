@@ -10,6 +10,7 @@ import ResetPassword from "./containers/auth/ResetPassword";
 import ResetPasswordConfirm from "./containers/auth/ResetPasswordConfirm";
 import Swap from "./containers/Swap";
 import ServiceDetail from "./containers/pages/ServiceDetail";
+import Search from "./containers/pages/Search";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           {/*Rutas de la aplicación*/}
           <Route exact path="/swap" element={<Swap />} />
           <Route exact path="/service/:serviceId" element={<ServiceDetail />} />
+          <Route exact path="/search" element={<Search />} />
         </Routes>
       </Router>
     </Provider>

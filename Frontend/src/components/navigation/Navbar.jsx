@@ -1,6 +1,6 @@
 import { Fragment, useState, useEffect } from "react";
 import { Menu, Popover, Transition } from "@headlessui/react";
-import { Link } from "react-router-dom";
+
 import Alert from "../../components/alert";
 import {
   BookmarkAltIcon,
@@ -21,10 +21,14 @@ import {
   ViewGridIcon,
   XIcon,
 } from "@heroicons/react/outline";
-import { SearchIcon } from "@heroicons/react/solid";
+
 import { connect } from "react-redux";
 import { logout } from "../../redux/actions/auth";
-import { Navigate, useNavigate } from "react-router-dom";
+import { getCategories } from "../../redux/actions/categories";
+import { get_search_services } from "../../redux/actions/services";
+import { useNavigate, NavLink, Link } from "react-router-dom";
+import { Navigate } from "react-router";
+import SearchBox from "./SearchBox";
 
 const solutions = [
   {
@@ -63,16 +67,49 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-function Navbar({ isAuthenticated, user, logout }) {
+function Navbar({
+  isAuthenticated,
+  user,
+  logout,
+  getCategories,
+  categores,
+  get_search_services,
+}) {
   const navigate = useNavigate();
+  const [redirect, setRedirect] = useState(false);
+
+  const [render, setRender] = useState(false);
+  const [formData, setFormData] = useState({
+    category_id: 0,
+    search: "",
+  });
+  const { category_id, search } = formData;
+
+  const onChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    console.log("search", search);
+    console.log("category_id", category_id);
+    get_search_services(search, category_id);
+    setRender(!render);
+
+    if (!render) {
+      navigate("/search");
+    }
+  };
+
   const [authReady, setAuthReady] = useState(false);
+  useEffect(() => {
+    getCategories();
+  }, []);
 
   useEffect(() => {
     if (isAuthenticated !== null) {
       setAuthReady(true);
     }
   }, [isAuthenticated]);
-
 
   const handleLogout = () => {
     logout();
@@ -165,8 +202,7 @@ function Navbar({ isAuthenticated, user, logout }) {
     </Menu>
   );
 
-  const guestLinks = (
-    authReady &&
+  const guestLinks = authReady && (
     <Fragment>
       <Link
         to="/login"
@@ -209,7 +245,7 @@ function Navbar({ isAuthenticated, user, logout }) {
               </Popover.Button>
             </div>
             <div className="hidden md:flex-1 md:flex md:items-center md:justify-between">
-              <Popover.Group as="nav" className="space-x-10 flex items-center" >
+              <Popover.Group as="nav" className="space-x-10 flex items-center">
                 <Link
                   to="/swap"
                   className="text-base font-medium text-gray-500 hover:text-gray-900"
@@ -217,31 +253,12 @@ function Navbar({ isAuthenticated, user, logout }) {
                   Intercambiar
                 </Link>
 
-                <div>
-                  
-                  <div className="mt-1 flex rounded-md shadow-sm">
-                    <div className="relative flex items-stretch flex-grow focus-within:z-10">
-                      
-                      <input
-                        type="email"
-                        name="email"
-                        id="email"
-                        className="focus:ring-indigo-500 focus:border-indigo-500 block w-full rounded-none rounded-l-md pl-10 sm:text-sm border-gray-300"
-                        placeholder="John Doe"
-                      />
-                    </div>
-                    <button
-                      type="button"
-                      className="-ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-gray-300 text-sm font-medium rounded-r-md text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
-                    >
-                      <SearchIcon
-                        className="h-5 w-5 text-gray-400"
-                        aria-hidden="true"
-                      />
-                      
-                    </button>
-                  </div>
-                </div>
+                <SearchBox
+                  search={search}
+                  onChange={onChange}
+                  onSubmit={onSubmit}
+                  categories={categores}
+                />
                 <a
                   href="#"
                   className="text-base font-medium text-gray-500 hover:text-gray-900"
@@ -390,9 +407,12 @@ const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.Auth.isAuthenticated,
     user: state.Auth.user,
+    categores: state.Categories.categories,
   };
 };
 
 export default connect(mapStateToProps, {
   logout,
+  getCategories,
+  get_search_services,
 })(Navbar);

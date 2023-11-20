@@ -52,7 +52,7 @@ export default function Services(state = initialState, action) {
     case GET_SERVICES_BY_SOLD_SUCCESS:
       return {
         ...state,
-        services_sold: payload.services,
+        services_sold: payload.services_sold,
       };
     case GET_SERVICES_BY_SOLD_FAIL:
       return {

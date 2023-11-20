@@ -96,7 +96,7 @@ class ServiceSearchView(APIView):
 
         if category_id==0:
             search_results=ServiceSerializer(search_results,many=True)
-            return Response({'services': search_results.data},status=status.HTTP_200_OK)
+            return Response({'search_services': search_results.data},status=status.HTTP_200_OK)
 
         if not Category.objects.filter(id=category_id).exists():
             return Response({'error':'category does not exist'},status=status.HTTP_404_NOT_FOUND)
@@ -119,7 +119,7 @@ class ServiceSearchView(APIView):
         
 
         search_results=ServiceSerializer(search_results,many=True)
-        return Response({'services': search_results.data},status=status.HTTP_200_OK)
+        return Response({'search_services': search_results.data},status=status.HTTP_200_OK)
     
 class RelatedServicesListView(APIView):
     permissions_classes=(permissions.AllowAny,)

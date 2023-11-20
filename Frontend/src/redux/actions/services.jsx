@@ -224,7 +224,7 @@ export const get_search_services =
 
     try {
       const res = await axios.post(
-        `${backend_url}/api/service/search`,
+        `${backend_url}/api/service/search/`,
         body,
         config
       );
