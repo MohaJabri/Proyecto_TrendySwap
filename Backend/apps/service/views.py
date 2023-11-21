@@ -1,5 +1,3 @@
-
-
 from rest_framework.views import APIView
 from apps.service.models import Service
 from apps.category.models import Category
@@ -12,7 +10,7 @@ from django.db.models import Q
 
 class CreateServiceView(APIView):
     permission_classes = [permissions.IsAuthenticated]
-    parser_classes = [MultiPartParser, FormParser]
+    
     
 
     def post(self, request, format=None):
@@ -25,7 +23,34 @@ class CreateServiceView(APIView):
         else:
             print('error', service_serializer.errors)
             return Response(service_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class UpdateServiceView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser]
+    
+
+    def put(self, request, serviceId, format=None):
+        try:
+            service_id=int(serviceId)
+        except:
+            return Response({'error':'invalid service id'},status=status.HTTP_400_BAD_REQUEST)
         
+        if not Service.objects.filter(id=service_id).exists():
+            return Response({'error':'service does not exist'},status=status.HTTP_404_NOT_FOUND)
+        
+        service=Service.objects.get(id=service_id)
+        if service.user!=self.request.user:
+            return Response({'error':'you are not authorized to update this service'},status=status.HTTP_401_UNAUTHORIZED)
+        
+        service_serializer = ServiceSerializer(service,data=request.data)
+        
+        if service_serializer.is_valid():
+            service_serializer.save(user=self.request.user)
+            return Response(service_serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            print('error', service_serializer.errors)
+            return Response(service_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+       
 class ServiceDetailView(APIView):
     permission_classes=(permissions.AllowAny,)
     def get(self,request,serviceId, format=None):
@@ -40,7 +65,24 @@ class ServiceDetailView(APIView):
             return Response({'service': service.data},status=status.HTTP_200_OK)
         else:
             return Response({'error':'service does not exist'},status=status.HTTP_404_NOT_FOUND)
+class DeleteServiceView(APIView):
+    permission_classes=(permissions.IsAuthenticated,)
+    def delete(self,request,serviceId,format=None):
+        try:
+            service_id=int(serviceId)
+        except:
+            return Response({'error':'invalid service id'},status=status.HTTP_400_BAD_REQUEST)
         
+        if not Service.objects.filter(id=service_id).exists():
+            return Response({'error':'service does not exist'},status=status.HTTP_404_NOT_FOUND)
+        
+        service=Service.objects.get(id=service_id)
+        if service.user!=self.request.user:
+            return Response({'error':'you are not authorized to delete this service'},status=status.HTTP_401_UNAUTHORIZED)
+        
+        service.delete()
+        return Response({'success':'service deleted'},status=status.HTTP_200_OK)
+
 class ServiceListView(APIView):
     permission_classes=(permissions.AllowAny,)
     def get(self,request,format=None):

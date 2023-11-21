@@ -11,6 +11,8 @@ import ResetPasswordConfirm from "./containers/auth/ResetPasswordConfirm";
 import Swap from "./containers/Swap";
 import ServiceDetail from "./containers/pages/ServiceDetail";
 import Search from "./containers/pages/Search";
+import Profile from "./containers/pages/Profile";
+import AddService from "./containers/pages/AddService";
 
 function App() {
   return (
@@ -35,6 +37,8 @@ function App() {
           <Route exact path="/swap" element={<Swap />} />
           <Route exact path="/service/:serviceId" element={<ServiceDetail />} />
           <Route exact path="/search" element={<Search />} />
+          <Route exact path="/profile" element={<Profile />} />
+          <Route exact path="/add_service" element={<AddService />} />
         </Routes>
       </Router>
     </Provider>

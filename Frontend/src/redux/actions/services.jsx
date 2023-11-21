@@ -14,6 +14,12 @@ import {
   RELATED_SERVICES_FAIL,
   FILTER_SERVICES_SUCCESS,
   FILTER_SERVICES_FAIL,
+  CREATE_SERVICE_FAIL,
+  CREATE_SERVICE_SUCCESS,
+  UPDATE_SERVICE_SUCCESS,
+  UPDATE_SERVICE_FAIL,
+  DELETE_SERVICE_SUCCESS,
+  DELETE_SERVICE_FAIL,
 } from "./types";
 
 const backend_url = import.meta.env.VITE_API_URL;
@@ -243,5 +249,47 @@ export const get_search_services =
       dispatch({
         type: SEARCH_SERVICES_FAIL,
       });
+    }
+  };
+
+export const create_service =
+  (name, description, category_id, photo) => async (dispatch) => {
+    if (localStorage.getItem("access")) {
+      const config = {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "multipart/form-data",
+          Authorization: `JWT ${localStorage.getItem("access")}`,
+        },
+      };
+
+      const body = new FormData();
+      body.append("name", name);
+      body.append("description", description);
+      body.append("category", category_id);
+      body.append("photo", photo);
+
+      try {
+        const res = await axios.post(
+          `${backend_url}/api/service/create/`,
+          body,
+          config
+        );
+
+        if (res.status === 201) {
+          dispatch({
+            type: CREATE_SERVICE_SUCCESS,
+            payload: res.data,
+          });
+        } else {
+          dispatch({
+            type: CREATE_SERVICE_FAIL,
+          });
+        }
+      } catch (err) {
+        dispatch({
+          type: CREATE_SERVICE_FAIL,
+        });
+      }
     }
   };

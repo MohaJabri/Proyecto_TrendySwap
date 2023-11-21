@@ -13,6 +13,12 @@ import {
   RELATED_SERVICES_FAIL,
   FILTER_SERVICES_SUCCESS,
   FILTER_SERVICES_FAIL,
+  CREATE_SERVICE_SUCCESS,
+  CREATE_SERVICE_FAIL,
+  UPDATE_SERVICE_SUCCESS,
+  UPDATE_SERVICE_FAIL,
+  DELETE_SERVICE_SUCCESS,
+  DELETE_SERVICE_FAIL,
 } from "../actions/types";
 
 const initialState = {
@@ -98,6 +104,11 @@ export default function Services(state = initialState, action) {
       return {
         ...state,
         search_services: null,
+      };
+
+    case CREATE_SERVICE_SUCCESS:
+      return {
+        ...state,
       };
     default:
       return state;

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from apps.user_profile.models import UserProfile
 # Create your models here.
 
 class userAccountManager(BaseUserManager):
@@ -11,7 +12,10 @@ class userAccountManager(BaseUserManager):
         user=self.model(email=email, **extra_fields)
         user.set_password(password)
         user.save()
+        profile = UserProfile.objects.create(user=user)
+        profile.save()
 
+        
         return user
 
     def create_superuser(self, email, password, **extra_fields):
