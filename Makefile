@@ -6,5 +6,6 @@ init:
 	
 	docker exec -it ${PROJECT_NAME}_server python manage.py makemigrations
 	docker exec -it ${PROJECT_NAME}_server python manage.py migrate
+	docker exec -it ${PROJECT_NAME}_server python manage.py loaddata categories
 	
 	

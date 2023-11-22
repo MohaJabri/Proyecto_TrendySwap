@@ -3,11 +3,11 @@ import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { create_service } from "../../redux/actions/services";
 
-const AddService = ({ create_service }) => {
+const AddService = ({ create_service, categories }) => {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    category_id: "1",
+    category_id: "",
     photo: null,
   });
   const [isHovered, setIsHovered] = useState(false);
@@ -122,17 +122,25 @@ const AddService = ({ create_service }) => {
                     htmlFor="category"
                     className="block mb-2 text-sm font-medium text-gray-900"
                   >
-                    Categoria
+                    Categoría
                   </label>
-                  <input
-                    //value={category}
-                    //onChange={handleCategoryChange}
-                    type="text"
-                    name="category"
+                  <select
+                    value={category_id}
+                    onChange={onChange}
+                    name="category_id"
                     id="category"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                    placeholder="Category"
-                  />
+                  >
+                    <option value="">Selecciona una categoría</option>
+                    {categories &&
+                      categories !== null &&
+                      categories !== undefined &&
+                      categories.map((category) => (
+                        <option key={category.id} value={category.id}>
+                          {category.name}
+                        </option>
+                      ))}
+                  </select>
                 </div>
 
                 <div className="sm:col-span-2">
@@ -260,7 +268,7 @@ const AddService = ({ create_service }) => {
   );
 };
 const mapStateToProps = (state) => ({
-  loading: state.Auth.loading,
+  categories: state.Categories.categories,
 });
 export default connect(mapStateToProps, {
   create_service,

@@ -1,0 +1,44 @@
+[
+    {
+      "model": "category.Category",
+      "pk": 1,
+      "fields": {
+        "name": "Electrónica",
+        "parent": null
+      }
+    },
+    {
+      "model": "category.Category",
+      "pk": 2,
+      "fields": {
+        "name": "Moda y Accesorios",
+        "parent": null
+      }
+    },
+    {
+      "model": "category.Category",
+      "pk": 3,
+      "fields": {
+        "name": "Hogar y Jardín",
+        "parent": null
+      }
+    },
+    {
+      "model": "category.Category",
+      "pk": 4,
+      "fields": {
+        "name": "Deportes y Aire Libre",
+        "parent": null
+      }
+    },
+    {
+      "model": "category.Category",
+      "pk": 5,
+      "fields": {
+        "name": "Arte y Artesanía",
+        "parent": null
+      }
+    }
+   
+  ]
+  

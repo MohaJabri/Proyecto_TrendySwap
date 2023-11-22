@@ -72,7 +72,7 @@ function Navbar({
   user,
   logout,
   getCategories,
-  categores,
+  categories,
   get_search_services,
 }) {
   const navigate = useNavigate();
@@ -243,7 +243,7 @@ function Navbar({
                   search={search}
                   onChange={onChange}
                   onSubmit={onSubmit}
-                  categories={categores}
+                  categories={categories}
                 />
                 <a
                   href="#"
@@ -393,7 +393,7 @@ const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.Auth.isAuthenticated,
     user: state.Auth.user,
-    categores: state.Categories.categories,
+    categories: state.Categories.categories,
   };
 };
 
