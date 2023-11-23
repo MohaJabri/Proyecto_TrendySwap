@@ -68,7 +68,7 @@ const AddService = ({ create_service, categories }) => {
                     htmlFor="name"
                     className="block mb-2 text-sm font-medium text-gray-900 "
                   >
-                    Name
+                    Solicito
                   </label>
                   <input
                     value={name}
@@ -80,33 +80,22 @@ const AddService = ({ create_service, categories }) => {
                     placeholder="Type product name"
                   />
                 </div>
-
                 <div>
                   <label
-                    htmlFor="count_in_stock"
+                    htmlFor="name"
                     className="block mb-2 text-sm font-medium text-gray-900 "
                   >
-                    Count in Stock
+                    Ofrezco
                   </label>
                   <input
-                    //value={countInStock}
-                    //onChange={handleCountChange}
-                    type="number"
-                    name="count_in_stock"
-                    id="count_in_stock"
+                    value={name}
+                    onChange={onChange}
+                    type="text"
+                    name="name"
+                    id="name"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                    placeholder="Count in Stock"
+                    placeholder="Type product name"
                   />
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="intercambio"
-                    className="block mb-2 text-sm font-medium text-gray-900 "
-                  >
-                    Intercambio
-                  </label>
-                  
                 </div>
 
                 <div>
@@ -133,6 +122,24 @@ const AddService = ({ create_service, categories }) => {
                         </option>
                       ))}
                   </select>
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="name"
+                    className="block mb-2 text-sm font-medium text-gray-900 "
+                  >
+                    Ubicación
+                  </label>
+                  <input
+                    value={name}
+                    onChange={onChange}
+                    type="text"
+                    name="name"
+                    id="name"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                    placeholder="Type product name"
+                  />
                 </div>
 
                 <div className="sm:col-span-2">
