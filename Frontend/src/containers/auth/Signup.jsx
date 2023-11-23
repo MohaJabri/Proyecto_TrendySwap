@@ -1,29 +1,25 @@
-import Layout from '../../hocs/Layout'
-import { useState, useEffect } from 'react'
+import Layout from "../../hocs/Layout";
+import { useState, useEffect } from "react";
 
-import {connect} from 'react-redux'
-import { signup } from '../../redux/actions/auth'
-import {TailSpin} from 'react-loader-spinner'
-import { Navigate } from 'react-router'
-const Signup = ({
-  signup,
-  loading
-}) => {
-
+import { connect } from "react-redux";
+import { signup } from "../../redux/actions/auth";
+import { TailSpin } from "react-loader-spinner";
+import { Navigate } from "react-router";
+const Signup = ({ signup, loading }) => {
   useEffect(() => {
-    window.scrollTo(0,0)
-  }, [])
+    window.scrollTo(0, 0);
+  }, []);
 
   const [accountCreated, setAccountCreated] = useState(false);
 
   const [formData, setFormData] = useState({
-    is_professional: '',
-    first_name: '',
-    last_name: '',
-    email: '',
-    password: '',
-    re_password: ''
-  })
+    is_professional: "",
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+    re_password: "",
+  });
 
   const {
     is_professional,
@@ -31,25 +27,27 @@ const Signup = ({
     last_name,
     email,
     password,
-    re_password
+    re_password,
   } = formData;
 
-  const onChange = e =>{
-    if(e.target.name === 'checkbox')
-      setFormData({ ...formData, [e.target.name]: e.target.checked });
-    else
-      setFormData({ ...formData, [e.target.name]: e.target.value });
-  } 
+  const onChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-  const onSubmit = e =>{
+  const onSubmit = (e) => {
     e.preventDefault();
-    signup(first_name, last_name, email, password, re_password, is_professional);
+    signup(
+      first_name,
+      last_name,
+      email,
+      password,
+      re_password,
+      is_professional
+    );
     setAccountCreated(true);
-    
-  }
+  };
 
-  if(accountCreated && !loading)
-    return <Navigate to='/' />
+  if (accountCreated && !loading) return <Navigate to="/" />;
 
   return (
     <Layout>
@@ -160,24 +158,6 @@ const Signup = ({
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   />
                 </div>
-
-                <div>
-                  <label
-                    htmlFor="isProfessional"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Register as a Professional
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      name="is_professional"
-                      type="checkbox"
-                      checked={is_professional}
-                      onChange={(e) => onChange(e)}
-                      className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
-                    />
-                  </div>
-                </div>
               </div>
 
               <div>
@@ -200,12 +180,11 @@ const Signup = ({
       </div>
     </Layout>
   );
-}
-const mapStateToProps = state => ({
-  loading: state.Auth.loading
-
-})
+};
+const mapStateToProps = (state) => ({
+  loading: state.Auth.loading,
+});
 
 export default connect(mapStateToProps, {
-  signup
-}) (Signup)
+  signup,
+})(Signup);

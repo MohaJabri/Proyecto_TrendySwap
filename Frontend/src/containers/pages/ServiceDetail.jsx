@@ -6,8 +6,7 @@ import {
   get_related_services,
 } from "../../redux/actions/services";
 import { useEffect, useState } from "react";
-import { Disclosure, RadioGroup, Tab } from "@headlessui/react";
-import { StarIcon } from "@heroicons/react/solid";
+
 import { HeartIcon, MinusSmIcon, PlusSmIcon } from "@heroicons/react/outline";
 import ImageGallery from "../../components/service/ImageGallery";
 
@@ -57,17 +56,12 @@ const product = {
   ],
 };
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-
 const ServiceDetail = ({
   get_service,
   get_related_services,
   service,
   related_services,
 }) => {
-  const [selectedColor, setSelectedColor] = useState(product.colors[0]);
   const params = useParams();
   const serviceId = params.serviceId;
   useEffect(() => {
@@ -93,7 +87,7 @@ const ServiceDetail = ({
               </div>
 
               {/* Reviews */}
-              <div className="mt-3">
+              {/* <div className="mt-3">
                 <h3 className="sr-only">Reviews</h3>
                 <div className="flex items-center">
                   <div className="flex items-center">
@@ -112,7 +106,7 @@ const ServiceDetail = ({
                   </div>
                   <p className="sr-only">{product.rating} out of 5 stars</p>
                 </div>
-              </div>
+              </div> */}
 
               <div className="mt-6">
                 <h3 className="sr-only">Description</h3>
@@ -131,7 +125,7 @@ const ServiceDetail = ({
                     type="submit"
                     className="max-w-xs flex-1 bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500 sm:w-full"
                   >
-                    Add to bag
+                    Aplicar
                   </button>
 
                   <button
