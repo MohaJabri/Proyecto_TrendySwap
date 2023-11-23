@@ -13,7 +13,6 @@ import ImageGallery from "../../components/service/ImageGallery";
 
 const product = {
   name: "Zip Tote Basket",
-  price: "$140",
   rating: 4,
   images: [
     {
@@ -89,10 +88,9 @@ const ServiceDetail = ({
 
               <div className="mt-3">
                 <h2 className="sr-only">Product information</h2>
-                <p className="text-3xl text-gray-900">{product.price}</p>
               </div>
 
-              {/* Reviews */}
+              {/* Reviews
               <div className="mt-3">
                 <h3 className="sr-only">Reviews</h3>
                 <div className="flex items-center">
@@ -112,7 +110,7 @@ const ServiceDetail = ({
                   </div>
                   <p className="sr-only">{product.rating} out of 5 stars</p>
                 </div>
-              </div>
+              </div> */}
 
               <div className="mt-6">
                 <h3 className="sr-only">Description</h3>
@@ -131,7 +129,7 @@ const ServiceDetail = ({
                     type="submit"
                     className="max-w-xs flex-1 bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500 sm:w-full"
                   >
-                    Add to bag
+                    Solicitar
                   </button>
 
                   <button
@@ -145,6 +143,17 @@ const ServiceDetail = ({
                     <span className="sr-only">Add to favorites</span>
                   </button>
                 </div>
+                
+
+              {/* mapa */}
+              <div className="mt-2">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d50317.625296681974!2d-1.1683747967137692!3d37.98059286957874!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd6381f8d5928c7f%3A0xd627129b38c4ab9a!2sMurcia!5e0!3m2!1ses!2ses!4v1700760018627!5m2!1ses!2ses"
+                width="600"
+                height="450"
+                loading="lazy"
+              ></iframe>
+              </div>
               </form>
             </div>
           </div>

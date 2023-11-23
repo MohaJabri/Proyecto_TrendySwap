@@ -4,7 +4,6 @@ const backend_url = import.meta.env.VITE_API_URL;
 
 const product = {
   name: "Zip Tote Basket",
-  price: "$140",
   rating: 4,
   images: [
     {

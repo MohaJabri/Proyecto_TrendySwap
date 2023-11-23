@@ -246,7 +246,6 @@ const Search = ({
                                   value={sortBy}
                                 >
                                   <option value="date_created">Fecha</option>
-                                  <option value="price">Precio</option>
 
                                   <option value="title">Nombre</option>
                                 </select>
@@ -265,8 +264,8 @@ const Search = ({
                                   onChange={(e) => onChange(e)}
                                   value={order}
                                 >
-                                  <option value="asc">A - Z</option>
-                                  <option value="desc">Z - A</option>
+                                  <option value="asc">Ascendente</option>
+                                  <option value="desc">Descendente</option>
                                 </select>
                               </div>
                             </div>
@@ -289,7 +288,7 @@ const Search = ({
           <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="relative z-10 flex items-baseline justify-between pt-16 pb-6 border-b border-gray-200">
               <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">
-                Buscaste:
+                Buscar:
               </h1>
 
               <div className="flex items-center">
@@ -422,7 +421,6 @@ const Search = ({
                                 value={sortBy}
                               >
                                 <option value="date_created">Fecha</option>
-                                <option value="price">Precio</option>
 
                                 <option value="title">Nombre</option>
                               </select>

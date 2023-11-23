@@ -26,13 +26,11 @@ export default function NewServices({ data }) {
                     <h3 className="text-sm text-gray-700">
                       <Link to={`service/${service.id}`}>
                         <span aria-hidden="true" className="absolute inset-0" />
-                        {service.name}
+                        <strong>Solicito:</strong> {service.name}
                       </Link>
                     </h3>
                   </div>
-                  <p className="text-sm font-medium text-gray-900">
-                    ${service.price}
-                  </p>
+                  
                 </div>
               </div>
             ))}
