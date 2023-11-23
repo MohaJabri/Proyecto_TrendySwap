@@ -65,6 +65,7 @@ const ServiceDetail = ({
   get_related_services,
   service,
   related_services,
+  isAuthenticated
 }) => {
   const [selectedColor, setSelectedColor] = useState(product.colors[0]);
   const params = useParams();
@@ -122,8 +123,9 @@ const ServiceDetail = ({
                   }}
                 />
               </div>
-
+                  
               <form className="mt-6">
+              {isAuthenticated ?
                 <div className="mt-10 flex sm:flex-col1">
                   <button
                     type="submit"
@@ -142,7 +144,7 @@ const ServiceDetail = ({
                     />
                     <span className="sr-only">Add to favorites</span>
                   </button>
-                </div>
+                </div> : <span></span> }
                 
 
               {/* mapa */}
@@ -164,6 +166,9 @@ const ServiceDetail = ({
 };
 
 const mapStateToProps = (state) => ({
+  isAuthenticated: state.Auth.isAuthenticated,  
+  user: state.Auth.user,
+  profile: state.Profile.profile,
   service: state.Services.service,
   related_services: state.Services.related_services,
 });
