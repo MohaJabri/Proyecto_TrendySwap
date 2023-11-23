@@ -16,12 +16,12 @@ const Layout = (props) => {
   }, []);
 
   return (
-    <>
-      <Navbar />
-      <ToastContainer autoClose={5000} />
-      {props.children}
+    <div class="flex flex-col h-screen justify-between">
+      <div class="h-10 "><Navbar /></div>
+      <div class="mb-auto h-10 "><ToastContainer autoClose={5000} />
+      {props.children}</div>
       <Footer />
-    </>
+    </div>
   );
 };
 
