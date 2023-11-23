@@ -19,7 +19,6 @@ const ServiceCard = ({ service }) => {
             </Link>
           </h3>
         </div>
-        <p className="text-sm font-medium text-gray-900">${service.price}</p>
       </div>
     </div>
   );

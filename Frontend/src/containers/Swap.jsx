@@ -246,7 +246,6 @@ const Swap = ({
                                   value={sortBy}
                                 >
                                   <option value="date_created">Fecha</option>
-                                  <option value="price">Precio</option>
 
                                   <option value="title">Nombre</option>
                                 </select>
@@ -422,7 +421,6 @@ const Swap = ({
                                 value={sortBy}
                               >
                                 <option value="date_created">Fecha</option>
-                                <option value="price">Precio</option>
 
                                 <option value="title">Nombre</option>
                               </select>

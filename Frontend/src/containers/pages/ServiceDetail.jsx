@@ -12,7 +12,6 @@ import ImageGallery from "../../components/service/ImageGallery";
 
 const product = {
   name: "Zip Tote Basket",
-  price: "$140",
   rating: 4,
   images: [
     {
@@ -61,6 +60,7 @@ const ServiceDetail = ({
   get_related_services,
   service,
   related_services,
+  isAuthenticated,
 }) => {
   const params = useParams();
   const serviceId = params.serviceId;
@@ -80,12 +80,9 @@ const ServiceDetail = ({
               <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">
                 {service && service.name}
               </h1>
-
               <div className="mt-3">
                 <h2 className="sr-only">Product information</h2>
-                <p className="text-3xl text-gray-900">{product.price}</p>
               </div>
-
               {/* Reviews */}
               {/* <div className="mt-3">
                 <h3 className="sr-only">Reviews</h3>
@@ -107,7 +104,7 @@ const ServiceDetail = ({
                   <p className="sr-only">{product.rating} out of 5 stars</p>
                 </div>
               </div> */}
-
+              |
               <div className="mt-6">
                 <h3 className="sr-only">Description</h3>
 
@@ -118,26 +115,39 @@ const ServiceDetail = ({
                   }}
                 />
               </div>
-
               <form className="mt-6">
-                <div className="mt-10 flex sm:flex-col1">
-                  <button
-                    type="submit"
-                    className="max-w-xs flex-1 bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500 sm:w-full"
-                  >
-                    Aplicar
-                  </button>
+                {isAuthenticated ? (
+                  <div className="mt-10 flex sm:flex-col1">
+                    <button
+                      type="submit"
+                      className="max-w-xs flex-1 bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500 sm:w-full"
+                    >
+                      Solicitar
+                    </button>
 
-                  <button
-                    type="button"
-                    className="ml-4 py-3 px-3 rounded-md flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-500"
-                  >
-                    <HeartIcon
-                      className="h-6 w-6 flex-shrink-0"
-                      aria-hidden="true"
-                    />
-                    <span className="sr-only">Add to favorites</span>
-                  </button>
+                    <button
+                      type="button"
+                      className="ml-4 py-3 px-3 rounded-md flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-500"
+                    >
+                      <HeartIcon
+                        className="h-6 w-6 flex-shrink-0"
+                        aria-hidden="true"
+                      />
+                      <span className="sr-only">Add to favorites</span>
+                    </button>
+                  </div>
+                ) : (
+                  <span></span>
+                )}
+
+                {/* mapa */}
+                <div className="mt-2">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d50317.625296681974!2d-1.1683747967137692!3d37.98059286957874!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd6381f8d5928c7f%3A0xd627129b38c4ab9a!2sMurcia!5e0!3m2!1ses!2ses!4v1700760018627!5m2!1ses!2ses"
+                    width="600"
+                    height="450"
+                    loading="lazy"
+                  ></iframe>
                 </div>
               </form>
             </div>
@@ -149,6 +159,9 @@ const ServiceDetail = ({
 };
 
 const mapStateToProps = (state) => ({
+  isAuthenticated: state.Auth.isAuthenticated,
+  user: state.Auth.user,
+  profile: state.Profile.profile,
   service: state.Services.service,
   related_services: state.Services.related_services,
 });
