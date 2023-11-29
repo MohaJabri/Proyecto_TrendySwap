@@ -1,23 +1,23 @@
 import { useEffect } from "react";
 import Layout from "../hocs/Layout";
-import { get_services_by_arrival } from "../redux/actions/services";
+import { get_publications_by_arrival } from "../redux/actions/publications";
 import { connect } from "react-redux";
-import NewServices from "../components/home/NewServices";
+import NewPublications from "../components/home/NewPublications";
 
-const Home = ({ get_services_by_arrival, services_arrival }) => {
+const Home = ({ get_publications_by_arrival, publications_arrival }) => {
   useEffect(() => {
-    get_services_by_arrival();
+    get_publications_by_arrival();
   }, []);
   return (
     <Layout>
       <div className="text-green-700">
-        <NewServices data={services_arrival} />
+        <NewPublications data={publications_arrival} />
       </div>
     </Layout>
   );
 };
 
 const mapStateToProps = (state) => ({
-  services_arrival: state.Services.services_arrival,
+  publications_arrival: state.Publications.publications_arrival,
 });
-export default connect(mapStateToProps, { get_services_by_arrival })(Home);
+export default connect(mapStateToProps, { get_publications_by_arrival })(Home);

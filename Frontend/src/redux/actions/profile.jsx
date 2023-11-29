@@ -8,7 +8,7 @@ import {
 } from "./types";
 const backend_url = import.meta.env.VITE_API_URL;
 
-export const get_user_profile = () => async (dispatch) => {
+export const get_user_profile = (userId) => async (dispatch) => {
   if (localStorage.getItem("access")) {
     const config = {
       headers: {
@@ -19,7 +19,7 @@ export const get_user_profile = () => async (dispatch) => {
 
     try {
       const res = await axios.get(
-        `${backend_url}/api/profile/user`,
+        `${backend_url}/api/profile/user/${userId}`,
         config
       );
 
@@ -32,11 +32,13 @@ export const get_user_profile = () => async (dispatch) => {
         dispatch({
           type: GET_USER_PROFILE_FAIL,
         });
+        dispatch(setAlert("Failed to get profile", "red"));
       }
     } catch (err) {
       dispatch({
         type: GET_USER_PROFILE_FAIL,
       });
+      dispatch(setAlert("Failed to get profile", "red"));
     }
   }
 };

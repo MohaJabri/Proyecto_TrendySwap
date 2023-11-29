@@ -11,14 +11,11 @@ const SearchBox = ({ categories, search, onChange, onSubmit }) => {
             className="rounded-full"
           >
             <option value={0}>All</option>
-            {categories &&
-              categories !== null &&
-              categories !== undefined &&
-              categories.map((category, index) => (
-                <option key={index} value={category.id}>
-                  {category.name}
-                </option>
-              ))}
+            {categories?.map((category, index) => (
+              <option key={index} value={category.id}>
+                {category.name}
+              </option>
+            ))}
           </select>
         </div>
         <div className="relative flex items-stretch flex-grow focus-within:z-10">

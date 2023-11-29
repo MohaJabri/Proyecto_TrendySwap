@@ -25,7 +25,7 @@ import {
 import { connect } from "react-redux";
 import { logout } from "../../redux/actions/auth";
 import { getCategories } from "../../redux/actions/categories";
-import { get_search_services } from "../../redux/actions/services";
+import { get_search_publications } from "../../redux/actions/publications";
 import { useNavigate, NavLink, Link } from "react-router-dom";
 import { Navigate } from "react-router";
 import SearchBox from "./SearchBox";
@@ -73,7 +73,7 @@ function Navbar({
   logout,
   getCategories,
   categories,
-  get_search_services,
+  get_search_publications,
 }) {
   const navigate = useNavigate();
   const [redirect, setRedirect] = useState(false);
@@ -90,9 +90,8 @@ function Navbar({
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log("search", search);
-    console.log("category_id", category_id);
-    get_search_services(search, category_id);
+
+    get_search_publications(search, 1, category_id);
     setRender(!render);
 
     if (!render) {
@@ -159,7 +158,7 @@ function Navbar({
             <Menu.Item>
               {({ active }) => (
                 <Link
-                  to="/add_service"
+                  to="/add_publication"
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                     "block px-4 py-2 text-sm"
@@ -245,12 +244,12 @@ function Navbar({
                   onSubmit={onSubmit}
                   categories={categories}
                 />
-                <a
-                  href="#"
+                <Link
+                  to="/admin"
                   className="text-base font-medium text-gray-500 hover:text-gray-900"
                 >
-                  Docs
-                </a>
+                  Admin
+                </Link>
               </Popover.Group>
               <div className="flex items-center md:ml-12">
                 {isAuthenticated ? authLinks : guestLinks}
@@ -400,5 +399,5 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   logout,
   getCategories,
-  get_search_services,
+  get_search_publications,
 })(Navbar);

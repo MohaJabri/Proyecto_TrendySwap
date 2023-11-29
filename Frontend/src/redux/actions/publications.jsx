@@ -1,30 +1,30 @@
 import axios from "axios";
 import {
-  GET_SERVICES_SUCCESS,
-  GET_SERVICES_FAIL,
-  GET_SERVICES_BY_ARRIVAL_SUCCESS,
-  GET_SERVICES_BY_ARRIVAL_FAIL,
-  GET_SERVICES_BY_SOLD_SUCCESS,
-  GET_SERVICES_BY_SOLD_FAIL,
-  GET_SERVICE_SUCCESS,
-  GET_SERVICE_FAIL,
-  SEARCH_SERVICES_SUCCESS,
-  SEARCH_SERVICES_FAIL,
-  RELATED_SERVICES_SUCCESS,
-  RELATED_SERVICES_FAIL,
-  FILTER_SERVICES_SUCCESS,
-  FILTER_SERVICES_FAIL,
-  CREATE_SERVICE_FAIL,
-  CREATE_SERVICE_SUCCESS,
-  UPDATE_SERVICE_SUCCESS,
-  UPDATE_SERVICE_FAIL,
-  DELETE_SERVICE_SUCCESS,
-  DELETE_SERVICE_FAIL,
+  GET_PUBLICATIONS_SUCCESS,
+  GET_PUBLICATIONS_FAIL,
+  GET_PUBLICATIONS_BY_ARRIVAL_SUCCESS,
+  GET_PUBLICATIONS_BY_ARRIVAL_FAIL,
+  GET_PUBLICATIONS_BY_SOLD_SUCCESS,
+  GET_PUBLICATIONS_BY_SOLD_FAIL,
+  GET_PUBLICATION_SUCCESS,
+  GET_PUBLICATION_FAIL,
+  SEARCH_PUBLICATIONS_SUCCESS,
+  SEARCH_PUBLICATIONS_FAIL,
+  RELATED_PUBLICATIONS_SUCCESS,
+  RELATED_PUBLICATIONS_FAIL,
+  FILTER_PUBLICATIONS_SUCCESS,
+  FILTER_PUBLICATIONS_FAIL,
+  CREATE_PUBLICATION_FAIL,
+  CREATE_PUBLICATION_SUCCESS,
+  UPDATE_PUBLICATION_SUCCESS,
+  UPDATE_PUBLICATION_FAIL,
+  DELETE_PUBLICATION_SUCCESS,
+  DELETE_PUBLICATION_FAIL,
 } from "./types";
 
 const backend_url = import.meta.env.VITE_API_URL;
 
-export const get_services = () => async (dispatch) => {
+export const get_publications = () => async (dispatch) => {
   const config = {
     headers: {
       Accept: "application/json",
@@ -33,28 +33,28 @@ export const get_services = () => async (dispatch) => {
 
   try {
     const res = await axios.get(
-      `${backend_url}/api/service/get-services`,
+      `${backend_url}/api/publication/get-publications`,
       config
     );
 
     if (res.status === 200) {
       dispatch({
-        type: GET_SERVICES_SUCCESS,
+        type: GET_PUBLICATIONS_SUCCESS,
         payload: res.data,
       });
     } else {
       dispatch({
-        type: GET_SERVICES_FAIL,
+        type: GET_PUBLICATIONS_FAIL,
       });
     }
   } catch (err) {
     dispatch({
-      type: GET_SERVICES_FAIL,
+      type: GET_PUBLICATIONS_FAIL,
     });
   }
 };
 
-export const get_services_by_arrival = () => async (dispatch) => {
+export const get_publications_by_arrival = () => async (dispatch) => {
   const config = {
     headers: {
       Accept: "application/json",
@@ -63,28 +63,28 @@ export const get_services_by_arrival = () => async (dispatch) => {
 
   try {
     const res = await axios.get(
-      `${backend_url}/api/service/get-services?sortBy=date_created&order=desc&limit=3`,
+      `${backend_url}/api/publication/get-publications?sortBy=date_created&order=desc&limit=3`,
       config
     );
 
     if (res.status === 200) {
       dispatch({
-        type: GET_SERVICES_BY_ARRIVAL_SUCCESS,
+        type: GET_PUBLICATIONS_BY_ARRIVAL_SUCCESS,
         payload: res.data,
       });
     } else {
       dispatch({
-        type: GET_SERVICES_BY_ARRIVAL_FAIL,
+        type: GET_PUBLICATIONS_BY_ARRIVAL_FAIL,
       });
     }
   } catch (err) {
     dispatch({
-      type: GET_SERVICES_BY_ARRIVAL_FAIL,
+      type: GET_PUBLICATIONS_BY_ARRIVAL_FAIL,
     });
   }
 };
 
-export const get_services_by_sold = () => async (dispatch) => {
+export const get_publications_by_sold = () => async (dispatch) => {
   const config = {
     headers: {
       Accept: "application/json",
@@ -93,28 +93,28 @@ export const get_services_by_sold = () => async (dispatch) => {
 
   try {
     const res = await axios.get(
-      `${backend_url}/api/service/get-services?sortBy=sold&order=desc&limit=3`,
+      `${backend_url}/api/publication/get-publications?sortBy=sold&order=desc&limit=3`,
       config
     );
 
     if (res.status === 200) {
       dispatch({
-        type: GET_SERVICES_BY_SOLD_SUCCESS,
+        type: GET_PUBLICATIONS_BY_SOLD_SUCCESS,
         payload: res.data,
       });
     } else {
       dispatch({
-        type: GET_SERVICES_BY_SOLD_FAIL,
+        type: GET_PUBLICATIONS_BY_SOLD_FAIL,
       });
     }
   } catch (err) {
     dispatch({
-      type: GET_SERVICES_BY_SOLD_FAIL,
+      type: GET_PUBLICATIONS_BY_SOLD_FAIL,
     });
   }
 };
 
-export const get_service = (serviceId) => async (dispatch) => {
+export const get_publication = (publicationId) => async (dispatch) => {
   const config = {
     headers: {
       Accept: "application/json",
@@ -123,28 +123,28 @@ export const get_service = (serviceId) => async (dispatch) => {
 
   try {
     const res = await axios.get(
-      `${backend_url}/api/service/get-service/${serviceId}`,
+      `${backend_url}/api/publication/get-publication/${publicationId}`,
       config
     );
 
     if (res.status === 200) {
       dispatch({
-        type: GET_SERVICE_SUCCESS,
+        type: GET_PUBLICATION_SUCCESS,
         payload: res.data,
       });
     } else {
       dispatch({
-        type: GET_SERVICE_FAIL,
+        type: GET_PUBLICATION_FAIL,
       });
     }
   } catch (err) {
     dispatch({
-      type: GET_SERVICES_FAIL,
+      type: GET_PUBLICATION_FAIL,
     });
   }
 };
 
-export const get_related_services = (serviceId) => async (dispatch) => {
+export const get_related_publications = (publicationId) => async (dispatch) => {
   const config = {
     headers: {
       Accept: "application/json",
@@ -153,28 +153,28 @@ export const get_related_services = (serviceId) => async (dispatch) => {
 
   try {
     const res = await axios.get(
-      `${backend_url}/api/service/related/${serviceId}`,
+      `${backend_url}/api/publication/related/${publicationId}`,
       config
     );
 
     if (res.status === 200 && !res.data.error) {
       dispatch({
-        type: RELATED_SERVICES_SUCCESS,
+        type: RELATED_PUBLICATIONS_SUCCESS,
         payload: res.data,
       });
     } else {
       dispatch({
-        type: RELATED_SERVICES_FAIL,
+        type: RELATED_PUBLICATIONS_FAIL,
       });
     }
   } catch (err) {
     dispatch({
-      type: RELATED_SERVICES_FAIL,
+      type: RELATED_PUBLICATIONS_FAIL,
     });
   }
 };
 
-export const get_filtered_services =
+export const get_filtered_publications =
   (category_id, sort_by, order) => async (dispatch) => {
     const config = {
       headers: {
@@ -192,30 +192,31 @@ export const get_filtered_services =
 
     try {
       const res = await axios.post(
-        `${backend_url}/api/service/by/search/`,
+        `${backend_url}/api/publication/by/search/`,
         body,
         config
       );
 
       if (res.status === 200 && !res.data.error) {
         dispatch({
-          type: FILTER_SERVICES_SUCCESS,
+          type: FILTER_PUBLICATIONS_SUCCESS,
           payload: res.data,
         });
       } else {
         dispatch({
-          type: FILTER_SERVICES_FAIL,
+          type: FILTER_PUBLICATIONS_FAIL,
         });
       }
     } catch (err) {
       dispatch({
-        type: FILTER_SERVICES_FAIL,
+        type: FILTER_PUBLICATIONS_FAIL,
       });
     }
   };
 
-export const get_search_services =
-  (search, category_id) => async (dispatch) => {
+export const get_search_publications =
+  (search, page, category_id = 0) =>
+  async (dispatch) => {
     const config = {
       headers: {
         Accept: "application/json",
@@ -230,29 +231,29 @@ export const get_search_services =
 
     try {
       const res = await axios.post(
-        `${backend_url}/api/service/search/`,
+        `${backend_url}/api/publication/search/?page=${page}`,
         body,
         config
       );
 
       if (res.status === 200) {
         dispatch({
-          type: SEARCH_SERVICES_SUCCESS,
+          type: SEARCH_PUBLICATIONS_SUCCESS,
           payload: res.data,
         });
       } else {
         dispatch({
-          type: SEARCH_SERVICES_FAIL,
+          type: SEARCH_PUBLICATIONS_FAIL,
         });
       }
     } catch (err) {
       dispatch({
-        type: SEARCH_SERVICES_FAIL,
+        type: SEARCH_PUBLICATIONS_FAIL,
       });
     }
   };
 
-export const create_service =
+export const create_publication =
   (name, description, category_id, photo) => async (dispatch) => {
     if (localStorage.getItem("access")) {
       const config = {
@@ -271,25 +272,58 @@ export const create_service =
 
       try {
         const res = await axios.post(
-          `${backend_url}/api/service/create/`,
+          `${backend_url}/api/publication/create/`,
           body,
           config
         );
 
         if (res.status === 201) {
           dispatch({
-            type: CREATE_SERVICE_SUCCESS,
+            type: CREATE_PUBLICATION_SUCCESS,
             payload: res.data,
           });
         } else {
           dispatch({
-            type: CREATE_SERVICE_FAIL,
+            type: CREATE_PUBLICATION_FAIL,
           });
         }
       } catch (err) {
         dispatch({
-          type: CREATE_SERVICE_FAIL,
+          type: CREATE_PUBLICATION_FAIL,
         });
       }
     }
   };
+
+export const delete_publication = (publicationId) => async (dispatch) => {
+  if (localStorage.getItem("access")) {
+    const config = {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `JWT ${localStorage.getItem("access")}`,
+      },
+    };
+
+    try {
+      const res = await axios.delete(
+        `${backend_url}/api/publication/delete/${publicationId}`,
+        config
+      );
+
+      if (res.status === 200) {
+        dispatch({
+          type: DELETE_PUBLICATION_SUCCESS,
+        });
+      } else {
+        dispatch({
+          type: DELETE_PUBLICATION_FAIL,
+        });
+      }
+    } catch (err) {
+      dispatch({
+        type: DELETE_PUBLICATION_FAIL,
+      });
+    }
+  }
+};

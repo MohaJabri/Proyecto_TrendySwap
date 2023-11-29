@@ -1,9 +1,9 @@
 import Layout from "../../hocs/Layout";
 import { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { create_service } from "../../redux/actions/services";
+import { create_publication } from "../../redux/actions/publications";
 
-const AddService = ({ create_service, categories }) => {
+const AddPublication = ({ create_publication, categories }) => {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -21,7 +21,6 @@ const AddService = ({ create_service, categories }) => {
         const reader = new FileReader();
         reader.onload = () => {
           setFilePreview(reader.result);
-          console.log(reader.result);
         };
         reader.readAsDataURL(file);
       }
@@ -32,7 +31,7 @@ const AddService = ({ create_service, categories }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    create_service(name, description, category_id, photo);
+    create_publication(name, description, category_id, photo);
   };
 
   const onDragEnter = (e) => {
@@ -49,7 +48,6 @@ const AddService = ({ create_service, categories }) => {
     setFormData({ ...formData, photo: null });
     setIsHovered(false);
   };
-  console.log(formData);
 
   return (
     <Layout>
@@ -88,7 +86,6 @@ const AddService = ({ create_service, categories }) => {
                     Ofrezco
                   </label>
                   <input
-                    value={name}
                     onChange={onChange}
                     type="text"
                     name="name"
@@ -270,5 +267,5 @@ const mapStateToProps = (state) => ({
   categories: state.Categories.categories,
 });
 export default connect(mapStateToProps, {
-  create_service,
-})(AddService);
+  create_publication,
+})(AddPublication);

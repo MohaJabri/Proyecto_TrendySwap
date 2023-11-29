@@ -21,6 +21,7 @@ export default function Profile(state = initialState, action) {
     case GET_USER_PROFILE_FAIL:
       return {
         ...state,
+        profile: null,
       };
     case UPDATE_USER_PROFILE_SUCCESS:
       return {

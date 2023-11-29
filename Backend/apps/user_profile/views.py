@@ -6,10 +6,9 @@ from .serializers import UserProfileSerializer
 
 
 class GetUserProfileView(APIView):
-    def get(self, request, format=None):
+    def get(self, request, userId, format=None):
         try:
-            user = self.request.user
-            user_profile = UserProfile.objects.get(user=user)
+            user_profile = UserProfile.objects.get(user=userId)
             user_profile = UserProfileSerializer(user_profile)
 
             return Response(
@@ -18,10 +17,9 @@ class GetUserProfileView(APIView):
             )
         except:
             return Response(
-                {'error': 'Something went wrong when retrieving profile'},
+                {'error': 'Something went wrong when getting profile'},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
-
 
 class UpdateUserProfileView(APIView):
     def put(self, request, format=None):

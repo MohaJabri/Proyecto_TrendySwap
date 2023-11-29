@@ -4,19 +4,19 @@ import { XIcon } from "@heroicons/react/outline";
 import { FilterIcon, MinusSmIcon, PlusSmIcon } from "@heroicons/react/solid";
 import { connect } from "react-redux";
 import { getCategories } from "../../redux/actions/categories";
-import { get_services } from "../../redux/actions/services";
-import { get_filtered_services } from "../../redux/actions/services";
-import ServiceCard from "../../components/service/ServiceCard";
+import { get_publications } from "../../redux/actions/publications";
+import { get_filtered_publications } from "../../redux/actions/publications";
+import PublicationCard from "../../components/publication/PublicationCard";
 import Layout from "../../hocs/Layout";
 
 const Search = ({
   getCategories,
   categories,
-  get_services,
-  services,
-  get_filtered_services,
-  filtered_services,
-  search_services,
+  get_publications,
+  publications,
+  get_filtered_publications,
+  filtered_publications,
+  search_publications,
 }) => {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [filtered, setFiltered] = useState(false);
@@ -28,7 +28,7 @@ const Search = ({
   const { category_id, sortBy, order } = formData;
   useEffect(() => {
     getCategories();
-    get_services();
+    get_publications();
   }, []);
 
   const onChange = (e) =>
@@ -36,36 +36,36 @@ const Search = ({
 
   const onSubmit = (e) => {
     e.preventDefault();
-    get_filtered_services(category_id, sortBy, order);
+    get_filtered_publications(category_id, sortBy, order);
     setFiltered(true);
   };
 
-  const showServices = () => {
+  const showPublications = () => {
     let results = [];
     let display = [];
 
     if (
-      filtered_services &&
-      filtered_services !== null &&
-      filtered_services !== undefined &&
+      filtered_publications &&
+      filtered_publications !== null &&
+      filtered_publications !== undefined &&
       filtered
     ) {
-      filtered_services.map((service, index) => {
+      filtered_publications.map((publication, index) => {
         return display.push(
           <div key={index}>
-            <ServiceCard service={service} />
+            <PublicationCard publication={publication} />
           </div>
         );
       });
     } else if (
-      search_services &&
-      search_services !== null &&
-      search_services !== undefined
+      search_publications &&
+      search_publications !== null &&
+      search_publications !== undefined
     ) {
-      search_services.map((service, index) => {
+      search_publications.data.map((publication, index) => {
         return display.push(
           <div key={index}>
-            <ServiceCard service={service} />
+            <PublicationCard publication={publication} />
           </div>
         );
       });
@@ -459,7 +459,7 @@ const Search = ({
                 {/* Product grid */}
                 <div className="lg:col-span-3">
                   {/* Replace with your content */}
-                  {search_services && showServices()}
+                  {search_publications && showPublications()}
                   {/* /End replace */}
                 </div>
               </div>
@@ -473,12 +473,12 @@ const Search = ({
 
 const mapStateToProps = (state) => ({
   categories: state.Categories.categories,
-  services: state.Services.services,
-  filtered_services: state.Services.filtered_services,
-  search_services: state.Services.search_services,
+  publications: state.Publications.publications,
+  filtered_publications: state.Publications.filtered_publications,
+  search_publications: state.Publications.search_publications,
 });
 export default connect(mapStateToProps, {
   getCategories,
-  get_services,
-  get_filtered_services,
+  get_publications,
+  get_filtered_publications,
 })(Search);

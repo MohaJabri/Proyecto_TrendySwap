@@ -59,7 +59,6 @@ function classNames(...classes) {
 }
 
 const ImageGallery = ({ photo }) => {
-  console.log(photo);
   return (
     <Tab.Group as="div" className="flex flex-col-reverse">
       {/* Image selector */}

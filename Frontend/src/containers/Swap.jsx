@@ -5,17 +5,17 @@ import { XIcon } from "@heroicons/react/outline";
 import { FilterIcon, MinusSmIcon, PlusSmIcon } from "@heroicons/react/solid";
 import { connect } from "react-redux";
 import { getCategories } from "../redux/actions/categories";
-import { get_services } from "../redux/actions/services";
-import { get_filtered_services } from "../redux/actions/services";
-import ServiceCard from "../components/service/ServiceCard";
+import { get_publications } from "../redux/actions/publications";
+import { get_filtered_publications } from "../redux/actions/publications";
+import PublicationCard from "../components/publication/PublicationCard";
 
 const Swap = ({
   getCategories,
   categories,
-  get_services,
-  services,
-  get_filtered_services,
-  filtered_services,
+  get_publications,
+  publications,
+  get_filtered_publications,
+  filtered_publications,
 }) => {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [filtered, setFiltered] = useState(false);
@@ -27,7 +27,7 @@ const Swap = ({
   const { category_id, sortBy, order } = formData;
   useEffect(() => {
     getCategories();
-    get_services();
+    get_publications();
   }, []);
 
   const onChange = (e) =>
@@ -35,37 +35,37 @@ const Swap = ({
 
   const onSubmit = (e) => {
     e.preventDefault();
-    get_filtered_services(category_id, sortBy, order);
+    get_filtered_publications(category_id, sortBy, order);
     setFiltered(true);
   };
 
-  const showServices = () => {
+  const showPublications = () => {
     let results = [];
     let display = [];
 
     if (
-      filtered_services &&
-      filtered_services !== null &&
-      filtered_services !== undefined &&
+      filtered_publications &&
+      filtered_publications !== null &&
+      filtered_publications !== undefined &&
       filtered
     ) {
-      filtered_services.map((service, index) => {
+      filtered_publications.map((publication, index) => {
         return display.push(
           <div key={index}>
-            <ServiceCard service={service} />
+            <PublicationCard publication={publication} />
           </div>
         );
       });
     } else if (
       !filtered &&
-      services &&
-      services !== null &&
-      services !== undefined
+      publications &&
+      publications !== null &&
+      publications !== undefined
     ) {
-      services.map((service, index) => {
+      publications.map((publication, index) => {
         return display.push(
           <div key={index}>
-            <ServiceCard service={service} />
+            <PublicationCard publication={publication} />
           </div>
         );
       });
@@ -141,34 +141,48 @@ const Swap = ({
                       role="list"
                       className="font-medium text-gray-900 px-2 py-3"
                     >
-                      {categories &&
-                        categories !== null &&
-                        categories !== undefined &&
-                        categories.map((category) => {
-                          if (category.subcategories.length === 0) {
-                            return (
-                              <div
-                                key={category.id}
-                                className=" flex items-center h-5 my-5"
-                              >
-                                <input
-                                  name="category_id"
-                                  onChange={(e) => onChange(e)}
-                                  value={category.id.toString()}
-                                  type="radio"
-                                  className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded-full"
-                                />
-                                <label className="block px-2 py-3">
-                                  {category.name}
-                                </label>
-                              </div>
-                            );
-                          } else {
-                            let result = [];
+                      {categories?.map((category) => {
+                        if (category.subcategories.length === 0) {
+                          return (
+                            <div
+                              key={category.id}
+                              className=" flex items-center h-5 my-5"
+                            >
+                              <input
+                                name="category_id"
+                                onChange={(e) => onChange(e)}
+                                value={category.id.toString()}
+                                type="radio"
+                                className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded-full"
+                              />
+                              <label className="block px-2 py-3">
+                                {category.name}
+                              </label>
+                            </div>
+                          );
+                        } else {
+                          let result = [];
+                          result.push(
+                            <div
+                              key={category.id}
+                              className="flex items-center h-5"
+                            >
+                              <input
+                                name="category_id"
+                                type="radio"
+                                className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded-full"
+                              />
+                              <label className="ml-3 min-w-0 flex-1 text-gray-500">
+                                {category.name}
+                              </label>
+                            </div>
+                          );
+
+                          category.subcategories.map((subcategory) => {
                             result.push(
                               <div
-                                key={category.id}
-                                className="flex items-center h-5"
+                                key={subcategory.id}
+                                className="flex items-center h-5 ml-2 my-5"
                               >
                                 <input
                                   name="category_id"
@@ -176,32 +190,15 @@ const Swap = ({
                                   className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded-full"
                                 />
                                 <label className="ml-3 min-w-0 flex-1 text-gray-500">
-                                  {category.name}
+                                  {subcategory.name}
                                 </label>
                               </div>
                             );
+                          });
 
-                            category.subcategories.map((subcategory) => {
-                              result.push(
-                                <div
-                                  key={subcategory.id}
-                                  className="flex items-center h-5 ml-2 my-5"
-                                >
-                                  <input
-                                    name="category_id"
-                                    type="radio"
-                                    className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded-full"
-                                  />
-                                  <label className="ml-3 min-w-0 flex-1 text-gray-500">
-                                    {subcategory.name}
-                                  </label>
-                                </div>
-                              );
-                            });
-
-                            return result;
-                          }
-                        })}
+                          return result;
+                        }
+                      })}
                     </ul>
                     <Disclosure
                       as="div"
@@ -459,7 +456,7 @@ const Swap = ({
                 {/* Product grid */}
                 <div className="lg:col-span-3">
                   {/* Replace with your content */}
-                  {services && showServices()}
+                  {publications && showPublications()}
                   {/* /End replace */}
                 </div>
               </div>
@@ -473,11 +470,11 @@ const Swap = ({
 
 const mapStateToProps = (state) => ({
   categories: state.Categories.categories,
-  services: state.Services.services,
-  filtered_services: state.Services.filtered_services,
+  publications: state.Publications.publications,
+  filtered_publications: state.Publications.filtered_publications,
 });
 export default connect(mapStateToProps, {
   getCategories,
-  get_services,
-  get_filtered_services,
+  get_publications,
+  get_filtered_publications,
 })(Swap);

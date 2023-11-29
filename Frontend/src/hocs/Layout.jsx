@@ -12,16 +12,15 @@ const Layout = (props) => {
     props.refresh();
     props.check_authenticated();
     props.load_user();
-    props.get_user_profile();
   }, []);
 
   return (
-    <div class="flex flex-col h-screen justify-between">
-      <div class="h-10 "><Navbar /></div>
-      <div class="mb-auto h-10 "><ToastContainer autoClose={5000} />
-      {props.children}</div>
+    <>
+      <Navbar />
+      <ToastContainer autoClose={5000} />
+      {props.children}
       <Footer />
-    </div>
+    </>
   );
 };
 
@@ -29,5 +28,4 @@ export default connect(null, {
   check_authenticated,
   load_user,
   refresh,
-  get_user_profile,
 })(Layout);

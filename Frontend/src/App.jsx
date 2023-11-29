@@ -9,10 +9,11 @@ import Activate from "./containers/auth/Activate";
 import ResetPassword from "./containers/auth/ResetPassword";
 import ResetPasswordConfirm from "./containers/auth/ResetPasswordConfirm";
 import Swap from "./containers/Swap";
-import ServiceDetail from "./containers/pages/ServiceDetail";
+import PublicationDetail from "./containers/pages/PublicationDetail";
 import Search from "./containers/pages/Search";
 import Profile from "./containers/pages/Profile";
-import AddService from "./containers/pages/AddService";
+import AdminPage from "./containers/pages/AdminPage";
+import AddPublication from "./containers/pages/AddPublication";
 
 function App() {
   return (
@@ -35,10 +36,15 @@ function App() {
 
           {/*Rutas de la aplicación*/}
           <Route exact path="/swap" element={<Swap />} />
-          <Route exact path="/service/:serviceId" element={<ServiceDetail />} />
+          <Route
+            exact
+            path="/publication/:publicationId"
+            element={<PublicationDetail />}
+          />
           <Route exact path="/search" element={<Search />} />
           <Route exact path="/profile" element={<Profile />} />
-          <Route exact path="/add_service" element={<AddService />} />
+          <Route exact path="/add_publication" element={<AddPublication />} />
+          <Route exact path="/admin" element={<AdminPage />} />
         </Routes>
       </Router>
     </Provider>

@@ -4,31 +4,37 @@ import { useEffect } from "react";
 import { Navigate } from "react-router";
 import { Fragment, useState } from "react";
 
-import { update_user_profile } from "../../redux/actions/profile";
+import {
+  update_user_profile,
+  get_user_profile,
+} from "../../redux/actions/profile";
 import { TailSpin } from "react-loader-spinner";
 import Layout from "../../hocs/Layout";
 
-const Profile = ({ isAuthenticated, user, update_user_profile, profile }) => {
+const Profile = ({ user, update_user_profile, profile, get_user_profile }) => {
   const [loading, setLoading] = useState(false);
-
   const [formData, setFormData] = useState({
     phone: "",
   });
 
   const { phone } = formData;
+  console.log("profile");
+  useEffect(() => {
+    if (user && !profile) {
+      get_user_profile(user.id);
+    }
+  }, [user]);
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
+
     update_user_profile(phone);
-    setLoading(false);
+
     window.scrollTo(0, 0);
   };
-
-  if (!isAuthenticated) return <Navigate to="/" />;
 
   return (
     <>
@@ -62,7 +68,6 @@ const Profile = ({ isAuthenticated, user, update_user_profile, profile }) => {
                         <input
                           type="text"
                           name="address_line_1"
-                          placeholder={`${profile.address_line_1}`}
                           onChange={(e) => onChange(e)}
                           value=""
                           className="flex-1 block w-full focus:ring-indigo-500 focus:border-indigo-500 min-w-0 rounded-md sm:text-sm border-gray-500"
@@ -83,7 +88,6 @@ const Profile = ({ isAuthenticated, user, update_user_profile, profile }) => {
                         <input
                           type="text"
                           name="address_line_2"
-                          placeholder={`${profile.address_line_2}`}
                           onChange={(e) => onChange(e)}
                           //value={address_line_2}
                           className="flex-1 block w-full focus:ring-indigo-500 focus:border-indigo-500 min-w-0 rounded-md sm:text-sm border-gray-500"
@@ -104,7 +108,6 @@ const Profile = ({ isAuthenticated, user, update_user_profile, profile }) => {
                         <input
                           type="text"
                           name="city"
-                          placeholder={`${profile.city}`}
                           onChange={(e) => onChange(e)}
                           //value={city}
                           className="flex-1 block w-full focus:ring-indigo-500 focus:border-indigo-500 min-w-0 rounded-md sm:text-sm border-gray-500"
@@ -125,7 +128,6 @@ const Profile = ({ isAuthenticated, user, update_user_profile, profile }) => {
                         <input
                           type="text"
                           name="state_province_region"
-                          placeholder={`${profile.state_province_region}`}
                           onChange={(e) => onChange(e)}
                           //value={state_province_region}
                           className="flex-1 block w-full focus:ring-indigo-500 focus:border-indigo-500 min-w-0 rounded-md sm:text-sm border-gray-500"
@@ -146,7 +148,6 @@ const Profile = ({ isAuthenticated, user, update_user_profile, profile }) => {
                         <input
                           type="text"
                           name="zipcode"
-                          placeholder={`${profile.zipcode}`}
                           onChange={(e) => onChange(e)}
                           //value={zipcode}
                           className="flex-1 block w-full focus:ring-indigo-500 focus:border-indigo-500 min-w-0 rounded-md sm:text-sm border-gray-500"
@@ -167,7 +168,7 @@ const Profile = ({ isAuthenticated, user, update_user_profile, profile }) => {
                         <input
                           type="text"
                           name="phone"
-                          placeholder={`${profile.phone}`}
+                          placeholder={profile && `${profile.phone}`}
                           onChange={(e) => onChange(e)}
                           value={phone}
                           className="flex-1 block w-full focus:ring-indigo-500 focus:border-indigo-500 min-w-0 rounded-md sm:text-sm border-gray-500"
@@ -225,11 +226,11 @@ const Profile = ({ isAuthenticated, user, update_user_profile, profile }) => {
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.Auth.isAuthenticated,
   user: state.Auth.user,
   profile: state.Profile.profile,
 });
 
 export default connect(mapStateToProps, {
   update_user_profile,
+  get_user_profile,
 })(Profile);

@@ -9,7 +9,7 @@ urlpatterns = [
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')),
     path('api/category/', include('apps.category.urls')),
-    path('api/service/', include('apps.service.urls')),
+    path('api/publication/', include('apps.publication.urls')),
     path('api/profile/', include('apps.user_profile.urls')),
     path('admin/', admin.site.urls),
     

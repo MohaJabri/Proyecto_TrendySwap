@@ -6,6 +6,7 @@ from rest_framework import permissions
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
 from .serializers import PublicationSerializer
+from core.pagination import CustomPagination
 from django.db.models import Q
 
 class CreatePublicationView(APIView):
@@ -63,7 +64,7 @@ class PublicationDetailView(APIView):
             return Response({'publication': publication.data},status=status.HTTP_200_OK)
         else:
             return Response({'error':'publication does not exist'},status=status.HTTP_404_NOT_FOUND)
-class DeletepublicationView(APIView):
+class DeletePublicationView(APIView):
     permission_classes=(permissions.IsAuthenticated,)
     def delete(self,request,publicationId,format=None):
         try:
@@ -71,7 +72,7 @@ class DeletepublicationView(APIView):
         except:
             return Response({'error':'invalid publication id'},status=status.HTTP_400_BAD_REQUEST)
         
-        if not publication.objects.filter(id=publication_id).exists():
+        if not Publication.objects.filter(id=publication_id).exists():
             return Response({'error':'publication does not exist'},status=status.HTTP_404_NOT_FOUND)
         
         publication=Publication.objects.get(id=publication_id)
@@ -132,11 +133,14 @@ class PublicationSearchView(APIView):
         if len(search)==0:
             search_results=Publication.objects.order_by('-date_created').all()
         else:
-            search_results=Publication.objects.filter(Q(name__icontains=search) | Q(description__icontains=search))
+            search_results=Publication.objects.filter(Q(name__icontains=search) | Q(description__icontains=search)).order_by('-date_created')
 
         if category_id==0:
-            search_results=PublicationSerializer(search_results,many=True)
-            return Response({'search_publications': search_results.data},status=status.HTTP_200_OK)
+            paginator = CustomPagination()
+            paginated_publications = paginator.paginate_queryset(search_results, request)
+            paginated_publications=PublicationSerializer(paginated_publications,many=True)
+            return paginator.get_paginated_response(paginated_publications.data)
+       
 
         if not Category.objects.filter(id=category_id).exists():
             return Response({'error':'category does not exist'},status=status.HTTP_404_NOT_FOUND)
@@ -157,9 +161,10 @@ class PublicationSearchView(APIView):
                 filtered_categories=tuple(filtered_categories)
                 search_results=search_results.order_by('-date_created').filter(category__in=filtered_categories)
         
-
-        search_results=PublicationSerializer(search_results,many=True)
-        return Response({'search_publications': search_results.data},status=status.HTTP_200_OK)
+        paginator = CustomPagination()
+        paginated_publications = paginator.paginate_queryset(search_results, request)
+        paginated_publications=PublicationSerializer(paginated_publications,many=True)
+        return paginator.get_paginated_response(paginated_publications.data)
     
 class RelatedPublicationsListView(APIView):
     permissions_classes=(permissions.AllowAny,)
@@ -247,7 +252,7 @@ class ListBySearchView(APIView):
         else:
             publication_results=publication_results.order_by(sort_by)
 
-        publication_results=publicationSerializer(publication_results,many=True)
+        publication_results=PublicationSerializer(publication_results,many=True)
 
         if len(publication_results.data)>0:
             return Response({'filtered_publications': publication_results.data},status=status.HTTP_200_OK)
