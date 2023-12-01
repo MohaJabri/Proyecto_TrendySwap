@@ -1,31 +1,6 @@
 import React, { useEffect, useState } from "react";
-const Pagination = ({ searchTerm, search, get_search, active, setActive }) => {
-  const [previousNumber, setPreviousNumber] = useState(0);
-  const [nextNumber, setNextNumber] = useState(0);
-  useEffect(() => {
-    setPreviousNumber(search.meta.previous);
-    setNextNumber(search.meta.next);
-  }, [search]);
-
+const Pagination = ({ search, active, visitPage, previous, next }) => {
   const totalPages = Math.ceil(search.meta.count / 9);
-  const visitPage = (page) => {
-    get_search(searchTerm, page);
-    setActive(page);
-  };
-
-  const previous = () => {
-    if (previousNumber) {
-      get_search(searchTerm, previousNumber);
-      setActive(active - 1);
-    }
-  };
-
-  const next = () => {
-    if (nextNumber) {
-      get_search(searchTerm, nextNumber);
-      setActive(active + 1);
-    }
-  };
 
   const handlePageClick = (pageNumber) => {
     visitPage(pageNumber);

@@ -25,7 +25,7 @@ const SearchBox = ({ categories, search, onChange, onSubmit }) => {
             onChange={(e) => onChange(e)}
             value={search}
             className="focus:ring-indigo-500 focus:border-indigo-500 block w-full rounded-none rounded-l-md pl-4 sm:text-sm border-gray-300"
-            placeholder="Buscar servicios"
+            placeholder="Que quieres buscar?"
           />
         </div>
         <button

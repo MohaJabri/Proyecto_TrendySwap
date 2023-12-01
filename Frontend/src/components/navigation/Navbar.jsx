@@ -3,21 +3,10 @@ import { Menu, Popover, Transition } from "@headlessui/react";
 
 import Alert from "../../components/alert";
 import {
-  BookmarkAltIcon,
-  BriefcaseIcon,
   ChartBarIcon,
-  CheckCircleIcon,
   CursorClickIcon,
-  DesktopComputerIcon,
-  GlobeAltIcon,
-  InformationCircleIcon,
   MenuIcon,
-  NewspaperIcon,
-  OfficeBuildingIcon,
-  PhoneIcon,
-  PlayIcon,
   ShieldCheckIcon,
-  UserGroupIcon,
   ViewGridIcon,
   XIcon,
 } from "@heroicons/react/outline";
@@ -26,8 +15,7 @@ import { connect } from "react-redux";
 import { logout } from "../../redux/actions/auth";
 import { getCategories } from "../../redux/actions/categories";
 import { get_search_publications } from "../../redux/actions/publications";
-import { useNavigate, NavLink, Link } from "react-router-dom";
-import { Navigate } from "react-router";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import SearchBox from "./SearchBox";
 
 const solutions = [
@@ -57,11 +45,6 @@ const solutions = [
     icon: ViewGridIcon,
   },
 ];
-const callsToAction = [
-  { name: "Watch Demo", href: "#", icon: PlayIcon },
-  { name: "View All Products", href: "#", icon: CheckCircleIcon },
-  { name: "Contact Sales", href: "#", icon: PhoneIcon },
-];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -75,13 +58,15 @@ function Navbar({
   categories,
   get_search_publications,
 }) {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const initialSearchTerm = searchParams.get("query") || "";
   const navigate = useNavigate();
-  const [redirect, setRedirect] = useState(false);
-
+  const [authReady, setAuthReady] = useState(false);
   const [render, setRender] = useState(false);
   const [formData, setFormData] = useState({
     category_id: 0,
-    search: "",
+    search: initialSearchTerm,
   });
   const { category_id, search } = formData;
 
@@ -90,16 +75,16 @@ function Navbar({
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    if (search.length > 0) {
+      get_search_publications(search, 1, category_id);
+      setRender(!render);
 
-    get_search_publications(search, 1, category_id);
-    setRender(!render);
-
-    if (!render) {
-      navigate("/search");
+      if (!render) {
+        navigate(`/search?query=${search}&category_id=${category_id}`);
+      }
     }
   };
 
-  const [authReady, setAuthReady] = useState(false);
   useEffect(() => {
     getCategories();
   }, []);
@@ -244,12 +229,14 @@ function Navbar({
                   onSubmit={onSubmit}
                   categories={categories}
                 />
-                <Link
-                  to="/admin"
-                  className="text-base font-medium text-gray-500 hover:text-gray-900"
-                >
-                  Admin
-                </Link>
+                {user?.is_staff && (
+                  <Link
+                    to="/admin"
+                    className="text-base font-medium text-gray-500 hover:text-gray-900"
+                  >
+                    Admin
+                  </Link>
+                )}
               </Popover.Group>
               <div className="flex items-center md:ml-12">
                 {isAuthenticated ? authLinks : guestLinks}

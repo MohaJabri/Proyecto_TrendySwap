@@ -7,6 +7,7 @@ import {
 } from "../../redux/actions/publications";
 import { connect } from "react-redux";
 import Pagination from "../navigation/Pagination";
+import { useEffect } from "react";
 const Publications = ({
   search_publications,
   delete_publication,
@@ -15,6 +16,34 @@ const Publications = ({
   active,
   setActive,
 }) => {
+  const [previousNumber, setPreviousNumber] = useState(0);
+  const [nextNumber, setNextNumber] = useState(0);
+  useEffect(() => {
+    if (search_publications?.meta) {
+      setPreviousNumber(search_publications.meta.previous);
+      setNextNumber(search_publications.meta.next);
+    }
+  }, [search_publications]);
+
+  const visitPage = (page) => {
+    get_search_publications(searchTerm, page);
+    setActive(page);
+  };
+
+  const previous = () => {
+    if (previousNumber) {
+      get_search_publications(searchTerm, previousNumber);
+      setActive(active - 1);
+    }
+  };
+
+  const next = () => {
+    if (nextNumber) {
+      get_search_publications(searchTerm, nextNumber);
+      setActive(active + 1);
+    }
+  };
+
   const onDelete = async (id) => {
     await delete_publication(id);
     const totalPages = Math.ceil(search_publications.meta.count / 9);
@@ -47,7 +76,7 @@ const Publications = ({
             </th>
 
             <th scope="col" className="px-4 py-3">
-              Count in stock
+              Usuario
             </th>
 
             <th
@@ -76,9 +105,9 @@ const Publications = ({
 
                   <td className="px-4 py-3">{publication.name}</td>
 
-                  <td className="px-4 py-3">{publication.category}</td>
+                  <td className="px-4 py-3">{publication.category_name}</td>
 
-                  <td className="px-4 py-3">{publication.count_in_stock}</td>
+                  <td className="px-4 py-3">{publication.user_full_name}</td>
 
                   <td className="px-4 py-3">
                     <div className="flex justify-center gap-4">
@@ -96,11 +125,11 @@ const Publications = ({
       </table>
       {search_publications?.data?.length > 0 && (
         <Pagination
-          get_search={get_search_publications}
+          visitPage={visitPage}
           search={search_publications}
-          searchTerm={searchTerm}
           active={active}
-          setActive={setActive}
+          previous={previous}
+          next={next}
         />
       )}
     </div>

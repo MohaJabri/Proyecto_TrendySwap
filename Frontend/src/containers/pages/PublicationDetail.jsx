@@ -1,10 +1,7 @@
 import Layout from "../../hocs/Layout";
 import { useParams } from "react-router";
 import { connect } from "react-redux";
-import {
-  get_publication,
-  get_related_publications,
-} from "../../redux/actions/publications";
+import { get_publication } from "../../redux/actions/publications";
 import { useEffect, useState } from "react";
 
 import { HeartIcon, MinusSmIcon, PlusSmIcon } from "@heroicons/react/outline";
@@ -72,8 +69,8 @@ const PublicationDetail = ({
   }, []);
   return (
     <Layout>
-      {!loading ? (
-        <div className="bg-white">
+      <div className="bg-white min-h-screen">
+        {!loading ? (
           <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
             <div className="lg:grid lg:grid-cols-2 lg:gap-x-8 lg:items-start">
               {/* Image gallery */}
@@ -156,10 +153,10 @@ const PublicationDetail = ({
               </div>
             </div>
           </div>
-        </div>
-      ) : (
-        <div></div>
-      )}
+        ) : (
+          <div></div>
+        )}
+      </div>
     </Layout>
   );
 };

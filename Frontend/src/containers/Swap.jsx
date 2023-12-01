@@ -4,19 +4,24 @@ import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
 import { FilterIcon, MinusSmIcon, PlusSmIcon } from "@heroicons/react/solid";
 import { connect } from "react-redux";
-import { getCategories } from "../redux/actions/categories";
-import { get_publications } from "../redux/actions/publications";
-import { get_filtered_publications } from "../redux/actions/publications";
+
+import {
+  get_search_publications,
+  get_filtered_publications,
+} from "../redux/actions/publications";
+
 import PublicationCard from "../components/publication/PublicationCard";
+import Pagination from "../components/navigation/Pagination";
 
 const Swap = ({
-  getCategories,
   categories,
-  get_publications,
+  get_search_publications,
   publications,
   get_filtered_publications,
   filtered_publications,
 }) => {
+  console.log("hola");
+  const [active, setActive] = useState(1);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [filtered, setFiltered] = useState(false);
   const [formData, setFormData] = useState({
@@ -26,8 +31,7 @@ const Swap = ({
   });
   const { category_id, sortBy, order } = formData;
   useEffect(() => {
-    getCategories();
-    get_publications();
+    get_search_publications("", 1);
   }, []);
 
   const onChange = (e) =>
@@ -62,7 +66,7 @@ const Swap = ({
       publications !== null &&
       publications !== undefined
     ) {
-      publications.map((publication, index) => {
+      publications.data.map((publication, index) => {
         return display.push(
           <div key={index}>
             <PublicationCard publication={publication} />
@@ -86,7 +90,7 @@ const Swap = ({
 
   return (
     <Layout>
-      <div className="bg-white">
+      <div className="bg-white min-h-screen">
         <div>
           {/* Mobile filter dialog */}
           <Transition.Root show={mobileFiltersOpen} as={Fragment}>
@@ -302,7 +306,7 @@ const Swap = ({
 
             <section aria-labelledby="products-heading" className="pt-6 pb-24">
               <h2 id="products-heading" className="sr-only">
-                Products
+                Publicaciones
               </h2>
 
               <div className="grid grid-cols-1 lg:grid-cols-4 gap-x-8 gap-y-10">
@@ -460,6 +464,15 @@ const Swap = ({
                   {/* /End replace */}
                 </div>
               </div>
+              {publications?.data?.length > 0 && (
+                <Pagination
+                  get_search={get_search_publications}
+                  search={publications}
+                  searchTerm={""}
+                  active={active}
+                  setActive={setActive}
+                />
+              )}
             </section>
           </main>
         </div>
@@ -470,11 +483,10 @@ const Swap = ({
 
 const mapStateToProps = (state) => ({
   categories: state.Categories.categories,
-  publications: state.Publications.publications,
+  publications: state.Publications.search_publications,
   filtered_publications: state.Publications.filtered_publications,
 });
 export default connect(mapStateToProps, {
-  getCategories,
-  get_publications,
+  get_search_publications,
   get_filtered_publications,
 })(Swap);

@@ -10,9 +10,7 @@ const Home = ({ get_publications_by_arrival, publications_arrival }) => {
   }, []);
   return (
     <Layout>
-      <div className="text-green-700">
-        <NewPublications data={publications_arrival} />
-      </div>
+      <NewPublications data={publications_arrival} />
     </Layout>
   );
 };

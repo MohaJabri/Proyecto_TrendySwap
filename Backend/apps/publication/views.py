@@ -9,6 +9,7 @@ from .serializers import PublicationSerializer
 from core.pagination import CustomPagination
 from django.db.models import Q
 
+
 class CreatePublicationView(APIView):
     permission_classes = [permissions.IsAuthenticated]
     
@@ -24,32 +25,60 @@ class CreatePublicationView(APIView):
             return Response(publication_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UpdatePublicationView(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, IsAdminUser]
     parser_classes = [MultiPartParser, FormParser]
-    
 
     def put(self, request, publicationId, format=None):
         try:
-            publication_id=int(publicationId)
-        except:
-            return Response({'error':'invalid publication id'},status=status.HTTP_400_BAD_REQUEST)
+            publication_id = int(publicationId)
+        except ValueError:
+            return Response({'error': 'invalid publication id'}, status=status.HTTP_400_BAD_REQUEST)
         
         if not Publication.objects.filter(id=publication_id).exists():
-            return Response({'error':'publication does not exist'},status=status.HTTP_404_NOT_FOUND)
+            return Response({'error': 'publication does not exist'}, status=status.HTTP_404_NOT_FOUND)
         
-        publication=Publication.objects.get(id=publication_id)
-        if publication.user!=self.request.user:
-            return Response({'error':'you are not authorized to update this publication'},status=status.HTTP_401_UNAUTHORIZED)
+        publication = Publication.objects.get(id=publication_id)
+        if not request.user.is_staff:  # Verificar si el usuario no es staff
+            if publication.user != request.user:
+                return Response({'error': 'you are not authorized to update this publication'}, status=status.HTTP_401_UNAUTHORIZED)
         
-        publication_serializer = PublicationSerializer(publication,data=request.data)
+        publication_serializer = PublicationSerializer(publication, data=request.data)
         
         if publication_serializer.is_valid():
-            publication_serializer.save(user=self.request.user)
+            publication_serializer.save(user=request.user)
             return Response(publication_serializer.data, status=status.HTTP_201_CREATED)
         else:
             print('error', publication_serializer.errors)
             return Response(publication_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-       
+
+
+
+class DeletePublicationView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def delete(self, request, publicationId, format=None):
+        try:
+            publication_id = int(publicationId)
+        except ValueError:
+            return Response({'error': 'invalid publication id'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            publication = Publication.objects.get(id=publication_id)
+        except Publication.DoesNotExist:
+            return Response({'error': 'publication does not exist'}, status=status.HTTP_404_NOT_FOUND)
+        
+        user = request.user
+        is_owner = publication.user == user
+        is_staff = user.is_staff
+        
+        if not (is_owner or is_staff):
+            return Response({'error': 'you are not authorized to delete this publication'}, status=status.HTTP_401_UNAUTHORIZED)
+        
+        publication.delete()
+        return Response({'success': 'publication deleted'}, status=status.HTTP_200_OK)
+
+
+
 class PublicationDetailView(APIView):
     permission_classes=(permissions.AllowAny,)
     def get(self,request,publicationId, format=None):
@@ -64,23 +93,6 @@ class PublicationDetailView(APIView):
             return Response({'publication': publication.data},status=status.HTTP_200_OK)
         else:
             return Response({'error':'publication does not exist'},status=status.HTTP_404_NOT_FOUND)
-class DeletePublicationView(APIView):
-    permission_classes=(permissions.IsAuthenticated,)
-    def delete(self,request,publicationId,format=None):
-        try:
-            publication_id=int(publicationId)
-        except:
-            return Response({'error':'invalid publication id'},status=status.HTTP_400_BAD_REQUEST)
-        
-        if not Publication.objects.filter(id=publication_id).exists():
-            return Response({'error':'publication does not exist'},status=status.HTTP_404_NOT_FOUND)
-        
-        publication=Publication.objects.get(id=publication_id)
-        if publication.user!=self.request.user:
-            return Response({'error':'you are not authorized to delete this publication'},status=status.HTTP_401_UNAUTHORIZED)
-        
-        publication.delete()
-        return Response({'success':'publication deleted'},status=status.HTTP_200_OK)
 
 class PublicationListView(APIView):
     permission_classes=(permissions.AllowAny,)
