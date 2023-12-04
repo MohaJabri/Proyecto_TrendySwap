@@ -25,7 +25,7 @@ class CreatePublicationView(APIView):
             return Response(publication_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UpdatePublicationView(APIView):
-    permission_classes = [permissions.IsAuthenticated, IsAdminUser]
+    permission_classes = [permissions.IsAuthenticated]
     parser_classes = [MultiPartParser, FormParser]
 
     def put(self, request, publicationId, format=None):
