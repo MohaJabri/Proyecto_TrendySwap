@@ -78,7 +78,7 @@ const PublicationDetail = ({
               {/* Product info */}
               <div className="mt-10 px-4 sm:px-0 sm:mt-16 lg:mt-0">
                 <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">
-                  {publication && publication.name}
+                  {publication && publication.service_requested}
                 </h1>
                 <div className="mt-3">
                   <h2 className="sr-only">Product information</h2>

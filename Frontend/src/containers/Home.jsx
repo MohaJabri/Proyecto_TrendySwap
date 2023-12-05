@@ -6,6 +6,7 @@ import NewPublications from "../components/home/NewPublications";
 
 const Home = ({ get_publications_by_arrival, publications_arrival }) => {
   useEffect(() => {
+    window.scrollTo(0, 0);
     get_publications_by_arrival();
   }, []);
   return (

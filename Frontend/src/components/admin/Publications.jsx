@@ -103,7 +103,7 @@ const Publications = ({
                     {publication.id}
                   </th>
 
-                  <td className="px-4 py-3">{publication.name}</td>
+                  <td className="px-4 py-3">{publication.service_requested}</td>
 
                   <td className="px-4 py-3">{publication.category_name}</td>
 

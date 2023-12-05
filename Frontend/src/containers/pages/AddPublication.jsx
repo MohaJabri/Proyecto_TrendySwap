@@ -5,13 +5,22 @@ import { create_publication } from "../../redux/actions/publications";
 
 const AddPublication = ({ create_publication, categories }) => {
   const [formData, setFormData] = useState({
-    name: "",
+    service_requested: "",
+    object_offered: "",
+    location: "",
     description: "",
     category_id: "",
     photo: null,
   });
   const [isHovered, setIsHovered] = useState(false);
-  const { name, description, category_id, photo } = formData;
+  const {
+    service_requested,
+    object_offered,
+    location,
+    description,
+    category_id,
+    photo,
+  } = formData;
   const [filePreview, setFilePreview] = useState("");
   const onChange = (e) => {
     if (e.target.name === "photo") {
@@ -31,7 +40,14 @@ const AddPublication = ({ create_publication, categories }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    create_publication(name, description, category_id, photo);
+    create_publication(
+      service_requested,
+      object_offered,
+      location,
+      description,
+      category_id,
+      photo
+    );
   };
 
   const onDragEnter = (e) => {
@@ -56,7 +72,7 @@ const AddPublication = ({ create_publication, categories }) => {
           <div className=" p-4 bg-white rounded-lg shadow  sm:p-5">
             <div className="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 ">
               <h3 className="text-lg font-semibold text-gray-900 ">
-                Añadir Publicación
+                Crear Publicación
               </h3>
             </div>
             <form onSubmit={onSubmit}>
@@ -69,29 +85,30 @@ const AddPublication = ({ create_publication, categories }) => {
                     Solicito
                   </label>
                   <input
-                    value={name}
+                    value={service_requested}
                     onChange={onChange}
                     type="text"
-                    name="name"
-                    id="name"
+                    name="service_requested"
+                    id="service_requested"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                    placeholder="Type product name"
+                    placeholder="Que necesitas?"
                   />
                 </div>
                 <div>
                   <label
-                    htmlFor="name"
+                    htmlFor=""
                     className="block mb-2 text-sm font-medium text-gray-900 "
                   >
                     Ofrezco
                   </label>
                   <input
+                    value={object_offered}
                     onChange={onChange}
                     type="text"
-                    name="name"
-                    id="name"
+                    name="object_offered"
+                    id="object_offered"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                    placeholder="Type product name"
+                    placeholder="Que ofreces?"
                   />
                 </div>
 
@@ -110,14 +127,11 @@ const AddPublication = ({ create_publication, categories }) => {
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                   >
                     <option value="">Selecciona una categoría</option>
-                    {categories &&
-                      categories !== null &&
-                      categories !== undefined &&
-                      categories.map((category) => (
-                        <option key={category.id} value={category.id}>
-                          {category.name}
-                        </option>
-                      ))}
+                    {categories?.map((category) => (
+                      <option key={category.id} value={category.id}>
+                        {category.name}
+                      </option>
+                    ))}
                   </select>
                 </div>
 
@@ -129,13 +143,13 @@ const AddPublication = ({ create_publication, categories }) => {
                     Ubicación
                   </label>
                   <input
-                    value={name}
+                    value={location}
                     onChange={onChange}
                     type="text"
-                    name="name"
-                    id="name"
+                    name="location"
+                    id="location"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                    placeholder="Type product name"
+                    placeholder="Donde te encuentras?"
                   />
                 </div>
 
@@ -144,7 +158,7 @@ const AddPublication = ({ create_publication, categories }) => {
                     htmlFor="description"
                     className="block mb-2 text-sm font-medium text-gray-900 "
                   >
-                    Description
+                    Descripción
                   </label>
                   <input
                     name="description"
@@ -152,7 +166,7 @@ const AddPublication = ({ create_publication, categories }) => {
                     onChange={onChange}
                     id="description"
                     className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500"
-                    placeholder="Write product description here"
+                    placeholder="Describe tu publicación"
                   ></input>
                 </div>
 

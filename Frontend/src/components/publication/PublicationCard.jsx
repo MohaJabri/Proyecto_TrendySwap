@@ -15,7 +15,7 @@ const PublicationCard = ({ publication }) => {
           <h3 className="text-sm text-gray-700">
             <Link to={`/publication/${publication.id}`}>
               <span aria-hidden="true" className="absolute inset-0" />
-              {publication.name}
+              {publication.service_requested}
             </Link>
           </h3>
         </div>

@@ -65,8 +65,7 @@ export const check_authenticated = () => async (dispatch) => {
 };
 
 export const signup =
-  (first_name, last_name, email, password, re_password, is_professional) =>
-  async (dispatch) => {
+  (first_name, last_name, email, password, re_password) => async (dispatch) => {
     dispatch({
       type: SET_AUTH_LOADING,
     });
@@ -80,7 +79,6 @@ export const signup =
     const body = JSON.stringify({
       first_name,
       last_name,
-      is_professional,
       email,
       password,
       re_password,

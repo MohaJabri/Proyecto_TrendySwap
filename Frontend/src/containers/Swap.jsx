@@ -20,7 +20,6 @@ const Swap = ({
   get_filtered_publications,
   filtered_publications,
 }) => {
-  console.log("hola");
   const [active, setActive] = useState(1);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [filtered, setFiltered] = useState(false);
@@ -31,6 +30,7 @@ const Swap = ({
   });
   const { category_id, sortBy, order } = formData;
   useEffect(() => {
+    window.scrollTo(0, 0);
     get_search_publications("", 1);
   }, []);
 

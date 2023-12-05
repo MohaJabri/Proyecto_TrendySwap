@@ -98,7 +98,7 @@ class PublicationListView(APIView):
     permission_classes=(permissions.AllowAny,)
     def get(self,request,format=None):
         sortBy=request.query_params.get('sortBy')
-        if not (sortBy=='date_created' or sortBy=='name'):
+        if not (sortBy=='date_created' or sortBy=='service_requested'):
             sortBy='date_created'
         
         order=request.query_params.get('order')
@@ -145,7 +145,7 @@ class PublicationSearchView(APIView):
         if len(search)==0:
             search_results=Publication.objects.order_by('-date_created').all()
         else:
-            search_results=Publication.objects.filter(Q(name__icontains=search) | Q(description__icontains=search)).order_by('-date_created')
+            search_results=Publication.objects.filter(Q(service_requested__icontains=search) | Q(description__icontains=search)).order_by('-date_created')
 
         if category_id==0:
             paginator = CustomPagination()
@@ -229,7 +229,7 @@ class ListBySearchView(APIView):
             return Response({'error':'invalid category id'},status=status.HTTP_400_BAD_REQUEST)
         sort_by=data['sort_by']
         
-        if not (sort_by=='date_created' or sort_by=='name'):
+        if not (sort_by=='date_created' or sort_by=='service_requested'):
             sort_by='date_created'
 
         order=data['order']

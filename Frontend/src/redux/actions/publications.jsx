@@ -254,7 +254,15 @@ export const get_search_publications =
   };
 
 export const create_publication =
-  (name, description, category_id, photo) => async (dispatch) => {
+  (
+    service_requested,
+    object_offered,
+    location,
+    description,
+    category_id,
+    photo
+  ) =>
+  async (dispatch) => {
     if (localStorage.getItem("access")) {
       const config = {
         headers: {
@@ -265,7 +273,9 @@ export const create_publication =
       };
 
       const body = new FormData();
-      body.append("name", name);
+      body.append("service_requested", service_requested);
+      body.append("object_offered", object_offered);
+      body.append("location", location);
       body.append("description", description);
       body.append("category", category_id);
       body.append("photo", photo);
