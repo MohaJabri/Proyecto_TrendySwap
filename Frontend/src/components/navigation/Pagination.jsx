@@ -29,7 +29,7 @@ const Pagination = ({ search, active, visitPage, previous, next }) => {
   };
 
   return (
-    <div className="flex items-center justify-center space-x-4">
+    <div className="m-4 flex items-center justify-center space-x-4">
       <div onClick={previous} className="cursor-pointer">
         Previous
       </div>

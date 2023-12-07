@@ -20,6 +20,8 @@ const Swap = ({
   get_filtered_publications,
   filtered_publications,
 }) => {
+  const [previousNumber, setPreviousNumber] = useState(0);
+  const [nextNumber, setNextNumber] = useState(0);
   const [active, setActive] = useState(1);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [filtered, setFiltered] = useState(false);
@@ -34,6 +36,13 @@ const Swap = ({
     get_search_publications("", 1);
   }, []);
 
+  useEffect(() => {
+    if (publications?.meta) {
+      setPreviousNumber(publications.meta.previous);
+      setNextNumber(publications.meta.next);
+    }
+  }, [publications]);
+
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -41,6 +50,25 @@ const Swap = ({
     e.preventDefault();
     get_filtered_publications(category_id, sortBy, order);
     setFiltered(true);
+  };
+
+  const visitPage = (page) => {
+    get_search_publications("", page);
+    setActive(page);
+  };
+
+  const previous_number = () => {
+    if (previousNumber) {
+      get_search_publications("", previousNumber);
+      setActive(active - 1);
+    }
+  };
+
+  const next_number = () => {
+    if (nextNumber) {
+      get_search_publications("", nextNumber);
+      setActive(active + 1);
+    }
   };
 
   const showPublications = () => {
@@ -466,11 +494,11 @@ const Swap = ({
               </div>
               {publications?.data?.length > 0 && (
                 <Pagination
-                  get_search={get_search_publications}
                   search={publications}
-                  searchTerm={""}
                   active={active}
-                  setActive={setActive}
+                  visitPage={visitPage}
+                  previous={previous_number}
+                  next={next_number}
                 />
               )}
             </section>

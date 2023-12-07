@@ -197,15 +197,17 @@ export const login = (email, password) => async (dispatch) => {
       dispatch(setAlert("Error al iniciar sesion.", "red"));
     }
   } catch (err) {
-    console.log(err.response);
-
     dispatch({
       type: LOGIN_FAIL,
     });
     dispatch({
       type: REMOVE_AUTH_LOADING,
     });
-    dispatch(setAlert("Error al iniciar sesion. Intenta mas tarde", "red"));
+    if (err.response?.status === 401) {
+      dispatch(setAlert("Credenciales incorrectas", "red"));
+    } else {
+      dispatch(setAlert("Error al iniciar sesion. Intenta mas tarde", "red"));
+    }
   }
 };
 

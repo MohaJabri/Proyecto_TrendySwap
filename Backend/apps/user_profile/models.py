@@ -5,7 +5,12 @@ User=settings.AUTH_USER_MODEL
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone = models.CharField(max_length=255, default='')
-
+    address = models.CharField(max_length=255, default='')
+    city = models.CharField(max_length=255, default='')
+    country = models.CharField(max_length=255, default='')
+    state = models.CharField(max_length=255, default='')
+    postal_code = models.CharField(max_length=255, default='')
+    about = models.TextField(default='')
 
     def __str__(self):
         return self.user

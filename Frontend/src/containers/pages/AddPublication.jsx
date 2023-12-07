@@ -2,8 +2,25 @@ import Layout from "../../hocs/Layout";
 import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { create_publication } from "../../redux/actions/publications";
-
+import { TailSpin } from "react-loader-spinner";
 const AddPublication = ({ create_publication, categories }) => {
+  const [loading, setLoading] = useState(false);
+  const resetForm = () => {
+    setFormData({
+      service_requested: "",
+      object_offered: "",
+      location: "",
+      description: "",
+      category_id: "",
+      photo: null,
+    });
+    setFilePreview("");
+  };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const [formData, setFormData] = useState({
     service_requested: "",
     object_offered: "",
@@ -38,9 +55,10 @@ const AddPublication = ({ create_publication, categories }) => {
     }
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    create_publication(
+    setLoading(true);
+    await create_publication(
       service_requested,
       object_offered,
       location,
@@ -48,6 +66,9 @@ const AddPublication = ({ create_publication, categories }) => {
       category_id,
       photo
     );
+    setLoading(false);
+    window.scrollTo(0, 0);
+    resetForm();
   };
 
   const onDragEnter = (e) => {
@@ -252,24 +273,45 @@ const AddPublication = ({ create_publication, categories }) => {
                   </div>
                 </div>
               </div>
-              <button
-                type="submit"
-                className="mx-auto flex items-center border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500  px-5 py-2.5 text-center "
-              >
-                <svg
-                  className="mr-1 -ml-1 w-6 h-6"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
+              {loading ? (
+                <button
+                  type="submit"
+                  className="mx-auto flex items-center border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500  px-5 py-2.5 text-center "
                 >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                    clipRule="evenodd"
-                  ></path>
-                </svg>
-                Añadir
-              </button>
+                  <svg
+                    className="mr-1 -ml-1 w-6 h-6"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                      clipRule="evenodd"
+                    ></path>
+                  </svg>
+                  <TailSpin color="#fff" width={20} height={20} />
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  className="mx-auto flex items-center border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500  px-5 py-2.5 text-center "
+                >
+                  <svg
+                    className="mr-1 -ml-1 w-6 h-6"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                      clipRule="evenodd"
+                    ></path>
+                  </svg>
+                  Añadir
+                </button>
+              )}
             </form>
           </div>
         </div>

@@ -24,6 +24,8 @@ export default function NewPublications({ data }) {
                     <Link to={`publication/${publication.id}`}>
                       <span aria-hidden="true" className="absolute inset-0" />
                       <strong>Solicito:</strong> {publication.service_requested}
+                      <br />
+                      <strong>Ofrezco:</strong> {publication.object_offered}
                     </Link>
                   </h3>
                 </div>

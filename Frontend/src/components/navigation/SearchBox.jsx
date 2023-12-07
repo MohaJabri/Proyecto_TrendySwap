@@ -2,13 +2,13 @@ import { SearchIcon } from "@heroicons/react/solid";
 
 const SearchBox = ({ categories, search, onChange, onSubmit }) => {
   return (
-    <form onSubmit={(e) => onSubmit(e)}>
-      <div className="mt-1 flex rounded-md shadow-sm">
-        <div className="mt-1 mx-1 px-2 py-1">
+    <form className="items-center" onSubmit={(e) => onSubmit(e)}>
+      <div className="flex rounded-md shadow-sm">
+        <div className="focus:outline-none hover:bg-gray-100 flex border border-gray-300 ">
           <select
             onChange={(e) => onChange(e)}
             name="category_id"
-            className="rounded-full"
+            className="px-2 focus:outline-indigo-500"
           >
             <option value={0}>All</option>
             {categories?.map((category, index) => (
@@ -24,7 +24,7 @@ const SearchBox = ({ categories, search, onChange, onSubmit }) => {
             name="search"
             onChange={(e) => onChange(e)}
             value={search}
-            className="focus:ring-indigo-500 focus:border-indigo-500 block w-full rounded-none rounded-l-md pl-4 sm:text-sm border-gray-300"
+            className="focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500  hover:bg-gray-100 px-2 py-2 border block w-full rounded-none pl-4 pr-4 sm:text-sm border-gray-300 "
             placeholder="Que quieres buscar?"
           />
         </div>

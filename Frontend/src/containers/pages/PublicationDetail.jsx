@@ -59,51 +59,30 @@ const PublicationDetail = ({
 }) => {
   const params = useParams();
   const publicationId = params.publicationId;
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     window.scrollTo(0, 0);
 
     get_publication(publicationId).then(() => {
-      setLoading(false);
+      setLoading(true);
     });
   }, []);
   return (
     <Layout>
       <div className="bg-white min-h-screen">
-        {!loading ? (
-          <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+        {loading ? (
+          <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
             <div className="lg:grid lg:grid-cols-2 lg:gap-x-8 lg:items-start">
               {/* Image gallery */}
               <ImageGallery photo={publication && publication.photo} />
               {/* Product info */}
-              <div className="mt-10 px-4 sm:px-0 sm:mt-16 lg:mt-0">
+              <div className="mt-10 p-4 sm:px-0 sm:mt-16 lg:mt-0">
                 <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">
                   {publication && publication.service_requested}
                 </h1>
                 <div className="mt-3">
                   <h2 className="sr-only">Product information</h2>
                 </div>
-                {/* Reviews */}
-                {/* <div className="mt-3">
-                <h3 className="sr-only">Reviews</h3>
-                <div className="flex items-center">
-                  <div className="flex items-center">
-                    {[0, 1, 2, 3, 4].map((rating) => (
-                      <StarIcon
-                        key={rating}
-                        className={classNames(
-                          product.rating > rating
-                            ? "text-indigo-500"
-                            : "text-gray-300",
-                          "h-5 w-5 flex-shrink-0"
-                        )}
-                        aria-hidden="true"
-                      />
-                    ))}
-                  </div>
-                  <p className="sr-only">{product.rating} out of 5 stars</p>
-                </div>
-              </div> */}
 
                 <div className="mt-6">
                   <h3 className="sr-only">Description</h3>
@@ -115,6 +94,27 @@ const PublicationDetail = ({
                     }}
                   />
                 </div>
+                <div className="mt-6 space-y-4">
+                  <div className="flex items-center">
+                    <span className="font-bold mr-2">Ofrezco:</span>
+                    <span>{publication && publication.object_offered}</span>
+                  </div>
+                  <div className="flex items-center">
+                    <span className="font-bold mr-2">Publicado por:</span>
+                    <span>{publication && publication.user_full_name}</span>
+                  </div>
+
+                  <div className="flex items-center">
+                    <span className="font-bold mr-2">
+                      Fecha de publicación:
+                    </span>
+                    <span>
+                      {publication &&
+                        new Date(publication.date_created).toLocaleDateString()}
+                    </span>
+                  </div>
+                </div>
+
                 <form className="mt-6">
                   {isAuthenticated ? (
                     <div className="mt-10 flex sm:flex-col1">

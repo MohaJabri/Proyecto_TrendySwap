@@ -21,6 +21,7 @@ import {
   DELETE_PUBLICATION_SUCCESS,
   DELETE_PUBLICATION_FAIL,
 } from "./types";
+import { setAlert } from "./alert";
 
 const backend_url = import.meta.env.VITE_API_URL;
 
@@ -292,15 +293,21 @@ export const create_publication =
             type: CREATE_PUBLICATION_SUCCESS,
             payload: res.data,
           });
+
+          dispatch(setAlert("Publicación creada", "green"));
         } else {
           dispatch({
             type: CREATE_PUBLICATION_FAIL,
           });
+
+          dispatch(setAlert("Error al crear la publicación", "red"));
         }
       } catch (err) {
         dispatch({
           type: CREATE_PUBLICATION_FAIL,
         });
+
+        dispatch(setAlert("Error al crear la publicación", "red"));
       }
     }
   };

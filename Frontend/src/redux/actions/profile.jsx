@@ -43,44 +43,53 @@ export const get_user_profile = (userId) => async (dispatch) => {
   }
 };
 
-export const update_user_profile = (phone) => async (dispatch) => {
-  if (localStorage.getItem("access")) {
-    const config = {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `JWT ${localStorage.getItem("access")}`,
-      },
-    };
+export const update_user_profile =
+  (first_name, last_name, phone, address, city, country, state, postal_code) =>
+  async (dispatch) => {
+    if (localStorage.getItem("access")) {
+      const config = {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `JWT ${localStorage.getItem("access")}`,
+        },
+      };
 
-    const body = JSON.stringify({
-      phone,
-    });
+      const body = JSON.stringify({
+        first_name,
+        last_name,
+        phone,
+        address,
+        city,
+        country,
+        state,
+        postal_code,
+      });
 
-    try {
-      const res = await axios.put(
-        `${backend_url}/api/profile/update`,
-        body,
-        config
-      );
+      try {
+        const res = await axios.put(
+          `${backend_url}/api/profile/update`,
+          body,
+          config
+        );
 
-      if (res.status === 200) {
-        dispatch({
-          type: UPDATE_USER_PROFILE_SUCCESS,
-          payload: res.data,
-        });
-        dispatch(setAlert("Profile updated successfully", "green"));
-      } else {
+        if (res.status === 200) {
+          dispatch({
+            type: UPDATE_USER_PROFILE_SUCCESS,
+            payload: res.data,
+          });
+          dispatch(setAlert("Profile updated successfully", "green"));
+        } else {
+          dispatch({
+            type: UPDATE_USER_PROFILE_FAIL,
+          });
+          dispatch(setAlert("Failed to update profile", "red"));
+        }
+      } catch (err) {
         dispatch({
           type: UPDATE_USER_PROFILE_FAIL,
         });
         dispatch(setAlert("Failed to update profile", "red"));
       }
-    } catch (err) {
-      dispatch({
-        type: UPDATE_USER_PROFILE_FAIL,
-      });
-      dispatch(setAlert("Failed to update profile", "red"));
     }
-  }
-};
+  };

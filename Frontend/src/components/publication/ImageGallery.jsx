@@ -99,7 +99,7 @@ const ImageGallery = ({ photo }) => {
             <img
               src={`${backend_url}${photo} `}
               alt={image.alt}
-              className="w-full h-full object-center object-cover sm:rounded-lg"
+              className="w-full h-screen object-center object-contain sm:rounded-lg"
             />
           </Tab.Panel>
         ))}
