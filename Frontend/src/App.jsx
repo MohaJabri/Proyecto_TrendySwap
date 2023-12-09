@@ -14,6 +14,8 @@ import Search from "./containers/pages/Search";
 import Profile from "./containers/pages/Profile";
 import AdminPage from "./containers/pages/AdminPage";
 import AddPublication from "./containers/pages/AddPublication";
+import PrivateRoute from "./components/PrivateRoute";
+import AdminPrivateRoute from "./components/AdminPrivateRoute";
 
 function App() {
   return (
@@ -42,9 +44,15 @@ function App() {
             element={<PublicationDetail />}
           />
           <Route exact path="/search" element={<Search />} />
-          <Route exact path="/profile" element={<Profile />} />
-          <Route exact path="/add_publication" element={<AddPublication />} />
-          <Route exact path="/admin" element={<AdminPage />} />
+          <Route element={<PrivateRoute />}>
+            <Route exact path="/profile" element={<Profile />} />
+            <Route exact path="/add_publication" element={<AddPublication />} />
+          </Route>
+
+          {/*Rutas de administrador*/}
+          <Route element={<AdminPrivateRoute />}>
+            <Route exact path="/admin" element={<AdminPage />} />
+          </Route>
         </Routes>
       </Router>
     </Provider>
