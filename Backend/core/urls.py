@@ -11,6 +11,7 @@ urlpatterns = [
     path('api/category/', include('apps.category.urls')),
     path('api/publication/', include('apps.publication.urls')),
     path('api/profile/', include('apps.user_profile.urls')),
+    path('api/notification/', include('apps.notification.urls')),
     path('admin/', admin.site.urls),
     
     

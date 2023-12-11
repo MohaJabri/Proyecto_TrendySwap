@@ -2,57 +2,15 @@ import Layout from "../../hocs/Layout";
 import { useParams } from "react-router";
 import { connect } from "react-redux";
 import { get_publication } from "../../redux/actions/publications";
+import { create_notification } from "../../redux/actions/notification";
 import { useEffect, useState } from "react";
 
 import { HeartIcon, MinusSmIcon, PlusSmIcon } from "@heroicons/react/outline";
 import ImageGallery from "../../components/publication/ImageGallery";
 
-const product = {
-  name: "Zip Tote Basket",
-  rating: 4,
-  images: [
-    {
-      id: 1,
-      name: "Angled view",
-      src: "https://tailwindui.com/img/ecommerce-images/product-page-03-product-01.jpg",
-      alt: "Angled front view with bag zipped and handles upright.",
-    },
-    // More images...
-  ],
-  colors: [
-    {
-      name: "Washed Black",
-      bgColor: "bg-gray-700",
-      selectedColor: "ring-gray-700",
-    },
-    { name: "White", bgColor: "bg-white", selectedColor: "ring-gray-400" },
-    {
-      name: "Washed Gray",
-      bgColor: "bg-gray-500",
-      selectedColor: "ring-gray-500",
-    },
-  ],
-  description: `
-      <p>The Zip Tote Basket is the perfect midpoint between shopping tote and comfy backpack. With convertible straps, you can hand carry, should sling, or backpack this convenient and spacious bag. The zip top and durable canvas construction keeps your goods protected for all-day use.</p>
-    `,
-  details: [
-    {
-      name: "Features",
-      items: [
-        "Multiple strap configurations",
-        "Spacious interior with top zip",
-        "Leather handle and tabs",
-        "Interior dividers",
-        "Stainless strap loops",
-        "Double stitched construction",
-        "Water-resistant",
-      ],
-    },
-    // More sections...
-  ],
-};
-
 const PublicationDetail = ({
+  user,
+  create_notification,
   get_publication,
   publication,
   isAuthenticated,
@@ -116,10 +74,11 @@ const PublicationDetail = ({
                 </div>
 
                 <form className="mt-6">
-                  {isAuthenticated ? (
+                  {isAuthenticated && user.id !== publication.user ? (
                     <div className="mt-10 flex sm:flex-col1">
                       <button
-                        type="submit"
+                        type="button"
+                        onClick={() => create_notification(publicationId)}
                         className="max-w-xs flex-1 bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500 sm:w-full"
                       >
                         Solicitar
@@ -164,7 +123,9 @@ const PublicationDetail = ({
 const mapStateToProps = (state) => ({
   isAuthenticated: state.Auth.isAuthenticated,
   publication: state.Publications.publication,
+  user: state.Auth.user,
 });
 export default connect(mapStateToProps, {
+  create_notification,
   get_publication,
 })(PublicationDetail);

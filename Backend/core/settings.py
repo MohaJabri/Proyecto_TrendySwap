@@ -19,12 +19,16 @@ ALLOWED_HOSTS = []
 # Application definition
 
 DJANGO_APPS = [
+    'daphne',
+    'apps.notification',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+
     
     
 ]
@@ -38,10 +42,12 @@ TRENDYSWAP_APPS=[
     'apps.category',
     'apps.publication',
     
+    
 
 ]
 
 THIRD_PARTY_APPS=[
+   
     'rest_framework',
     'corsheaders',
     'rest_framework_simplejwt',
@@ -94,7 +100,13 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'core.wsgi.application'
+ASGI_APPLICATION = 'core.asgi.application'
 
+CHANNEL_LAYERS = {
+    'default':{
+        'BACKEND':'channels.layers.InMemoryChannelLayer'
+    }
+}
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
