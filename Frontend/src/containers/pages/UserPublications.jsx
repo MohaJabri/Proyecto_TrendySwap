@@ -71,7 +71,7 @@ const UserPublications = ({
 
   return (
     <Layout>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto min-h-screen">
         <table className="w-full text-sm text-left text-gray-500 ">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
             <tr>
@@ -87,7 +87,7 @@ const UserPublications = ({
               </th>
 
               <th scope="col" className="px-4 py-3">
-                Usuario
+                Fecha de creación
               </th>
 
               <th
@@ -120,7 +120,9 @@ const UserPublications = ({
 
                     <td className="px-4 py-3">{publication.category_name}</td>
 
-                    <td className="px-4 py-3">{publication.user_full_name}</td>
+                    <td className="px-4 py-3">
+                      {new Date(publication.date_created).toLocaleDateString()}
+                    </td>
 
                     <td className="px-4 py-3">
                       <div className="flex justify-center gap-4">
