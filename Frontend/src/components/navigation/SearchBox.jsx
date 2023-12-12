@@ -1,11 +1,12 @@
 import { SearchIcon } from "@heroicons/react/solid";
 
-const SearchBox = ({ categories, search, onChange, onSubmit }) => {
+const SearchBox = ({ categories, search, onChange, onSubmit, category_id }) => {
   return (
     <form className="items-center" onSubmit={(e) => onSubmit(e)}>
       <div className="flex rounded-md shadow-sm">
         <div className="focus:outline-none hover:bg-gray-100 flex border border-gray-300 ">
           <select
+            value={category_id}
             onChange={(e) => onChange(e)}
             name="category_id"
             className="px-2 focus:outline-indigo-500"

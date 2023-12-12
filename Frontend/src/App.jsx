@@ -17,6 +17,8 @@ import AddPublication from "./containers/pages/AddPublication";
 import PrivateRoute from "./components/PrivateRoute";
 import AdminPrivateRoute from "./components/AdminPrivateRoute";
 import Notifications from "./containers/pages/Notifications";
+import UserPublications from "./containers/pages/UserPublications";
+import UpdatePublication from "./containers/pages/UpdatePublication";
 
 function App() {
   return (
@@ -49,6 +51,16 @@ function App() {
             <Route exact path="/profile" element={<Profile />} />
             <Route exact path="/add_publication" element={<AddPublication />} />
             <Route exact path="/notifications" element={<Notifications />} />
+            <Route
+              exact
+              path="/user_publications"
+              element={<UserPublications />}
+            />
+            <Route
+              exact
+              path="/update_publication/:publicationId"
+              element={<UpdatePublication />}
+            />
           </Route>
 
           {/*Rutas de administrador*/}

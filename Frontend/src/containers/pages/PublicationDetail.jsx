@@ -2,7 +2,10 @@ import Layout from "../../hocs/Layout";
 import { useParams } from "react-router";
 import { connect } from "react-redux";
 import { get_publication } from "../../redux/actions/publications";
-import { create_notification } from "../../redux/actions/notification";
+import {
+  create_notification,
+  send_notification,
+} from "../../redux/actions/notification";
 import { useEffect, useState } from "react";
 
 import { HeartIcon, MinusSmIcon, PlusSmIcon } from "@heroicons/react/outline";
@@ -14,6 +17,7 @@ const PublicationDetail = ({
   get_publication,
   publication,
   isAuthenticated,
+  send_notification,
 }) => {
   const params = useParams();
   const publicationId = params.publicationId;
@@ -78,7 +82,10 @@ const PublicationDetail = ({
                     <div className="mt-10 flex sm:flex-col1">
                       <button
                         type="button"
-                        onClick={() => create_notification(publicationId)}
+                        onClick={() => {
+                          create_notification(publicationId);
+                          send_notification(publication.user, user.id);
+                        }}
                         className="max-w-xs flex-1 bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500 sm:w-full"
                       >
                         Solicitar
@@ -128,4 +135,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   create_notification,
   get_publication,
+  send_notification,
 })(PublicationDetail);

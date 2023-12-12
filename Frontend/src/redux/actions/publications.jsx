@@ -25,7 +25,7 @@ import { setAlert } from "./alert";
 
 const backend_url = import.meta.env.VITE_API_URL;
 
-export const get_publications = () => async (dispatch) => {
+export const get_publications = (userID, page) => async (dispatch) => {
   const config = {
     headers: {
       Accept: "application/json",
@@ -34,7 +34,7 @@ export const get_publications = () => async (dispatch) => {
 
   try {
     const res = await axios.get(
-      `${backend_url}/api/publication/get-publications`,
+      `${backend_url}/api/publication/get-publications/?user_id=${userID}&&page=${page}`,
       config
     );
 
@@ -64,7 +64,7 @@ export const get_publications_by_arrival = () => async (dispatch) => {
 
   try {
     const res = await axios.get(
-      `${backend_url}/api/publication/get-publications?sortBy=date_created&order=desc&limit=3`,
+      `${backend_url}/api/publication/get-publications?sortBy=date_created&order=desc&limit=4`,
       config
     );
 
@@ -344,3 +344,62 @@ export const delete_publication = (publicationId) => async (dispatch) => {
     }
   }
 };
+
+export const update_publication =
+  (
+    publicationId,
+    service_requested,
+    object_offered,
+    location,
+    description,
+    category_id,
+    photo
+  ) =>
+  async (dispatch) => {
+    if (localStorage.getItem("access")) {
+      const config = {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "multipart/form-data",
+          Authorization: `JWT ${localStorage.getItem("access")}`,
+        },
+      };
+
+      const body = new FormData();
+      body.append("service_requested", service_requested);
+      body.append("object_offered", object_offered);
+      body.append("location", location);
+      body.append("description", description);
+      body.append("category", category_id);
+      body.append("photo", photo);
+
+      try {
+        const res = await axios.put(
+          `${backend_url}/api/publication/update/${publicationId}/`,
+          body,
+          config
+        );
+
+        if (res.status === 201) {
+          dispatch({
+            type: UPDATE_PUBLICATION_SUCCESS,
+            payload: res.data,
+          });
+
+          dispatch(setAlert("Publicación actualizada", "green"));
+        } else {
+          dispatch({
+            type: UPDATE_PUBLICATION_FAIL,
+          });
+
+          dispatch(setAlert("Error al actualizar la publicación", "red"));
+        }
+      } catch (err) {
+        dispatch({
+          type: UPDATE_PUBLICATION_FAIL,
+        });
+
+        dispatch(setAlert("Error al actualizar la publicación", "red"));
+      }
+    }
+  };

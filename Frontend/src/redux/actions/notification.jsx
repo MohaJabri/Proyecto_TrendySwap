@@ -1,9 +1,12 @@
 import axios from "axios";
+import { setAlert } from "./alert";
 import {
   GET_NOTIFICATIONS_FAIL,
   GET_NOTIFICATIONS_SUCCESS,
   CREATE_NOTIFICATION_FAIL,
   CREATE_NOTIFICATION_SUCCESS,
+  SEND_NOTIFICATION_SUCCESS,
+  SEND_NOTIFICATION_FAIL,
 } from "./types";
 
 const backend_url = import.meta.env.VITE_API_URL;
@@ -75,3 +78,45 @@ export const create_notification = (publication_id) => async (dispatch) => {
     });
   }
 };
+
+export const send_notification =
+  (owner_publication_id, user_requesting_id) => async (dispatch) => {
+    const config = {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `JWT ${localStorage.getItem("access")}`,
+      },
+    };
+
+    const body = JSON.stringify({
+      owner_publication_id,
+      user_requesting_id,
+    });
+
+    try {
+      const res = await axios.post(
+        `${backend_url}/api/notification/sendNotification/`,
+        body,
+        config
+      );
+
+      if (res.status === 200) {
+        dispatch({
+          type: SEND_NOTIFICATION_SUCCESS,
+          payload: res.data,
+        });
+        dispatch(setAlert("Notificación enviada", "green"));
+      } else {
+        dispatch({
+          type: SEND_NOTIFICATION_FAIL,
+        });
+        dispatch(setAlert("Error al enviar notificación", "red"));
+      }
+    } catch (err) {
+      dispatch({
+        type: SEND_NOTIFICATION_FAIL,
+      });
+      dispatch(setAlert("Error al enviar notificación", "red"));
+    }
+  };

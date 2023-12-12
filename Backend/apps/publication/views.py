@@ -95,39 +95,54 @@ class PublicationDetailView(APIView):
             return Response({'error':'publication does not exist'},status=status.HTTP_404_NOT_FOUND)
 
 class PublicationListView(APIView):
-    permission_classes=(permissions.AllowAny,)
-    def get(self,request,format=None):
-        sortBy=request.query_params.get('sortBy')
-        if not (sortBy=='date_created' or sortBy=='service_requested'):
-            sortBy='date_created'
+    permission_classes = (permissions.AllowAny,)
+    pagination_class = CustomPagination
+
+    def get(self, request, format=None):
+        user_id = request.query_params.get('user_id')
+        user_publications = Publication.objects.all()
+
+        # Filtrar por usuario si se proporciona user_id
+        if user_id:
+            try:
+                user_id = int(user_id)
+                user_publications = user_publications.filter(user_id=user_id)
+            except ValueError:
+                return Response({'error': 'Invalid user_id'}, status=status.HTTP_400_BAD_REQUEST)
         
-        order=request.query_params.get('order')
-        limit=request.query_params.get('limit')
+        sortBy = request.query_params.get('sortBy')
+        if not (sortBy == 'date_created' or sortBy == 'service_requested'):
+            sortBy = 'date_created'
+        
+        order = request.query_params.get('order')
+        limit = request.query_params.get('limit')
 
         if not limit:
-            limit=6
+            limit = 6
         else:
             try:
-                limit=int(limit)
-            except:
-                return Response({'error':'invalid limit'},status=status.HTTP_400_BAD_REQUEST)
+                limit = int(limit)
+            except ValueError:
+                return Response({'error': 'Invalid limit'}, status=status.HTTP_400_BAD_REQUEST)
 
-        if limit<=0:
-            limit=6
+        if limit <= 0:
+            limit = 6
     
-        if order=='desc':
-            sortBy='-'+ sortBy
-            publications=Publication.objects.all().order_by(sortBy)[:limit]
-        elif order=='asc':
-            publications=Publication.objects.all().order_by(sortBy)[:limit]
+        if order == 'desc':
+            sortBy = '-' + sortBy
+            user_publications = user_publications.order_by(sortBy)[:limit]
+        elif order == 'asc':
+            user_publications = user_publications.order_by(sortBy)[:limit]
         else:
-            publications=Publication.objects.all().order_by(sortBy)
+            user_publications = user_publications.order_by(sortBy)
         
-        publications=PublicationSerializer(publications,many=True)
-        if Publication:
-            return Response({'publications': publications.data},status=status.HTTP_200_OK)
+        publications = PublicationSerializer(user_publications, many=True)
+        if publications:
+            paginator = self.pagination_class()
+            result_page = paginator.paginate_queryset(publications.data, request)
+            return paginator.get_paginated_response(result_page)
         else:
-            return Response({'error':'no publications found'},status=status.HTTP_404_NOT_FOUND)
+            return Response({'error': 'No publications found'}, status=status.HTTP_404_NOT_FOUND)
         
 class PublicationSearchView(APIView):
     permission_classes=(permissions.AllowAny,)
@@ -145,8 +160,8 @@ class PublicationSearchView(APIView):
         if len(search)==0:
             search_results=Publication.objects.order_by('-date_created').all()
         else:
-            search_results=Publication.objects.filter(Q(service_requested__icontains=search) | Q(description__icontains=search)).order_by('-date_created')
-
+            search_results=Publication.objects.filter(Q(service_requested__icontains=search) | Q(description__icontains=search)| Q(object_offered__icontains=search)).order_by('-date_created')
+                                                      
         if category_id==0:
             paginator = CustomPagination()
             paginated_publications = paginator.paginate_queryset(search_results, request)

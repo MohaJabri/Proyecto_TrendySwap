@@ -38,7 +38,7 @@ export default function Publications(state = initialState, action) {
     case GET_PUBLICATIONS_SUCCESS:
       return {
         ...state,
-        publications: payload.publications,
+        publications: payload,
       };
     case GET_PUBLICATIONS_FAIL:
       return {
@@ -48,7 +48,7 @@ export default function Publications(state = initialState, action) {
     case GET_PUBLICATIONS_BY_ARRIVAL_SUCCESS:
       return {
         ...state,
-        publications_arrival: payload.publications,
+        publications_arrival: payload.data,
       };
     case GET_PUBLICATIONS_BY_ARRIVAL_FAIL:
       return {

@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { TrashIcon, PlusCircleIcon } from "@heroicons/react/outline";
+import {
+  TrashIcon,
+  PlusCircleIcon,
+  PencilIcon,
+} from "@heroicons/react/outline";
 import {
   delete_publication,
   get_search_publications,
@@ -111,6 +115,9 @@ const Publications = ({
 
                   <td className="px-4 py-3">
                     <div className="flex justify-center gap-4">
+                      <Link to={`/update_publication/${publication.id}`}>
+                        <PencilIcon className="h-6 w-6 text-green-600 cursor-pointer" />
+                      </Link>
                       <TrashIcon
                         className="h-6 w-6 text-red-300 cursor-pointer"
                         onClick={() => onDelete(publication.id)}

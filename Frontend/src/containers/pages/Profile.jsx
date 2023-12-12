@@ -34,7 +34,7 @@ const Profile = ({ user, update_user_profile, profile, get_user_profile }) => {
     country,
     postal_code,
   } = formData;
-  console.log("profile");
+
   useEffect(() => {
     if (user && !profile) {
       get_user_profile(user.id);

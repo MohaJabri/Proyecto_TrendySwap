@@ -18,59 +18,36 @@ import { getCategories } from "../../redux/actions/categories";
 import { get_search_publications } from "../../redux/actions/publications";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import SearchBox from "./SearchBox";
-
-const solutions = [
-  {
-    name: "Analytics",
-    description:
-      "Get a better understanding of where your traffic is coming from.",
-    href: "#",
-    icon: ChartBarIcon,
-  },
-  {
-    name: "Engagement",
-    description: "Speak directly to your customers in a more meaningful way.",
-    href: "#",
-    icon: CursorClickIcon,
-  },
-  {
-    name: "Security",
-    description: "Your customers' data will be safe and secure.",
-    href: "#",
-    icon: ShieldCheckIcon,
-  },
-  {
-    name: "Integrations",
-    description: "Connect with third-party tools that you're already using.",
-    href: "#",
-    icon: ViewGridIcon,
-  },
-];
-
+import { get_notifications } from "../../redux/actions/notification";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 function Navbar({
+  get_notifications,
+  update,
   isAuthenticated,
   user,
   logout,
   getCategories,
   categories,
+  notifications,
   get_search_publications,
 }) {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const initialSearchTerm = searchParams.get("query") || "";
+  const initialCategoryId = searchParams.get("category_id") || 0;
   const navigate = useNavigate();
+  const [notificationLength, setNotificationLength] = useState(null);
   const [authReady, setAuthReady] = useState(false);
   const [render, setRender] = useState(false);
   const [formData, setFormData] = useState({
-    category_id: 0,
+    category_id: initialCategoryId,
     search: initialSearchTerm,
   });
   const { category_id, search } = formData;
-
+  console.log(notificationLength);
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -91,6 +68,16 @@ function Navbar({
   }, []);
 
   useEffect(() => {
+    if (isAuthenticated) {
+      get_notifications();
+    }
+  }, [isAuthenticated, update]);
+
+  useEffect(() => {
+    if (notifications !== null) setNotificationLength(notifications?.length);
+  }, [notifications, update]);
+
+  useEffect(() => {
     if (isAuthenticated !== null) {
       setAuthReady(true);
     }
@@ -101,12 +88,12 @@ function Navbar({
     navigate("/");
   };
 
-  const authLinks = (
+  const authLinks = authReady && notificationLength !== null && (
     <div className="flex items-center">
       <Link to="/notifications" className="mx-4 inline-block relative">
         <BellIcon className="h-7 w-7 text-gray-600" />
         <span className="absolute top-0 right-0 -mt-1 -mr-2 bg-red-500 rounded-full w-4 h-4 flex items-center justify-center text-xs text-white">
-          5 {/* Aquí va el número que deseas mostrar */}
+          {notificationLength}
         </span>
       </Link>
       <Menu as="div" className="relative inline-block text-left">
@@ -158,6 +145,19 @@ function Navbar({
                     )}
                   >
                     Publicar
+                  </Link>
+                )}
+              </Menu.Item>
+              <Menu.Item>
+                {({ active }) => (
+                  <Link
+                    to="/user_publications"
+                    className={classNames(
+                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                      "block px-4 py-2 text-sm"
+                    )}
+                  >
+                    Editar Publicaciones
                   </Link>
                 )}
               </Menu.Item>
@@ -234,6 +234,7 @@ function Navbar({
 
                 <SearchBox
                   search={search}
+                  category_id={category_id}
                   onChange={onChange}
                   onSubmit={onSubmit}
                   categories={categories}
@@ -284,95 +285,31 @@ function Navbar({
                     </Popover.Button>
                   </div>
                 </div>
-                <div className="mt-6 sm:mt-8">
-                  <nav>
-                    <div className="grid gap-7 sm:grid-cols-2 sm:gap-y-8 sm:gap-x-4">
-                      {solutions.map((item) => (
-                        <a
-                          key={item.name}
-                          href={item.href}
-                          className="-m-3 flex items-center p-3 rounded-lg hover:bg-gray-50"
-                        >
-                          <div className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-indigo-500 text-white sm:h-12 sm:w-12">
-                            <item.icon className="h-6 w-6" aria-hidden="true" />
-                          </div>
-                          <div className="ml-4 text-base font-medium text-gray-900">
-                            {item.name}
-                          </div>
-                        </a>
-                      ))}
-                    </div>
-                    <div className="mt-8 text-base">
-                      <a
-                        href="#"
-                        className="font-medium text-indigo-600 hover:text-indigo-500"
-                      >
-                        {" "}
-                        View all products <span aria-hidden="true">&rarr;</span>
-                      </a>
-                    </div>
-                  </nav>
-                </div>
               </div>
               <div className="py-6 px-5">
                 <div className="grid grid-cols-2 gap-4">
-                  <a
-                    href="#"
+                  <Link
+                    to="/swap"
                     className="rounded-md text-base font-medium text-gray-900 hover:text-gray-700"
                   >
-                    Pricing
-                  </a>
-
-                  <a
-                    href="#"
-                    className="rounded-md text-base font-medium text-gray-900 hover:text-gray-700"
-                  >
-                    Docs
-                  </a>
-
-                  <a
-                    href="#"
-                    className="rounded-md text-base font-medium text-gray-900 hover:text-gray-700"
-                  >
-                    Company
-                  </a>
-
-                  <a
-                    href="#"
-                    className="rounded-md text-base font-medium text-gray-900 hover:text-gray-700"
-                  >
-                    Resources
-                  </a>
-
-                  <a
-                    href="#"
-                    className="rounded-md text-base font-medium text-gray-900 hover:text-gray-700"
-                  >
-                    Blog
-                  </a>
-
-                  <a
-                    href="#"
-                    className="rounded-md text-base font-medium text-gray-900 hover:text-gray-700"
-                  >
-                    Contact Sales
-                  </a>
+                    Intercambiar
+                  </Link>
                 </div>
                 <div className="mt-6">
-                  <a
-                    href="#"
+                  <Link
+                    to="/signup"
                     className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
                   >
                     Sign up
-                  </a>
+                  </Link>
                   <p className="mt-6 text-center text-base font-medium text-gray-500">
-                    Existing customer?{" "}
-                    <a
-                      href="#"
+                    Ya esta registrado?{" "}
+                    <Link
+                      to="/login"
                       className="text-indigo-600 hover:text-indigo-500"
                     >
                       Sign in
-                    </a>
+                    </Link>
                   </p>
                 </div>
               </div>
@@ -389,6 +326,7 @@ const mapStateToProps = (state) => {
     isAuthenticated: state.Auth.isAuthenticated,
     user: state.Auth.user,
     categories: state.Categories.categories,
+    notifications: state.Notifications.notifications,
   };
 };
 
@@ -396,4 +334,5 @@ export default connect(mapStateToProps, {
   logout,
   getCategories,
   get_search_publications,
+  get_notifications,
 })(Navbar);

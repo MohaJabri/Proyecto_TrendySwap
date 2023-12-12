@@ -3,11 +3,7 @@ import { useEffect } from "react";
 import { get_notifications } from "../../redux/actions/notification";
 import Layout from "../../hocs/Layout";
 
-const Notifications = ({ get_notifications, notifications }) => {
-  useEffect(() => {
-    get_notifications();
-  }, []);
-
+const Notifications = ({ notifications }) => {
   const handleAccept = (id) => {
     console.log(`Notificación aceptada: ${id}`);
   };
@@ -19,7 +15,7 @@ const Notifications = ({ get_notifications, notifications }) => {
   return (
     <Layout>
       <div className="flex flex-wrap justify-center">
-        {notifications.map((notification) => (
+        {notifications?.map((notification) => (
           <div
             key={notification.id}
             className="max-w-sm rounded overflow-hidden shadow-lg m-4"
@@ -63,4 +59,4 @@ const mapStateToProps = (state) => ({
   notifications: state.Notifications.notifications,
 });
 
-export default connect(mapStateToProps, { get_notifications })(Notifications);
+export default connect(mapStateToProps)(Notifications);

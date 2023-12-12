@@ -6,7 +6,7 @@ import {
 } from "../actions/types";
 
 const initialState = {
-  notifications: [],
+  notifications: null,
 };
 
 export default function Notifications(state = initialState, action) {
@@ -21,7 +21,7 @@ export default function Notifications(state = initialState, action) {
     case GET_NOTIFICATIONS_FAIL:
       return {
         ...state,
-        notifications: [],
+        notifications: null,
       };
     case CREATE_NOTIFICATION_SUCCESS:
     case CREATE_NOTIFICATION_FAIL:
