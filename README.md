@@ -5,7 +5,7 @@ Este es un proyecto desarrollado por [Mohammed Jabri](https://github.com/MohaJab
 El proyecto consiste en una app de trueques de objetos por servicios.
 
 ## Tutores del proyecto
-- [Fernández Hernández, Gonzalo](https://github.com/GonxFH) [Tutor General/Tutora Individual]
+- [Fernández Hernández, Gonzalo](https://github.com/GonxFH) [Tutor General/Tutor Individual]
 
 ## Requisitos
 - Es necesario tener instalado [Docker](https://www.docker.com/)
