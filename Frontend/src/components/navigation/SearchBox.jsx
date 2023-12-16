@@ -1,9 +1,52 @@
 import { SearchIcon } from "@heroicons/react/solid";
 
-const SearchBox = ({ categories, search, onChange, onSubmit, category_id }) => {
+const SearchBox = ({
+  categories,
+  search,
+  onChange,
+  onSubmit,
+  category_id,
+  location,
+}) => {
+  const comunidadesAutonomas = [
+    { id: 1, name: "Andalucía" },
+    { id: 2, name: "Aragón" },
+    { id: 3, name: "Asturias" },
+    { id: 4, name: "Islas Baleares" },
+    { id: 5, name: "Islas Canarias" },
+    { id: 6, name: "Cantabria" },
+    { id: 7, name: "Castilla-La Mancha" },
+    { id: 8, name: "Castilla y León" },
+    { id: 9, name: "Cataluña" },
+    { id: 10, name: "Comunidad Valenciana" },
+    { id: 11, name: "Extremadura" },
+    { id: 12, name: "Galicia" },
+    { id: 13, name: "Comunidad de Madrid" },
+    { id: 14, name: "Región de Murcia" },
+    { id: 15, name: "Comunidad Foral de Navarra" },
+    { id: 16, name: "País Vasco (Euskadi)" },
+    { id: 17, name: "La Rioja" },
+    { id: 18, name: "Ceuta" },
+    { id: 19, name: "Melilla" },
+  ];
   return (
     <form className="items-center" onSubmit={(e) => onSubmit(e)}>
       <div className="flex rounded-md shadow-sm">
+        <div className="focus:outline-none hover:bg-gray-100 flex border border-gray-300 ">
+          <select
+            value={location}
+            onChange={(e) => onChange(e)}
+            name="location"
+            className="px-2 focus:outline-indigo-500"
+          >
+            <option value={""}>Ubicaciones</option>
+            {comunidadesAutonomas?.map((location, index) => (
+              <option key={index} value={location.name}>
+                {location.name}
+              </option>
+            ))}
+          </select>
+        </div>
         <div className="focus:outline-none hover:bg-gray-100 flex border border-gray-300 ">
           <select
             value={category_id}
@@ -11,7 +54,7 @@ const SearchBox = ({ categories, search, onChange, onSubmit, category_id }) => {
             name="category_id"
             className="px-2 focus:outline-indigo-500"
           >
-            <option value={0}>All</option>
+            <option value={0}>Todas las categorías</option>
             {categories?.map((category, index) => (
               <option key={index} value={category.id}>
                 {category.name}

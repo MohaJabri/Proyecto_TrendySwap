@@ -34,10 +34,11 @@ function Navbar({
   notifications,
   get_search_publications,
 }) {
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
+  const location_ = useLocation();
+  const searchParams = new URLSearchParams(location_.search);
   const initialSearchTerm = searchParams.get("query") || "";
   const initialCategoryId = searchParams.get("category_id") || 0;
+  const initialLocation = searchParams.get("location") || "";
   const navigate = useNavigate();
   const [notificationLength, setNotificationLength] = useState(null);
   const [authReady, setAuthReady] = useState(false);
@@ -45,20 +46,23 @@ function Navbar({
   const [formData, setFormData] = useState({
     category_id: initialCategoryId,
     search: initialSearchTerm,
+    location: initialLocation,
   });
-  const { category_id, search } = formData;
-  console.log(notificationLength);
+  const { category_id, search, location } = formData;
+
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = async (e) => {
     e.preventDefault();
     if (search.length > 0) {
-      get_search_publications(search, 1, category_id);
+      get_search_publications(search, 1, category_id, location);
       setRender(!render);
 
       if (!render) {
-        navigate(`/search?query=${search}&category_id=${category_id}`);
+        navigate(
+          `/search?query=${search}&category_id=${category_id}&location=${location}`
+        );
       }
     }
   };
@@ -235,6 +239,7 @@ function Navbar({
                 <SearchBox
                   search={search}
                   category_id={category_id}
+                  location={location}
                   onChange={onChange}
                   onSubmit={onSubmit}
                   categories={categories}

@@ -175,13 +175,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS=[
     'http://localhost:3000',
     'http://localhost:8000',
-    'http://localhost:5173'
+    'http://localhost',
 ]
 
 CORS_ALLOWED_WHITELIST=[
     'http://localhost:3000',
     'http://localhost:8000',
-    'http://localhost:5173'
+    'http://localhost',
 ]
 
 PASSWORD_HASHERS = [
@@ -202,7 +202,7 @@ SIMPLE_JWT={
 
 }
 
-DOMAIN = 'localhost:5173'
+DOMAIN = 'localhost:80'
 
 DJOSER={
     'LOGIN_FIELD':'email',

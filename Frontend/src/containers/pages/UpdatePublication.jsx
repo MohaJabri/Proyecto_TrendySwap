@@ -15,6 +15,27 @@ const UpdatePublication = ({
   get_publication,
   publication,
 }) => {
+  const comunidadesAutonomas = [
+    { id: 1, name: "Andalucía" },
+    { id: 2, name: "Aragón" },
+    { id: 3, name: "Asturias" },
+    { id: 4, name: "Islas Baleares" },
+    { id: 5, name: "Islas Canarias" },
+    { id: 6, name: "Cantabria" },
+    { id: 7, name: "Castilla-La Mancha" },
+    { id: 8, name: "Castilla y León" },
+    { id: 9, name: "Cataluña" },
+    { id: 10, name: "Comunidad Valenciana" },
+    { id: 11, name: "Extremadura" },
+    { id: 12, name: "Galicia" },
+    { id: 13, name: "Comunidad de Madrid" },
+    { id: 14, name: "Región de Murcia" },
+    { id: 15, name: "Comunidad Foral de Navarra" },
+    { id: 16, name: "País Vasco (Euskadi)" },
+    { id: 17, name: "La Rioja" },
+    { id: 18, name: "Ceuta" },
+    { id: 19, name: "Melilla" },
+  ];
   const inputRef = useRef(null);
   const params = useParams();
   const publicationId = params.publicationId;
@@ -176,20 +197,25 @@ const UpdatePublication = ({
 
                 <div>
                   <label
-                    htmlFor="name"
-                    className="block mb-2 text-sm font-medium text-gray-900 "
+                    htmlFor="comunidad-autonoma"
+                    className="block mb-2 text-sm font-medium text-gray-900"
                   >
                     Ubicación
                   </label>
-                  <input
-                    value={location}
+                  <select
+                    value={formData.location}
                     onChange={onChange}
-                    type="text"
                     name="location"
-                    id="location"
+                    id="comunidad-autonoma"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                    placeholder="Donde te encuentras?"
-                  />
+                  >
+                    <option value="">Selecciona una comunidad autónoma</option>
+                    {comunidadesAutonomas.map((comunidad) => (
+                      <option key={comunidad.id} value={comunidad.name}>
+                        {comunidad.name}
+                      </option>
+                    ))}
+                  </select>
                 </div>
 
                 <div className="sm:col-span-2">

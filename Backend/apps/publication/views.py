@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from .serializers import PublicationSerializer
 from core.pagination import CustomPagination
 from django.db.models import Q
+from django.shortcuts import get_object_or_404
 
 
 class CreatePublicationView(APIView):
@@ -145,54 +146,48 @@ class PublicationListView(APIView):
             return Response({'error': 'No publications found'}, status=status.HTTP_404_NOT_FOUND)
         
 class PublicationSearchView(APIView):
-    permission_classes=(permissions.AllowAny,)
+    permission_classes = (permissions.AllowAny,)
     
-    def post(self,request,format=None):
-        data=request.data
+    def post(self, request, format=None):
+        data = request.data
         
         try:
-            category_id=int(data['category_id'])
-        except:
-            return Response({'error':'invalid category id'},status=status.HTTP_400_BAD_REQUEST)
+            category_id = int(data['category_id'])
+            location = data['location']
+        except KeyError:
+            return Response({'error': 'Invalid data provided'}, status=status.HTTP_400_BAD_REQUEST)
         
-        search=data['search']
+        search = data.get('search', '')
 
-        if len(search)==0:
-            search_results=Publication.objects.order_by('-date_created').all()
-        else:
-            search_results=Publication.objects.filter(Q(service_requested__icontains=search) | Q(description__icontains=search)| Q(object_offered__icontains=search)).order_by('-date_created')
-                                                      
-        if category_id==0:
-            paginator = CustomPagination()
-            paginated_publications = paginator.paginate_queryset(search_results, request)
-            paginated_publications=PublicationSerializer(paginated_publications,many=True)
-            return paginator.get_paginated_response(paginated_publications.data)
-       
+        search_results = Publication.objects.order_by('-date_created')
 
-        if not Category.objects.filter(id=category_id).exists():
-            return Response({'error':'category does not exist'},status=status.HTTP_404_NOT_FOUND)
-        
-        category=Category.objects.get(id=category_id)
+        if search:
+            search_results = search_results.filter(
+                Q(service_requested__icontains=search) |
+                Q(description__icontains=search) |
+                Q(object_offered__icontains=search)|
+                Q(location__icontains=search)
+            )
 
-        if category.parent:
-            search_results=search_results.order_by('-date_created').filter(category=category)
-        else:
-            if not Category.objects.filter(parent=category).exists():
-                search_results=search_results.order_by('-date_created').filter(category=category)
+        if location:
+            search_results = search_results.filter(location__icontains=location)
+
+        if category_id != 0:
+            category = get_object_or_404(Category, id=category_id)
+
+            if category.parent:
+                search_results = search_results.filter(category=category)
             else:
-                categories=Category.objects.filter(parent=category)
-                filtered_categories=[category]
-                for category in categories:
-                    filtered_categories.append(category)
-
-                filtered_categories=tuple(filtered_categories)
-                search_results=search_results.order_by('-date_created').filter(category__in=filtered_categories)
+                categories = Category.objects.filter(parent=category)
+                filtered_categories = [category] + list(categories)
+                search_results = search_results.filter(category__in=filtered_categories)
         
         paginator = CustomPagination()
         paginated_publications = paginator.paginate_queryset(search_results, request)
-        paginated_publications=PublicationSerializer(paginated_publications,many=True)
+        paginated_publications = PublicationSerializer(paginated_publications, many=True)
         return paginator.get_paginated_response(paginated_publications.data)
     
+
 class RelatedPublicationsListView(APIView):
     permissions_classes=(permissions.AllowAny,)
     def get(self,request,publicationId,format=None):
