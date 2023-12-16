@@ -75,6 +75,10 @@ const PublicationDetail = ({
                         new Date(publication.date_created).toLocaleDateString()}
                     </span>
                   </div>
+                  <div className="flex items-center">
+                    <span className="font-bold mr-2">Ubicación:</span>
+                    <span>{publication && publication.location}</span>
+                  </div>
                 </div>
 
                 <form className="mt-6">

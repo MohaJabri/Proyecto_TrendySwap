@@ -55,15 +55,14 @@ function Navbar({
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (search.length > 0) {
-      get_search_publications(search, 1, category_id, location);
-      setRender(!render);
 
-      if (!render) {
-        navigate(
-          `/search?query=${search}&category_id=${category_id}&location=${location}`
-        );
-      }
+    get_search_publications(search, 1, category_id, location);
+    setRender(!render);
+
+    if (!render) {
+      navigate(
+        `/search?query=${search}&category_id=${category_id}&location=${location}`
+      );
     }
   };
 
