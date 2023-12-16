@@ -202,7 +202,7 @@ SIMPLE_JWT={
 
 }
 
-DOMAIN = 'localhost:80'
+DOMAIN = 'localhost'
 
 DJOSER={
     'LOGIN_FIELD':'email',

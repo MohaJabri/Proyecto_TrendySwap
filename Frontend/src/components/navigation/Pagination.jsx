@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
+
 const Pagination = ({ search, active, visitPage, previous, next }) => {
   const totalPages = Math.ceil(search.meta.count / 9);
+
+  if (totalPages <= 1) {
+    return null; // No renderizar la paginación si solo hay una página
+  }
 
   const handlePageClick = (pageNumber) => {
     visitPage(pageNumber);

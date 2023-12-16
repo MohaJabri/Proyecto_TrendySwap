@@ -1,7 +1,3 @@
 export const Footer = () => {
-    return (
-        <footer>
-            ©2023 TrendySwap
-        </footer>
-    )
-}
+  return <footer className="absolute bottom-0 sticky">©2023 TrendySwap</footer>;
+};

@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 
 import { HeartIcon, MinusSmIcon, PlusSmIcon } from "@heroicons/react/outline";
 import ImageGallery from "../../components/publication/ImageGallery";
+import { mapas } from "../../utils/mapas";
 
 const PublicationDetail = ({
   user,
@@ -29,6 +30,7 @@ const PublicationDetail = ({
       setLoading(true);
     });
   }, []);
+
   return (
     <Layout>
       <div className="bg-white min-h-screen">
@@ -113,7 +115,12 @@ const PublicationDetail = ({
                   {/* mapa */}
                   <div className="mt-2">
                     <iframe
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d50317.625296681974!2d-1.1683747967137692!3d37.98059286957874!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd6381f8d5928c7f%3A0xd627129b38c4ab9a!2sMurcia!5e0!3m2!1ses!2ses!4v1700760018627!5m2!1ses!2ses"
+                      src={
+                        publication &&
+                        mapas.find(
+                          (mapa) => mapa.name === publication?.location
+                        )?.value
+                      }
                       width="600"
                       height="450"
                       loading="lazy"

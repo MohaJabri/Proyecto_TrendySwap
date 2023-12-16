@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 const backend_url = import.meta.env.VITE_API_URL;
 export default function NewPublications({ data }) {
   return (
-    <div className="bg-white  min-h-screen">
-      <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+    <div className="bg-white">
+      <div className="max-w-2xl mx-auto py-8 px-4 sm:py-4 sm:px-6 lg:max-w-7xl lg:px-8">
         <h2 className="text-2xl font-extrabold tracking-tight text-gray-900">
           Publicaciones Recientes
         </h2>
