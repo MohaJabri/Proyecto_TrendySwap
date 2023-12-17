@@ -5,6 +5,7 @@ import { get_publication } from "../../redux/actions/publications";
 import {
   create_notification,
   send_notification,
+  check_notifications_sended,
 } from "../../redux/actions/notification";
 import { useEffect, useState } from "react";
 
@@ -14,22 +15,24 @@ import { mapas } from "../../utils/mapas";
 
 const PublicationDetail = ({
   user,
+  check_notifications_sended,
   create_notification,
   get_publication,
   publication,
   isAuthenticated,
   send_notification,
+  notification_sent,
 }) => {
   const params = useParams();
   const publicationId = params.publicationId;
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     window.scrollTo(0, 0);
-
+    check_notifications_sended(publicationId);
     get_publication(publicationId).then(() => {
       setLoading(true);
     });
-  }, []);
+  }, [notification_sent.notification_sent]);
 
   return (
     <Layout>
@@ -142,8 +145,10 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.Auth.isAuthenticated,
   publication: state.Publications.publication,
   user: state.Auth.user,
+  notification_sent: state.Notifications.notification_sent,
 });
 export default connect(mapStateToProps, {
+  check_notifications_sended,
   create_notification,
   get_publication,
   send_notification,

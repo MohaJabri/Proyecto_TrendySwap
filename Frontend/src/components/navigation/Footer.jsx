@@ -13,8 +13,8 @@ export const Footer = () => {
         </div>
 
         <p className="mx-auto mt-6 max-w-md text-center leading-relaxed text-gray-500">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt
-          consequuntur amet culpa cum itaque neque.
+          Gracias por confiar en nosotros, TrendySwap no decepciona. Copyright ©
+          2023 TrendySwap
         </p>
 
         <ul className="mt-12 flex flex-wrap justify-center gap-6 md:gap-8 lg:gap-12">
@@ -41,7 +41,7 @@ export const Footer = () => {
           <li>
             <Link
               className="text-gray-700 transition hover:text-gray-700/75"
-              TO="/search"
+              to="/search"
             >
               {" "}
               Buscar{" "}

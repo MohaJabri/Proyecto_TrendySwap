@@ -192,13 +192,13 @@ function Navbar({
         to="/login"
         className="text-base font-medium text-gray-500 hover:text-gray-900"
       >
-        Sign in
+        Acceder
       </Link>
       <Link
         to="/signup"
         className="ml-8 inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
       >
-        Sign up
+        Registrarse
       </Link>
     </Fragment>
   );
@@ -234,10 +234,11 @@ function Navbar({
                   to="/swap"
                   className="text-base font-medium text-gray-500 hover:text-gray-900"
                 >
-                  Intercambiar
+                  Swap
                 </Link>
 
                 <SearchBox
+                  order={order}
                   search={search}
                   category_id={category_id}
                   location={location}
@@ -280,7 +281,7 @@ function Navbar({
                   <div>
                     <img
                       className="h-8 w-auto"
-                      src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+                      src="https://icons.veryicon.com/png/o/miscellaneous/mirror-icon/swap-8.png"
                       alt="Workflow"
                     />
                   </div>
@@ -306,7 +307,7 @@ function Navbar({
                     to="/signup"
                     className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
                   >
-                    Sign up
+                    Registrarse
                   </Link>
                   <p className="mt-6 text-center text-base font-medium text-gray-500">
                     Ya esta registrado?{" "}
@@ -314,7 +315,7 @@ function Navbar({
                       to="/login"
                       className="text-indigo-600 hover:text-indigo-500"
                     >
-                      Sign in
+                      Acceder
                     </Link>
                   </p>
                 </div>

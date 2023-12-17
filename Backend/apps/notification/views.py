@@ -131,3 +131,20 @@ class rejectRequest(APIView):
             return Response({'message': 'Estado de la notificación actualizado'}, status=status.HTTP_200_OK)
         except Notification.DoesNotExist:
             return Response({'message': 'No se encontró la notificación'}, status=status.HTTP_404_NOT_FOUND)
+
+class CheckNotificationSent(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, format=None):
+        publication_id = request.data.get('publication_id')
+
+        if not publication_id:
+            return Response({'message': 'Falta el ID de la publicación'}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Verificar si el usuario ya ha enviado una notificación para esta publicación
+        existing_notification = Notification.objects.filter(
+            user_from=request.user,
+            related_publication_id=publication_id
+        ).exists()
+
+        return Response({'notification_sent': existing_notification}, status=status.HTTP_200_OK)

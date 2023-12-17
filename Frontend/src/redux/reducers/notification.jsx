@@ -5,11 +5,14 @@ import {
   CREATE_NOTIFICATION_SUCCESS,
   REJECT_REQUEST_SUCCESS,
   REJECT_REQUEST_FAIL,
+  CHECK_NOTIFICATIONS_SENDED_SUCCESS,
+  CHECK_NOTIFICATIONS_SENDED_FAIL,
 } from "../actions/types";
 
 const initialState = {
   notifications: null,
   huboCambio: false,
+  notification_sent: false,
 };
 
 export default function Notifications(state = initialState, action) {
@@ -36,7 +39,11 @@ export default function Notifications(state = initialState, action) {
 
     case REJECT_REQUEST_SUCCESS:
     case REJECT_REQUEST_FAIL:
-
+    case CHECK_NOTIFICATIONS_SENDED_SUCCESS:
+      return {
+        ...state,
+        notification_sent: payload,
+      };
     default:
       return state;
   }

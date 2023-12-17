@@ -11,6 +11,8 @@ import {
   SEND_EMAIL_FAIL,
   REJECT_REQUEST_SUCCESS,
   REJECT_REQUEST_FAIL,
+  CHECK_NOTIFICATIONS_SENDED_SUCCESS,
+  CHECK_NOTIFICATIONS_SENDED_FAIL,
 } from "./types";
 
 const backend_url = import.meta.env.VITE_API_URL;
@@ -213,3 +215,41 @@ export const reject_request = (notification_id) => async (dispatch) => {
     dispatch(setAlert("Error al rechazar solicitud", "red"));
   }
 };
+
+export const check_notifications_sended =
+  (publication_id) => async (dispatch) => {
+    const config = {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `JWT ${localStorage.getItem("access")}`,
+      },
+    };
+
+    const body = JSON.stringify({
+      publication_id,
+    });
+
+    try {
+      const res = await axios.post(
+        `${backend_url}/api/notification/check-sent/`,
+        body,
+        config
+      );
+
+      if (res.status === 200) {
+        dispatch({
+          type: CHECK_NOTIFICATIONS_SENDED_SUCCESS,
+          payload: res.data,
+        });
+      } else {
+        dispatch({
+          type: CHECK_NOTIFICATIONS_SENDED_FAIL,
+        });
+      }
+    } catch (err) {
+      dispatch({
+        type: CHECK_NOTIFICATIONS_SENDED_FAIL,
+      });
+    }
+  };

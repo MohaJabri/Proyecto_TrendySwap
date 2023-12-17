@@ -35,8 +35,8 @@ const SearchBox = ({
             className="px-2 focus:outline-indigo-500"
           >
             <option value={""}>Fecha</option>
-            <option value={"asc"}>Ascendente</option>
-            <option value={"desc"}>Descendente</option>
+            <option value={"asc"}>Antiguos Primero</option>
+            <option value={"desc"}>Nuevos Primero</option>
           </select>
         </div>
 
