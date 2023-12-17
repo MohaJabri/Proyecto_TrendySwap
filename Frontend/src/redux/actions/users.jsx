@@ -2,7 +2,7 @@ import axios from "axios";
 import { GET_USERS_SUCCESS, GET_USERS_FAIL } from "./types";
 const backend_url = import.meta.env.VITE_API_URL;
 
-export const get_users = () => async (dispatch) => {
+export const get_users = (search) => async (dispatch) => {
   if (localStorage.getItem("access")) {
     const config = {
       headers: {
@@ -12,8 +12,11 @@ export const get_users = () => async (dispatch) => {
     };
 
     try {
-      const res = await axios.get(`${backend_url}/auth/users/`, config);
-
+      const res = await axios.post(
+        `${backend_url}/api/users/search/`,
+        { search: "" },
+        config
+      );
       if (res.status === 200) {
         dispatch({
           type: GET_USERS_SUCCESS,

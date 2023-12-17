@@ -12,6 +12,7 @@ urlpatterns = [
     path('api/publication/', include('apps.publication.urls')),
     path('api/profile/', include('apps.user_profile.urls')),
     path('api/notification/', include('apps.notification.urls')),
+    path('api/users/', include('apps.user.urls')),
     path('admin/', admin.site.urls),
     
     

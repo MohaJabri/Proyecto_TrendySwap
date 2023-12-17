@@ -1,13 +1,13 @@
 import Publications from "../../components/admin/Publications";
-import Orders from "../../components/admin/Orders";
 import Users from "../../components/admin/Users";
 import { connect } from "react-redux";
 import { useState, useEffect } from "react";
 import Layout from "../../hocs/Layout";
 import { get_search_publications } from "../../redux/actions/publications";
+import { get_users } from "../../redux/actions/users";
 Layout;
 
-const AdminPage = ({ get_search_publications }) => {
+const AdminPage = ({ get_search_publications, get_users }) => {
   const [show, setShow] = useState(0);
   const [active, setActive] = useState(1);
   const [search, setSearch] = useState("");
@@ -23,7 +23,7 @@ const AdminPage = ({ get_search_publications }) => {
     if (show === 0) {
       get_search_publications(searchTerm, 1);
     } else if (show === 1) {
-      // get_search_ordes(searchTerm, 0); // You might need to define this function
+      get_users(searchTerm);
     } else if (show === 2) {
       // get_search_users(searchTerm, 0); // You might need to define this function
     }
@@ -85,22 +85,12 @@ const AdminPage = ({ get_search_publications }) => {
                 >
                   Publicaciones
                 </button>
+
                 <button
                   onClick={() => setShow(1)}
                   type="button"
                   className={`flex items-center justify-center  font-medium rounded-lg text-sm px-4 py-2  focus:outline-none ${
                     show === 1
-                      ? "text-white bg-indigo-600  hover:bg-indigo-700 "
-                      : "text-gray-500 bg-gray-200 hover:bg-gray-300 opacity-75"
-                  }}`}
-                >
-                  Orders
-                </button>
-                <button
-                  onClick={() => setShow(2)}
-                  type="button"
-                  className={`flex items-center justify-center  font-medium rounded-lg text-sm px-4 py-2  focus:outline-none ${
-                    show === 2
                       ? "text-white bg-indigo-600  hover:bg-indigo-700 "
                       : "text-gray-500 bg-gray-200 hover:bg-gray-300 opacity-75"
                   }}`}
@@ -117,8 +107,7 @@ const AdminPage = ({ get_search_publications }) => {
                 setActive={setActive}
               />
             )}
-            {show === 1 && <Orders />}
-            {show === 2 && <Users />}
+            {show === 1 && <Users />}
           </div>
         </div>
       </section>
@@ -128,4 +117,5 @@ const AdminPage = ({ get_search_publications }) => {
 
 export default connect(null, {
   get_search_publications,
+  get_users,
 })(AdminPage);

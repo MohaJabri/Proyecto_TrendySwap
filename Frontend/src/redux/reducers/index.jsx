@@ -5,6 +5,7 @@ import Categories from "./categories";
 import Publications from "./publications";
 import Profile from "./profile";
 import Notifications from "./notification";
+import Users from "./users";
 
 export default combineReducers({
   Auth,
@@ -13,4 +14,5 @@ export default combineReducers({
   Publications,
   Profile,
   Notifications,
+  Users,
 });
