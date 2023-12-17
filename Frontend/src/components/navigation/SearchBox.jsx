@@ -6,6 +6,7 @@ const SearchBox = ({
   onChange,
   onSubmit,
   category_id,
+  order,
   location,
 }) => {
   return (
@@ -28,17 +29,14 @@ const SearchBox = ({
         </div>
         <div className="focus:outline-none hover:bg-gray-100 flex border border-gray-300 ">
           <select
-            value={category_id}
+            value={order}
             onChange={(e) => onChange(e)}
-            name="category_id"
+            name="order"
             className="px-2 focus:outline-indigo-500"
           >
-            <option value={0}>Todas las categorías</option>
-            {categories?.map((category, index) => (
-              <option key={index} value={category.id}>
-                {category.name}
-              </option>
-            ))}
+            <option value={""}>Fecha</option>
+            <option value={"asc"}>Ascendente</option>
+            <option value={"desc"}>Descendente</option>
           </select>
         </div>
 

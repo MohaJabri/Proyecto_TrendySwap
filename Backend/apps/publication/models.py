@@ -11,7 +11,7 @@ class Publication(models.Model):
     location=models.CharField(max_length=200)
     description=models.TextField()
     category=models.ForeignKey(Category, on_delete=models.CASCADE)
-    photo=models.ImageField(upload_to='photos/%Y/%m/')
+    photo=models.ImageField(upload_to='photos/%Y/%m/',blank=True, null=True)
     date_created=models.DateTimeField(default=datetime.now, blank=True)
     user=models.ForeignKey(User, on_delete=models.CASCADE)
     def __str__(self):

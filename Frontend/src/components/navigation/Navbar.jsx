@@ -39,6 +39,7 @@ function Navbar({
   const initialSearchTerm = searchParams.get("query") || "";
   const initialCategoryId = searchParams.get("category_id") || 0;
   const initialLocation = searchParams.get("location") || "";
+  const initialOrder = searchParams.get("order") || "";
   const navigate = useNavigate();
   const [notificationLength, setNotificationLength] = useState(null);
   const [authReady, setAuthReady] = useState(false);
@@ -47,8 +48,9 @@ function Navbar({
     category_id: initialCategoryId,
     search: initialSearchTerm,
     location: initialLocation,
+    order: initialOrder,
   });
-  const { category_id, search, location } = formData;
+  const { category_id, search, location, order } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -56,12 +58,12 @@ function Navbar({
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    get_search_publications(search, 1, category_id, location);
+    get_search_publications(search, 1, category_id, location, order);
     setRender(!render);
 
     if (!render) {
       navigate(
-        `/search?query=${search}&category_id=${category_id}&location=${location}`
+        `/search?query=${search}&category_id=${category_id}&location=${location}&order=${order}`
       );
     }
   };
@@ -209,7 +211,7 @@ function Navbar({
           aria-hidden="true"
         />
         <div className="relative z-20">
-          <div className="max-w-7xl mx-auto flex justify-between items-center px-4 py-5 sm:px-6 sm:py-4 lg:px-8 md:justify-start md:space-x-10">
+          <div className="max-w-7xl mx-auto flex justify-between items-center px-4 py-5 sm:px-6 sm:py-4 lg:px-2 md:justify-start md:space-x-10">
             <div>
               <Link to="/" className="flex">
                 <span className="sr-only">Workflow</span>

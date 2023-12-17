@@ -216,7 +216,7 @@ export const get_filtered_publications =
   };
 
 export const get_search_publications =
-  (search, page, category_id = 0, location = "") =>
+  (search, page, category_id = 0, location = "", order = "") =>
   async (dispatch) => {
     const config = {
       headers: {
@@ -229,6 +229,7 @@ export const get_search_publications =
       search,
       category_id,
       location,
+      order,
     });
 
     try {

@@ -15,9 +15,9 @@ class CreatePublicationView(APIView):
     permission_classes = [permissions.IsAuthenticated]
     
     def post(self, request, format=None):
-
-        publication_serializer = PublicationSerializer(data=request.data)
         
+        publication_serializer = PublicationSerializer(data=request.data)
+        print(request.data.get('photo'))
         if publication_serializer.is_valid():
             publication_serializer.save(user=self.request.user)
             return Response(publication_serializer.data, status=status.HTTP_201_CREATED)
@@ -154,6 +154,7 @@ class PublicationSearchView(APIView):
         try:
             category_id = int(data['category_id'])
             location = data['location']
+            order = data.get('order', '')
         except KeyError:
             return Response({'error': 'Invalid data provided'}, status=status.HTTP_400_BAD_REQUEST)
         
@@ -181,6 +182,11 @@ class PublicationSearchView(APIView):
                 categories = Category.objects.filter(parent=category)
                 filtered_categories = [category] + list(categories)
                 search_results = search_results.filter(category__in=filtered_categories)
+
+        if order == 'desc':
+            search_results = search_results.order_by('-date_created')
+        elif order == 'asc':
+            search_results = search_results.order_by('date_created')
         
         paginator = CustomPagination()
         paginated_publications = paginator.paginate_queryset(search_results, request)
