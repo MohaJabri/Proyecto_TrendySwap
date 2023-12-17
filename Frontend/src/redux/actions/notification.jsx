@@ -128,7 +128,8 @@ export const send_notification =
   };
 
 export const send_email =
-  (user_requesting_email, publication_id) => async (dispatch) => {
+  (user_requesting_email, publication_id, notification_id) =>
+  async (dispatch) => {
     const config = {
       headers: {
         Accept: "application/json",
@@ -140,6 +141,7 @@ export const send_email =
     const body = JSON.stringify({
       user_requesting_email,
       publication_id,
+      notification_id,
     });
 
     try {

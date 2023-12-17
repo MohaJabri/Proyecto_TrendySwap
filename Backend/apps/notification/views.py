@@ -82,6 +82,7 @@ class sendEmail(APIView):
     def post(self, request):
         user_requesting_email = request.data.get('user_requesting_email')
         publication_id = request.data.get('publication_id')  # ID de la publicación
+        notification_id = request.data.get('notification_id')  # ID de la notificación
 
         if not user_requesting_email:
             return Response({'message': 'Falta el correo del usuario'}, status=status.HTTP_400_BAD_REQUEST)
@@ -108,7 +109,7 @@ class sendEmail(APIView):
 
             if mail_sent == 1:
                 # Actualizar el estado is_read a True
-                notification = get_object_or_404(Notification, related_publication=publication.id)
+                notification = get_object_or_404(Notification, id=notification_id)
                 notification.is_read = True
                 notification.save()
 

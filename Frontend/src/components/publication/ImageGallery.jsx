@@ -11,11 +11,11 @@ const ImageGallery = ({ photo }) => {
     <Tab.Group as="div" className="flex flex-col-reverse">
       {/* Image selector */}
 
-      <Tab.Panels className="w-full aspect-w-1 aspect-h-1">
+      <Tab.Panels className="w-full  py-5 aspect-w-1 aspect-h-1">
         <Tab.Panel>
           <img
             src={`${backend_url}${photo} `}
-            className="w-full h-screen object-center object-contain sm:rounded-lg"
+            className="w-full object-center object-contain sm:rounded-lg"
           />
         </Tab.Panel>
       </Tab.Panels>

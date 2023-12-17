@@ -12,9 +12,9 @@ const Notifications = ({
   reject_request,
   delete_publication,
 }) => {
-  const handleAccept = async (email, id) => {
+  const handleAccept = async (email, id, id_) => {
     console.log(`Notificación aceptada: ${id}`);
-    await send_email(email, id);
+    await send_email(email, id, id_);
     setHuboCambio((prev) => !prev);
     delete_publication(id);
   };
@@ -53,7 +53,8 @@ const Notifications = ({
                   onClick={() =>
                     handleAccept(
                       notification.email,
-                      notification.related_publication
+                      notification.related_publication,
+                      notification.id
                     )
                   }
                 >
