@@ -2,16 +2,16 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { check_authenticated, load_user, refresh } from "../redux/actions/auth";
 import { get_user_profile } from "../redux/actions/profile";
-import { get_notifications } from "../redux/actions/notification";
+import { setHuboCambio } from "../redux/actions/notification";
+
 import { Footer } from "../components/navigation/Footer";
 import Navbar from "../components/navigation/Navbar";
 import { connect } from "react-redux";
 import { useEffect, useState } from "react";
 
 const Layout = (props) => {
-  const [huboCambio, setHuboCambio] = useState(false);
   const userId = props.user ? props.user.id : null; // Obtener el ID del usuario
-
+  console.log(props.huboCambio);
   useEffect(() => {
     props.refresh();
     props.check_authenticated();
@@ -31,7 +31,7 @@ const Layout = (props) => {
       };
 
       webSocket.onmessage = (message) => {
-        setHuboCambio((prev) => !prev);
+        props.setHuboCambio((prev) => !prev);
       };
     }
 
@@ -44,7 +44,7 @@ const Layout = (props) => {
 
   return (
     <>
-      <Navbar update={huboCambio} />
+      <Navbar update={props.huboCambio} />
       <ToastContainer autoClose={5000} />
       {props.children}
       <Footer />
@@ -54,9 +54,11 @@ const Layout = (props) => {
 
 const mapStateToProps = (state) => ({
   user: state.Auth.user,
+  huboCambio: state.Notifications.huboCambio,
 });
 
 export default connect(mapStateToProps, {
+  setHuboCambio,
   check_authenticated,
   load_user,
   refresh,

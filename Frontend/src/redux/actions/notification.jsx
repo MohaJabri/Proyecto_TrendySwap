@@ -9,6 +9,8 @@ import {
   SEND_NOTIFICATION_FAIL,
   SEND_EMAIL_SUCCESS,
   SEND_EMAIL_FAIL,
+  REJECT_REQUEST_SUCCESS,
+  REJECT_REQUEST_FAIL,
 } from "./types";
 
 const backend_url = import.meta.env.VITE_API_URL;
@@ -164,3 +166,50 @@ export const send_email =
       dispatch(setAlert("Error al enviar email", "red"));
     }
   };
+
+export const setHuboCambio = (huboCambio) => {
+  return {
+    type: "SET_HUBO_CAMBIO",
+    payload: huboCambio,
+  };
+};
+
+export const reject_request = (notification_id) => async (dispatch) => {
+  const config = {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `JWT ${localStorage.getItem("access")}`,
+    },
+  };
+
+  const body = JSON.stringify({
+    notification_id,
+  });
+
+  try {
+    const res = await axios.post(
+      `${backend_url}/api/notification/reject-request/`,
+      body,
+      config
+    );
+
+    if (res.status === 200) {
+      dispatch({
+        type: REJECT_REQUEST_SUCCESS,
+        payload: res.data,
+      });
+      dispatch(setAlert("Solicitud rechazada", "green"));
+    } else {
+      dispatch({
+        type: REJECT_REQUEST_FAIL,
+      });
+      dispatch(setAlert("Error al rechazar solicitud", "red"));
+    }
+  } catch (err) {
+    dispatch({
+      type: REJECT_REQUEST_FAIL,
+    });
+    dispatch(setAlert("Error al rechazar solicitud", "red"));
+  }
+};

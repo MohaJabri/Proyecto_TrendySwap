@@ -1,16 +1,24 @@
 import { connect } from "react-redux";
 import { useEffect } from "react";
-import { send_email } from "../../redux/actions/notification";
+import { send_email, reject_request } from "../../redux/actions/notification";
 import Layout from "../../hocs/Layout";
+import { setHuboCambio } from "../../redux/actions/notification";
 
-const Notifications = ({ notifications, send_email }) => {
-  const handleAccept = (email, id) => {
+const Notifications = ({
+  notifications,
+  send_email,
+  setHuboCambio,
+  reject_request,
+}) => {
+  const handleAccept = async (email, id) => {
     console.log(`Notificación aceptada: ${id}`);
-    send_email(email, id);
+    await send_email(email, id);
+    setHuboCambio((prev) => !prev);
   };
 
-  const handleReject = (id) => {
-    console.log(`Notificación rechazada: ${id}`);
+  const handleReject = async (id) => {
+    await reject_request(id);
+    setHuboCambio((prev) => !prev);
   };
 
   return (
@@ -67,4 +75,8 @@ const mapStateToProps = (state) => ({
   notifications: state.Notifications.notifications,
 });
 
-export default connect(mapStateToProps, { send_email })(Notifications);
+export default connect(mapStateToProps, {
+  send_email,
+  setHuboCambio,
+  reject_request,
+})(Notifications);

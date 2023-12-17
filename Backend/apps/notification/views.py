@@ -5,10 +5,12 @@ from rest_framework import permissions
 from asgiref.sync import async_to_sync
 from django.conf import settings
 from django.shortcuts import get_object_or_404
+from rest_framework.exceptions import NotFound
 from channels.layers import get_channel_layer
 from apps.publication.models import Publication
 from apps.notification.models import Notification
 from django.core.mail import send_mail
+from django.db import transaction
 from apps.notification.serializers import NotificationSerializer  # Importa tu serializador
 
 class CreateNotificationView(APIView):
@@ -52,7 +54,7 @@ class ListNotificationsView(APIView):
 
     def get(self, request, format=None):
         # Obtener las notificaciones del usuario
-        notifications = Notification.objects.filter(user_to=request.user.id)
+        notifications = Notification.objects.filter(user_to=request.user.id, is_read=False)
 
         # Crear el serializador con los datos
         notification_serializer = NotificationSerializer(notifications, many=True)
@@ -94,16 +96,38 @@ class sendEmail(APIView):
 
         email_from = settings.EMAIL_HOST_USER
 
-        # Enviar el correo electrónico
-        mail_sent = send_mail(
-            'TrendySwap - Solicitud de publicación',
-            email_message,
-            email_from,
-            [user_requesting_email],
-            fail_silently=False,
-        )
+        with transaction.atomic():  # Realizar la actualización atómicamente
+            # Enviar el correo electrónico
+            mail_sent = send_mail(
+                'TrendySwap - Solicitud de publicación',
+                email_message,
+                email_from,
+                [user_requesting_email],
+                fail_silently=False,
+            )
 
-        if mail_sent == 1:
-            return Response({'message': 'Correo enviado'}, status=status.HTTP_200_OK)
-        else:
-            return Response({'message': 'Fallo al enviar el correo'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            if mail_sent == 1:
+                # Actualizar el estado is_read a True
+                notification = get_object_or_404(Notification, related_publication=publication.id)
+                notification.is_read = True
+                notification.save()
+
+                return Response({'message': 'Correo enviado y notificación actualizada'}, status=status.HTTP_200_OK)
+        
+        return Response({'message': 'Fallo al enviar el correo o actualizar la notificación'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+class rejectRequest(APIView):
+    def post(self, request):
+        notification_id = request.data.get('notification_id')
+
+        if not notification_id:
+            return Response({'message': 'Falta el ID de la notificación'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            notification = Notification.objects.get(id=notification_id)
+            notification.is_read = True  # O cualquier actualización que desees hacer
+            notification.save()
+
+            return Response({'message': 'Estado de la notificación actualizado'}, status=status.HTTP_200_OK)
+        except Notification.DoesNotExist:
+            return Response({'message': 'No se encontró la notificación'}, status=status.HTTP_404_NOT_FOUND)
