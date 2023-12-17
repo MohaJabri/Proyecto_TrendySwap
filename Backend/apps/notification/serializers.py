@@ -5,10 +5,17 @@ class NotificationSerializer(serializers.ModelSerializer):
     user_from_full_name = serializers.SerializerMethodField()
     object_offered=serializers.SerializerMethodField()
     service_requested=serializers.SerializerMethodField()
+    email = serializers.SerializerMethodField()
     class Meta:
         model = Notification
         fields = '__all__' 
         read_only_fields = ['user_from', 'is_read']
+
+
+    def get_email(self, obj):
+        if obj.user_from:
+            return obj.user_from.email
+        return ''
 
     def get_user_from_full_name(self, obj):
         if obj.user_from:

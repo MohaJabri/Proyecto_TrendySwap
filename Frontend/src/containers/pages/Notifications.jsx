@@ -1,11 +1,12 @@
 import { connect } from "react-redux";
 import { useEffect } from "react";
-import { get_notifications } from "../../redux/actions/notification";
+import { send_email } from "../../redux/actions/notification";
 import Layout from "../../hocs/Layout";
 
-const Notifications = ({ notifications }) => {
+const Notifications = ({ notifications, send_email }) => {
   const handleAccept = (id) => {
     console.log(`Notificación aceptada: ${id}`);
+    send_email(id);
   };
 
   const handleReject = (id) => {
@@ -38,7 +39,7 @@ const Notifications = ({ notifications }) => {
               <div className="px-6 py-4 flex justify-center">
                 <button
                   className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2"
-                  onClick={() => handleAccept(notification.id)}
+                  onClick={() => handleAccept(notification.email)}
                 >
                   Aceptar
                 </button>
@@ -61,4 +62,4 @@ const mapStateToProps = (state) => ({
   notifications: state.Notifications.notifications,
 });
 
-export default connect(mapStateToProps)(Notifications);
+export default connect(mapStateToProps, { send_email })(Notifications);

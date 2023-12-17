@@ -3,9 +3,11 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import permissions
 from asgiref.sync import async_to_sync
+from django.conf import settings
 from channels.layers import get_channel_layer
 from apps.publication.models import Publication
 from apps.notification.models import Notification
+from django.core.mail import send_mail
 from apps.notification.serializers import NotificationSerializer  # Importa tu serializador
 
 class CreateNotificationView(APIView):
@@ -72,3 +74,32 @@ class sendNotification(APIView):
         )
 
         return Response(status=status.HTTP_200_OK)
+
+class sendEmail(APIView):
+    def post(self, request):
+        user_requesting_email = request.data.get('user_requesting_email')
+
+        # Realizar verificaciones aquí antes de enviar el correo electrónico
+        if not user_requesting_email:
+            return Response({'message': 'Falta el correo del usuario'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Puedes agregar más verificaciones según tus requisitos
+        
+        email_from = settings.EMAIL_HOST_USER
+
+        # Enviar el correo electrónico
+        mail_sent = send_mail(
+            'TrendySwap - Solicitud de publicación',
+            'Su solicitud de publicación ha sido aceptada',
+            email_from,
+            [user_requesting_email],
+            fail_silently=False,
+        )
+
+        if mail_sent == 1:
+            return Response({'message': 'Correo enviado'}, status=status.HTTP_200_OK)
+        else:
+            return Response({'message': 'Fallo al enviar el correo'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+
+

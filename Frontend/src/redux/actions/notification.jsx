@@ -7,6 +7,8 @@ import {
   CREATE_NOTIFICATION_SUCCESS,
   SEND_NOTIFICATION_SUCCESS,
   SEND_NOTIFICATION_FAIL,
+  SEND_EMAIL_SUCCESS,
+  SEND_EMAIL_FAIL,
 } from "./types";
 
 const backend_url = import.meta.env.VITE_API_URL;
@@ -120,3 +122,43 @@ export const send_notification =
       dispatch(setAlert("Error al enviar notificación", "red"));
     }
   };
+
+export const send_email = (user_requesting_email) => async (dispatch) => {
+  const config = {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `JWT ${localStorage.getItem("access")}`,
+    },
+  };
+
+  const body = JSON.stringify({
+    user_requesting_email,
+  });
+
+  try {
+    const res = await axios.post(
+      `${backend_url}/api/notification/send-email/`,
+      body,
+      config
+    );
+
+    if (res.status === 200) {
+      dispatch({
+        type: SEND_EMAIL_SUCCESS,
+        payload: res.data,
+      });
+      dispatch(setAlert("Email enviado", "green"));
+    } else {
+      dispatch({
+        type: SEND_EMAIL_FAIL,
+      });
+      dispatch(setAlert("Error al enviar email", "red"));
+    }
+  } catch (err) {
+    dispatch({
+      type: SEND_EMAIL_FAIL,
+    });
+    dispatch(setAlert("Error al enviar email", "red"));
+  }
+};

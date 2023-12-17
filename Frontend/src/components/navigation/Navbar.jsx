@@ -215,7 +215,7 @@ function Navbar({
                 <span className="sr-only">Workflow</span>
                 <img
                   className="h-8 w-auto sm:h-10"
-                  src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+                  src="https://icons.veryicon.com/png/o/miscellaneous/mirror-icon/swap-8.png"
                   alt=""
                 />
               </Link>
