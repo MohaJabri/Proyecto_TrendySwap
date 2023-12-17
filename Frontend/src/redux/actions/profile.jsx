@@ -44,7 +44,17 @@ export const get_user_profile = (userId) => async (dispatch) => {
 };
 
 export const update_user_profile =
-  (first_name, last_name, phone, address, city, country, state, postal_code) =>
+  (
+    first_name,
+    last_name,
+    phone,
+    address,
+    city,
+    country,
+    state,
+    postal_code,
+    userId
+  ) =>
   async (dispatch) => {
     if (localStorage.getItem("access")) {
       const config = {
@@ -68,7 +78,7 @@ export const update_user_profile =
 
       try {
         const res = await axios.put(
-          `${backend_url}/api/profile/update`,
+          `${backend_url}/api/profile/update/${userId}`,
           body,
           config
         );

@@ -24,9 +24,10 @@ class GetUserProfileView(APIView):
             )
 
 class UpdateUserProfileView(APIView):
-    def put(self, request, format=None):
+    
+
+    def put(self, request, user_id, format=None):
         try:
-            user = self.request.user
             data = self.request.data
 
             first_name = data.get('first_name')
@@ -38,33 +39,45 @@ class UpdateUserProfileView(APIView):
             state = data['state']
             postal_code = data['postal_code']
 
-            
-            UserProfile.objects.filter(user=user).update(
-                
-                phone=phone,
-                address=address,
-                city=city,
-                country=country,
-                state=state,
-                postal_code=postal_code,
-                
-            )
+            # Retrieve the UserProfile instance based on provided user_id
+            user_profile = UserProfile.objects.get(user__id=user_id)
 
+            # Check permissions - Allow staff or the user to update the profile
+            if not request.user.is_staff and user_profile.user != request.user:
+                return Response({'error': 'You are not authorized to update this profile'},
+                                status=status.HTTP_401_UNAUTHORIZED)
+
+            # Update UserProfile fields
+            user_profile.phone = phone
+            user_profile.address = address
+            user_profile.city = city
+            user_profile.country = country
+            user_profile.state = state
+            user_profile.postal_code = postal_code
+            user_profile.save()
+
+            # Update User fields if provided
+            user = user_profile.user
             if first_name:
                 user.first_name = first_name
             if last_name:
                 user.last_name = last_name
             user.save()
 
-            user_profile = UserProfile.objects.get(user=user)
-            user_profile = UserProfileSerializer(user_profile)
+            # Serialize UserProfile instance
+            serialized_profile = UserProfileSerializer(user_profile)
 
             return Response(
-                {'profile': user_profile.data},
+                {'profile': serialized_profile.data},
                 status=status.HTTP_200_OK
             )
-        except:
+        except UserProfile.DoesNotExist:
             return Response(
-                {'error': 'Something went wrong when updating profile'},
+                {'error': 'User profile does not exist'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        except Exception as e:
+            return Response(
+                {'error': f'Something went wrong: {str(e)}'},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )

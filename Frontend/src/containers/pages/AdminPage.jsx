@@ -24,8 +24,6 @@ const AdminPage = ({ get_search_publications, get_users }) => {
       get_search_publications(searchTerm, 1);
     } else if (show === 1) {
       get_users(searchTerm);
-    } else if (show === 2) {
-      // get_search_users(searchTerm, 0); // You might need to define this function
     }
   };
 

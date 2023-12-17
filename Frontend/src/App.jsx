@@ -48,7 +48,7 @@ function App() {
           />
           <Route exact path="/search" element={<Search />} />
           <Route element={<PrivateRoute />}>
-            <Route exact path="/profile" element={<Profile />} />
+            <Route exact path="/profile/:userId" element={<Profile />} />
             <Route exact path="/add_publication" element={<AddPublication />} />
             <Route exact path="/notifications" element={<Notifications />} />
             <Route

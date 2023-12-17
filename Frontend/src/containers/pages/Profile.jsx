@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { useEffect } from "react";
 import { Navigate } from "react-router";
 import { Fragment, useState } from "react";
+import { useParams } from "react-router";
 
 import {
   update_user_profile,
@@ -34,12 +35,11 @@ const Profile = ({ user, update_user_profile, profile, get_user_profile }) => {
     country,
     postal_code,
   } = formData;
-
+  const params = useParams();
+  const userId = params.userId;
   useEffect(() => {
-    if (user && !profile) {
-      get_user_profile(user.id);
-    }
-  }, [user]);
+    get_user_profile(userId);
+  }, [userId]);
 
   useEffect(() => {
     if (profile) {
@@ -54,7 +54,7 @@ const Profile = ({ user, update_user_profile, profile, get_user_profile }) => {
         postal_code: profile.postal_code,
       });
     }
-  }, [profile]);
+  }, [userId, profile]);
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -70,7 +70,8 @@ const Profile = ({ user, update_user_profile, profile, get_user_profile }) => {
       city,
       country,
       state,
-      postal_code
+      postal_code,
+      userId
     );
 
     window.scrollTo(0, 0);
@@ -239,32 +240,6 @@ const Profile = ({ user, update_user_profile, profile, get_user_profile }) => {
                           className="flex-1 block w-full focus:ring-indigo-500 focus:border-indigo-500 min-w-0 rounded-md sm:text-sm border-gray-500 bg-gray-50 border  text-gray-900 text-sm  focus:ring-primary-600 focus:border-primary-600  p-2.5 "
                         />
                       </div>
-                    </div>
-                  </div>
-
-                  <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm: sm:border-gray-200 sm:pt-5">
-                    <label
-                      htmlFor="country"
-                      className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
-                    >
-                      País
-                    </label>
-                    <div className="mt-1 sm:mt-0 sm:col-span-2">
-                      <select
-                        id="country_region"
-                        name="country_region"
-                        onChange={(e) => onChange(e)}
-                      >
-                        {/* <option value={country_region}>
-                          {profile.country_region}
-                        </option>
-                        {countries &&
-                          countries.map((country, index) => (
-                            <option key={index} value={country.name}>
-                              {country.name}
-                            </option>
-                          ))} */}
-                      </select>
                     </div>
                   </div>
 

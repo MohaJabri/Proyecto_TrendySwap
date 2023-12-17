@@ -107,6 +107,7 @@ const AddPublication = ({ create_publication, categories }) => {
                     Solicito
                   </label>
                   <input
+                    required
                     value={service_requested}
                     onChange={onChange}
                     type="text"
@@ -124,6 +125,7 @@ const AddPublication = ({ create_publication, categories }) => {
                     Ofrezco
                   </label>
                   <input
+                    required
                     value={object_offered}
                     onChange={onChange}
                     type="text"
@@ -188,6 +190,7 @@ const AddPublication = ({ create_publication, categories }) => {
                     Descripción
                   </label>
                   <input
+                    required
                     name="description"
                     value={description}
                     onChange={onChange}
@@ -237,6 +240,7 @@ const AddPublication = ({ create_publication, categories }) => {
                           </p>
                         </div>
                         <input
+                          required
                           name="photo"
                           //ref={inputRef}
                           type="file"

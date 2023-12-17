@@ -5,13 +5,13 @@ import {
   PlusCircleIcon,
   PencilIcon,
 } from "@heroicons/react/outline";
-import { get_users } from "../../redux/actions/users";
+import { get_users, delete_user } from "../../redux/actions/users";
 import { connect } from "react-redux";
 import Pagination from "../navigation/Pagination";
 import { useEffect } from "react";
 const Users = ({
   users,
-  delete_publication,
+  delete_user,
   get_users,
   searchTerm,
   active,
@@ -46,7 +46,7 @@ const Users = ({
   };
 
   const onDelete = async (id) => {
-    await delete_publication(id);
+    await delete_user(id);
     const totalPages = Math.ceil(users.meta.count / 9);
 
     let newActivePage = active;
@@ -95,29 +95,29 @@ const Users = ({
         <>
           <>
             <tbody>
-              {users?.data?.map((publication) => (
-                <tr className="border-b " key={publication.id}>
+              {users?.data?.map((user) => (
+                <tr className="border-b " key={user.id}>
                   <th
                     scope="row"
                     className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap "
                   >
-                    {publication.id}
+                    {user.id}
                   </th>
 
-                  <td className="px-4 py-3">{publication.first_name}</td>
+                  <td className="px-4 py-3">{user.first_name}</td>
 
-                  <td className="px-4 py-3">{publication.last_name}</td>
+                  <td className="px-4 py-3">{user.last_name}</td>
 
-                  <td className="px-4 py-3">{publication.email}</td>
+                  <td className="px-4 py-3">{user.email}</td>
 
                   <td className="px-4 py-3">
                     <div className="flex justify-center gap-4">
-                      <Link to={`/update_publication/${publication.id}`}>
+                      <Link to={`/profile/${user.id}`}>
                         <PencilIcon className="h-6 w-6 text-green-600 cursor-pointer" />
                       </Link>
                       <TrashIcon
                         className="h-6 w-6 text-red-300 cursor-pointer"
-                        onClick={() => onDelete(publication.id)}
+                        onClick={() => onDelete(user.id)}
                       />
                     </div>
                   </td>
@@ -145,4 +145,5 @@ const mapStateToProps = (state) => ({
 });
 export default connect(mapStateToProps, {
   get_users,
+  delete_user,
 })(Users);
