@@ -3,17 +3,20 @@ import { useEffect } from "react";
 import { send_email, reject_request } from "../../redux/actions/notification";
 import Layout from "../../hocs/Layout";
 import { setHuboCambio } from "../../redux/actions/notification";
+import { delete_publication } from "../../redux/actions/publications";
 
 const Notifications = ({
   notifications,
   send_email,
   setHuboCambio,
   reject_request,
+  delete_publication,
 }) => {
   const handleAccept = async (email, id) => {
     console.log(`Notificación aceptada: ${id}`);
     await send_email(email, id);
     setHuboCambio((prev) => !prev);
+    delete_publication(id);
   };
 
   const handleReject = async (id) => {
@@ -79,4 +82,5 @@ export default connect(mapStateToProps, {
   send_email,
   setHuboCambio,
   reject_request,
+  delete_publication,
 })(Notifications);

@@ -71,12 +71,13 @@ const Search = ({
       });
     }
 
-    for (let i = 0; i < display.length; i += 3) {
+    for (let i = 0; i < display.length; i += 4) {
       results.push(
-        <div key={i} className="grid md:grid-cols-3 ">
+        <div key={i} className="grid md:grid-cols-4 ">
           {display[i] ? display[i] : <div className=""></div>}
           {display[i + 1] ? display[i + 1] : <div className=""></div>}
           {display[i + 2] ? display[i + 2] : <div className=""></div>}
+          {display[i + 3] ? display[i + 3] : <div className=""></div>}
         </div>
       );
     }
@@ -310,154 +311,9 @@ const Search = ({
 
               <div className="grid grid-cols-1 lg:grid-cols-4 gap-x-8 gap-y-10">
                 {/* Filters */}
-                <form onSubmit={(e) => onSubmit(e)} className="hidden lg:block">
-                  <h3 className="sr-only">Categories</h3>
-                  <ul
-                    role="list"
-                    className="text-sm font-medium text-gray-900 space-y-4 pb-6 border-b border-gray-200"
-                  >
-                    {categories &&
-                      categories !== null &&
-                      categories !== undefined &&
-                      categories.map((category) => {
-                        if (category.subcategories.length === 0) {
-                          return (
-                            <div
-                              key={category.id}
-                              className=" flex items-center h-5 my-5"
-                            >
-                              <input
-                                name="category_id"
-                                onChange={(e) => onChange(e)}
-                                value={category.id.toString()}
-                                type="radio"
-                                className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded-full"
-                              />
-                              <label className="block px-2 py-3">
-                                {category.name}
-                              </label>
-                            </div>
-                          );
-                        } else {
-                          let result = [];
-                          result.push(
-                            <div
-                              key={category.id}
-                              className="flex items-center h-5"
-                            >
-                              <input
-                                name="category_id"
-                                type="radio"
-                                className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded-full"
-                              />
-                              <label className="ml-3 min-w-0 flex-1 text-gray-500">
-                                {category.name}
-                              </label>
-                            </div>
-                          );
-
-                          category.subcategories.map((subcategory) => {
-                            result.push(
-                              <div
-                                key={subcategory.id}
-                                className="flex items-center h-5 ml-2 my-5"
-                              >
-                                <input
-                                  name="category_id"
-                                  type="radio"
-                                  className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded-full"
-                                />
-                                <label className="ml-3 min-w-0 flex-1 text-gray-500">
-                                  {subcategory.name}
-                                </label>
-                              </div>
-                            );
-                          });
-
-                          return result;
-                        }
-                      })}
-                  </ul>
-                  <Disclosure
-                    as="div"
-                    className="border-b border-gray-200 py-6"
-                  >
-                    {({ open }) => (
-                      <>
-                        <h3 className="-my-3 flow-root">
-                          <Disclosure.Button className="py-3 bg-white w-full flex items-center justify-between text-sm text-gray-400 hover:text-gray-500">
-                            <span className="font-medium text-gray-900">
-                              Mas filtros
-                            </span>
-                            <span className="ml-6 flex items-center">
-                              {open ? (
-                                <MinusSmIcon
-                                  className="h-5 w-5"
-                                  aria-hidden="true"
-                                />
-                              ) : (
-                                <PlusSmIcon
-                                  className="h-5 w-5"
-                                  aria-hidden="true"
-                                />
-                              )}
-                            </span>
-                          </Disclosure.Button>
-                        </h3>
-                        <Disclosure.Panel className="pt-6">
-                          <div className="space-y-4">
-                            <div className="form-group ">
-                              <label
-                                htmlFor="sortBy"
-                                className="ml-3 text-sm text-gray-600"
-                              >
-                                Ver por
-                              </label>
-                              <select
-                                className="my-2 font-sofiapro-light inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
-                                id="sortBy"
-                                name="sortBy"
-                                onChange={(e) => onChange(e)}
-                                value={sortBy}
-                              >
-                                <option value="date_created">Fecha</option>
-
-                                <option value="title">Nombre</option>
-                              </select>
-                            </div>
-                            <div className="form-group">
-                              <label
-                                htmlFor="order"
-                                className="ml-3 text-sm text-gray-600"
-                              >
-                                Orden
-                              </label>
-                              <select
-                                className="my-2 font-sofiapro-light inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
-                                id="order"
-                                name="order"
-                                onChange={(e) => onChange(e)}
-                                value={order}
-                              >
-                                <option value="asc">A - Z</option>
-                                <option value="desc">Z - A</option>
-                              </select>
-                            </div>
-                          </div>
-                        </Disclosure.Panel>
-                      </>
-                    )}
-                  </Disclosure>
-                  <button
-                    type="submit"
-                    className="float-right m-3 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                  >
-                    Buscar
-                  </button>
-                </form>
 
                 {/* Product grid */}
-                <div className="lg:col-span-3">
+                <div className="lg:col-span-4">
                   {/* Replace with your content */}
                   {search_publications && showPublications()}
                   {/* /End replace */}

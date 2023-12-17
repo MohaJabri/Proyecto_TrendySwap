@@ -10,7 +10,7 @@ const SearchBox = ({
 }) => {
   return (
     <form className="items-center" onSubmit={(e) => onSubmit(e)}>
-      <div className="flex rounded-md shadow-sm">
+      <div className="flex flex-wrap rounded-md shadow-sm">
         <div className="focus:outline-none hover:bg-gray-100 flex border border-gray-300 ">
           <select
             value={location}
