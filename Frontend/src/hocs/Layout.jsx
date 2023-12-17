@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 
 const Layout = (props) => {
   const userId = props.user ? props.user.id : null; // Obtener el ID del usuario
-  console.log(props.huboCambio);
+
   useEffect(() => {
     props.refresh();
     props.check_authenticated();

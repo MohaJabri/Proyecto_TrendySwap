@@ -77,6 +77,14 @@ const UpdatePublication = ({
   const onSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+
+    // Comprueba si la nueva imagen es igual a la imagen actual
+    const isSamePhoto = formData.photo === publication.photo;
+
+    // Si la imagen no cambia, se envía 'null' para indicar que no se actualiza la imagen
+    const photoToSend = isSamePhoto ? null : formData.photo;
+
+    // Llama a la acción 'update_publication' pasando la información actualizada
     await update_publication(
       publicationId,
       service_requested,
@@ -84,8 +92,9 @@ const UpdatePublication = ({
       location,
       description,
       category_id,
-      photo
+      photoToSend
     );
+
     setLoading(false);
     window.scrollTo(0, 0);
   };

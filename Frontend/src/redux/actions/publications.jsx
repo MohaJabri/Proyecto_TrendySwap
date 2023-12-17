@@ -373,7 +373,9 @@ export const update_publication =
       body.append("location", location);
       body.append("description", description);
       body.append("category", category_id);
-      body.append("photo", photo);
+      if (photo) {
+        body.append("photo", photo);
+      }
 
       try {
         const res = await axios.put(
