@@ -4,7 +4,7 @@ from .models import Publication
 class PublicationSerializer(serializers.ModelSerializer):
     user_full_name = serializers.SerializerMethodField()
     category_name = serializers.SerializerMethodField()
-    photo = serializers.SerializerMethodField()
+    
     class Meta:
         model = Publication
         fields = '__all__' 
@@ -22,6 +22,5 @@ class PublicationSerializer(serializers.ModelSerializer):
             return obj.category.name
         return ''
 
-    def get_photo(self, obj):
-        return obj.get_thumbnail()
+    
         

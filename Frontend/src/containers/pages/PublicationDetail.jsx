@@ -87,13 +87,16 @@ const PublicationDetail = ({
                 </div>
 
                 <form className="mt-6">
-                  {isAuthenticated && user.id !== publication.user ? (
+                  {!notification_sent.notification_sent &&
+                  isAuthenticated &&
+                  user.id !== publication.user ? (
                     <div className="mt-10 flex sm:flex-col1">
                       <button
                         type="button"
-                        onClick={() => {
-                          create_notification(publicationId);
-                          send_notification(publication.user, user.id);
+                        onClick={async () => {
+                          await create_notification(publicationId);
+                          await send_notification(publication.user, user.id);
+                          check_notifications_sended(publicationId);
                         }}
                         className="max-w-xs flex-1 bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500 sm:w-full"
                       >

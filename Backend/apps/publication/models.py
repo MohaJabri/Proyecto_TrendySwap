@@ -18,6 +18,7 @@ class Publication(models.Model):
         return self.service_requested
     
     def get_thumbnail(self):
+        print(self.photo)
         if self.photo:
             return self.photo.url
         else:
