@@ -4,6 +4,7 @@ from rest_framework import status
 from rest_framework import permissions
 from asgiref.sync import async_to_sync
 from django.conf import settings
+from django.shortcuts import get_object_or_404
 from channels.layers import get_channel_layer
 from apps.publication.models import Publication
 from apps.notification.models import Notification
@@ -78,19 +79,25 @@ class sendNotification(APIView):
 class sendEmail(APIView):
     def post(self, request):
         user_requesting_email = request.data.get('user_requesting_email')
+        publication_id = request.data.get('publication_id')  # ID de la publicación
 
-        # Realizar verificaciones aquí antes de enviar el correo electrónico
         if not user_requesting_email:
             return Response({'message': 'Falta el correo del usuario'}, status=status.HTTP_400_BAD_REQUEST)
+        if not publication_id:
+            return Response({'message': 'Falta el ID de la publicación'}, status=status.HTTP_400_BAD_REQUEST)
         
-        # Puedes agregar más verificaciones según tus requisitos
-        
+        # Obtener la información de la publicación
+        publication = get_object_or_404(Publication, id=publication_id)
+
+        # Componer el mensaje de correo electrónico
+        email_message = f"Su solicitud de {publication.service_requested} a cambio de {publication.object_offered} ha sido aceptada, a continuación se le facilita la información de contacto: {publication.user.email}"
+
         email_from = settings.EMAIL_HOST_USER
 
         # Enviar el correo electrónico
         mail_sent = send_mail(
             'TrendySwap - Solicitud de publicación',
-            'Su solicitud de publicación ha sido aceptada',
+            email_message,
             email_from,
             [user_requesting_email],
             fail_silently=False,
@@ -100,6 +107,3 @@ class sendEmail(APIView):
             return Response({'message': 'Correo enviado'}, status=status.HTTP_200_OK)
         else:
             return Response({'message': 'Fallo al enviar el correo'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    
-
-

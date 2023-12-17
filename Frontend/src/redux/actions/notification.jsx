@@ -123,42 +123,44 @@ export const send_notification =
     }
   };
 
-export const send_email = (user_requesting_email) => async (dispatch) => {
-  const config = {
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      Authorization: `JWT ${localStorage.getItem("access")}`,
-    },
-  };
+export const send_email =
+  (user_requesting_email, publication_id) => async (dispatch) => {
+    const config = {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `JWT ${localStorage.getItem("access")}`,
+      },
+    };
 
-  const body = JSON.stringify({
-    user_requesting_email,
-  });
+    const body = JSON.stringify({
+      user_requesting_email,
+      publication_id,
+    });
 
-  try {
-    const res = await axios.post(
-      `${backend_url}/api/notification/send-email/`,
-      body,
-      config
-    );
+    try {
+      const res = await axios.post(
+        `${backend_url}/api/notification/send-email/`,
+        body,
+        config
+      );
 
-    if (res.status === 200) {
-      dispatch({
-        type: SEND_EMAIL_SUCCESS,
-        payload: res.data,
-      });
-      dispatch(setAlert("Email enviado", "green"));
-    } else {
+      if (res.status === 200) {
+        dispatch({
+          type: SEND_EMAIL_SUCCESS,
+          payload: res.data,
+        });
+        dispatch(setAlert("Email enviado", "green"));
+      } else {
+        dispatch({
+          type: SEND_EMAIL_FAIL,
+        });
+        dispatch(setAlert("Error al enviar email", "red"));
+      }
+    } catch (err) {
       dispatch({
         type: SEND_EMAIL_FAIL,
       });
       dispatch(setAlert("Error al enviar email", "red"));
     }
-  } catch (err) {
-    dispatch({
-      type: SEND_EMAIL_FAIL,
-    });
-    dispatch(setAlert("Error al enviar email", "red"));
-  }
-};
+  };

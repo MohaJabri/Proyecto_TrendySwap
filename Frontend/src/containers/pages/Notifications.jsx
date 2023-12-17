@@ -4,9 +4,9 @@ import { send_email } from "../../redux/actions/notification";
 import Layout from "../../hocs/Layout";
 
 const Notifications = ({ notifications, send_email }) => {
-  const handleAccept = (id) => {
+  const handleAccept = (email, id) => {
     console.log(`Notificación aceptada: ${id}`);
-    send_email(id);
+    send_email(email, id);
   };
 
   const handleReject = (id) => {
@@ -39,7 +39,12 @@ const Notifications = ({ notifications, send_email }) => {
               <div className="px-6 py-4 flex justify-center">
                 <button
                   className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2"
-                  onClick={() => handleAccept(notification.email)}
+                  onClick={() =>
+                    handleAccept(
+                      notification.email,
+                      notification.related_publication
+                    )
+                  }
                 >
                   Aceptar
                 </button>
