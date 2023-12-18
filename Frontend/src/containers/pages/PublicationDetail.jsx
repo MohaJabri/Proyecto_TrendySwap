@@ -68,7 +68,10 @@ const PublicationDetail = ({
                   </div>
                   <div className="flex items-center">
                     <span className="font-bold mr-2">Publicado por:</span>
-                    <Link to={`/profile/${publication && publication.user}`}>
+                    <Link
+                      to={`/profile/${publication && publication.user}`}
+                      className="text-blue-500 hover:text-blue-700 underline cursor-pointer"
+                    >
                       {publication && publication.user_full_name}
                     </Link>
                   </div>
