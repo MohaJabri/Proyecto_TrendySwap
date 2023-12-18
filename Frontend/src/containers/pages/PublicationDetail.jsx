@@ -8,7 +8,7 @@ import {
   check_notifications_sended,
 } from "../../redux/actions/notification";
 import { useEffect, useState } from "react";
-
+import { Link } from "react-router-dom";
 import { HeartIcon, MinusSmIcon, PlusSmIcon } from "@heroicons/react/outline";
 import ImageGallery from "../../components/publication/ImageGallery";
 import { mapas } from "../../utils/mapas";
@@ -68,7 +68,9 @@ const PublicationDetail = ({
                   </div>
                   <div className="flex items-center">
                     <span className="font-bold mr-2">Publicado por:</span>
-                    <span>{publication && publication.user_full_name}</span>
+                    <Link to={`/profile/${publication && publication.user}`}>
+                      {publication && publication.user_full_name}
+                    </Link>
                   </div>
 
                   <div className="flex items-center">

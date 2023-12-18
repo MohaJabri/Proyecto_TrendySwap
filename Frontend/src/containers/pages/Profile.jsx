@@ -93,7 +93,7 @@ const Profile = ({ user, update_user_profile, profile, get_user_profile }) => {
                 >
                   <div className="bg-white px-4 py-5 border-b border-gray-200 sm:px-6">
                     <h3 className="text-lg leading-6 font-medium text-gray-900">
-                      Profile
+                      Perfil del usuario
                     </h3>
                   </div>
 
@@ -113,6 +113,10 @@ const Profile = ({ user, update_user_profile, profile, get_user_profile }) => {
                           value={first_name}
                           className="flex-1 block w-full focus:ring-indigo-500 focus:border-indigo-500 min-w-0 rounded-md sm:text-sm border-gray-500 bg-gray-50 border  text-gray-900 text-sm  focus:ring-primary-600 focus:border-primary-600  p-2.5 "
                           placeholder="Nombre"
+                          disabled={
+                            !user ||
+                            (user?.id !== profile?.user && !user?.is_staff)
+                          }
                         />
                       </div>
                     </div>
@@ -134,6 +138,10 @@ const Profile = ({ user, update_user_profile, profile, get_user_profile }) => {
                           value={last_name}
                           className="flex-1 block w-full focus:ring-indigo-500 focus:border-indigo-500 min-w-0 rounded-md sm:text-sm border-gray-500 bg-gray-50 border  text-gray-900 text-sm  focus:ring-primary-600 focus:border-primary-600  p-2.5 "
                           placeholder="Apellido"
+                          disabled={
+                            !user ||
+                            (user?.id !== profile?.user && !user?.is_staff)
+                          }
                         />
                       </div>
                     </div>
@@ -154,6 +162,10 @@ const Profile = ({ user, update_user_profile, profile, get_user_profile }) => {
                           value={address}
                           className="flex-1 block w-full focus:ring-indigo-500 focus:border-indigo-500 min-w-0 rounded-md sm:text-sm border-gray-500 bg-gray-50 border  text-gray-900 text-sm  focus:ring-primary-600 focus:border-primary-600  p-2.5 "
                           placeholder="Dirección"
+                          disabled={
+                            !user ||
+                            (user?.id !== profile?.user && !user?.is_staff)
+                          }
                         />
                       </div>
                     </div>
@@ -175,6 +187,10 @@ const Profile = ({ user, update_user_profile, profile, get_user_profile }) => {
                           value={city}
                           className="flex-1 block w-full focus:ring-indigo-500 focus:border-indigo-500 min-w-0 rounded-md sm:text-sm border-gray-500 bg-gray-50 border  text-gray-900 text-sm  focus:ring-primary-600 focus:border-primary-600  p-2.5 "
                           placeholder="Ciudad"
+                          disabled={
+                            !user ||
+                            (user?.id !== profile?.user && !user?.is_staff)
+                          }
                         />
                       </div>
                     </div>
@@ -185,7 +201,7 @@ const Profile = ({ user, update_user_profile, profile, get_user_profile }) => {
                       htmlFor="state"
                       className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
                     >
-                      Estado/Provincia:
+                      Provincia:
                     </label>
                     <div className="mt-1 sm:mt-0 sm:col-span-2">
                       <div className="max-w-lg flex rounded-md shadow-sm">
@@ -195,7 +211,11 @@ const Profile = ({ user, update_user_profile, profile, get_user_profile }) => {
                           onChange={(e) => onChange(e)}
                           value={state}
                           className="flex-1 block w-full focus:ring-indigo-500 focus:border-indigo-500 min-w-0 rounded-md sm:text-sm border-gray-500 bg-gray-50 border  text-gray-900 text-sm  focus:ring-primary-600 focus:border-primary-600  p-2.5 "
-                          placeholder="Estado/Provincia"
+                          placeholder="Provincia"
+                          disabled={
+                            !user ||
+                            (user?.id !== profile?.user && !user?.is_staff)
+                          }
                         />
                       </div>
                     </div>
@@ -217,6 +237,10 @@ const Profile = ({ user, update_user_profile, profile, get_user_profile }) => {
                           value={postal_code}
                           className="flex-1 block w-full focus:ring-indigo-500 focus:border-indigo-500 min-w-0 rounded-md sm:text-sm border-gray-500 bg-gray-50 border  text-gray-900 text-sm  focus:ring-primary-600 focus:border-primary-600  p-2.5 "
                           placeholder="Código Postal"
+                          disabled={
+                            !user ||
+                            (user?.id !== profile?.user && !user?.is_staff)
+                          }
                         />
                       </div>
                     </div>
@@ -238,22 +262,44 @@ const Profile = ({ user, update_user_profile, profile, get_user_profile }) => {
                           name="phone"
                           placeholder="Teléfono"
                           className="flex-1 block w-full focus:ring-indigo-500 focus:border-indigo-500 min-w-0 rounded-md sm:text-sm border-gray-500 bg-gray-50 border  text-gray-900 text-sm  focus:ring-primary-600 focus:border-primary-600  p-2.5 "
+                          disabled={
+                            !user ||
+                            (user?.id !== profile?.user && !user?.is_staff)
+                          }
                         />
                       </div>
                     </div>
                   </div>
-
-                  {loading ? (
-                    <button className="inline-flex mt-4 float-right items-center px-2.5 py-1.5 border ransparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                      <TailSpin color="#fff" width={20} height={20} />
-                    </button>
-                  ) : (
-                    <button
-                      type="submit"
-                      className="inline-flex mt-4 float-right items-center px-2.5 py-1.5 border ransparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                      Save
-                    </button>
+                  {(!user || user?.id === profile?.user || user?.is_staff) && (
+                    <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm: sm:border-gray-200 sm:pt-5">
+                      <label
+                        htmlFor="email"
+                        className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+                      >
+                        Correo electrónico:
+                      </label>
+                      <div className="mt-1 sm:mt-0 sm:col-span-2">
+                        <div className="max-w-lg flex rounded-md shadow-sm">
+                          <p>{user?.email}</p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  {(!user || user?.id === profile?.user || user?.is_staff) && (
+                    <>
+                      {loading ? (
+                        <button className="inline-flex mt-4 float-right items-center px-5 py-3 border ransparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                          <TailSpin color="#fff" width={20} height={20} />
+                        </button>
+                      ) : (
+                        <button
+                          type="submit"
+                          className="inline-flex mt-4 float-right items-center px-5 py-3 border ransparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        >
+                          Guardar
+                        </button>
+                      )}
+                    </>
                   )}
                 </form>
               </div>

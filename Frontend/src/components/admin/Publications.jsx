@@ -69,10 +69,10 @@ const Publications = ({
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
           <tr>
             <th scope="col" className="px-4 py-3">
-              publication ID
+              ID de la publicación
             </th>
             <th scope="col" className="px-4 py-3">
-              Name
+              Nombre
             </th>
 
             <th scope="col" className="px-4 py-3">
@@ -87,7 +87,7 @@ const Publications = ({
               scope="col"
               className="px-4 py-3 flex justify-center gap-4 items-center"
             >
-              Actions
+              Acciones
               <Link to="add">
                 <PlusCircleIcon className="h-6 w-6 text-green-300 cursor-pointer" />
               </Link>
