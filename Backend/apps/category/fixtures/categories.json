@@ -38,6 +38,62 @@
         "name": "Arte y Artesanía",
         "parent": null
       }
+    },
+    {
+      "model": "category.Category",
+      "pk": 6,
+      "fields": {
+        "name": "Mecánica",
+        "parent": null
+      }
+    },
+    {
+      "model": "category.Category",
+      "pk": 7,
+      "fields": {
+        "name": "Chapa y pintura",
+        "parent": null
+      }
+    },
+    {
+      "model": "category.Category",
+      "pk": 8,
+      "fields": {
+        "name": "Electricidad",
+        "parent": null
+      }
+    },
+    {
+      "model": "category.Category",
+      "pk": 9,
+      "fields": {
+        "name": "Docencia",
+        "parent": null
+      }
+    },
+    {
+      "model": "category.Category",
+      "pk": 10,
+      "fields": {
+        "name": "Carpintería",
+        "parent": null
+      }
+    },
+    {
+      "model": "category.Category",
+      "pk": 11,
+      "fields": {
+        "name": "Recados",
+        "parent": null
+      }
+    },
+    {
+      "model": "category.Category",
+      "pk": 12,
+      "fields": {
+        "name": "Otros",
+        "parent": null
+      }
     }
    
   ]
