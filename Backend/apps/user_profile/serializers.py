@@ -8,6 +8,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
     # Define los campos que quieres agregar al serializador
     first_name = serializers.SerializerMethodField()
     last_name = serializers.SerializerMethodField()
+    email = serializers.SerializerMethodField()
 
     class Meta:
         model = UserProfile
@@ -19,6 +20,9 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     def get_last_name(self, obj):
         return obj.user.last_name if obj.user else None
+    
+    def get_email(self, obj):
+        return obj.user.email if obj.user else None
 
       
 

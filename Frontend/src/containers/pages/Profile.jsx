@@ -280,7 +280,7 @@ const Profile = ({ user, update_user_profile, profile, get_user_profile }) => {
                       </label>
                       <div className="mt-1 sm:mt-0 sm:col-span-2">
                         <div className="max-w-lg flex rounded-md shadow-sm">
-                          <p>{user?.email}</p>
+                          <p>{profile?.email}</p>
                         </div>
                       </div>
                     </div>
