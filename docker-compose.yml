@@ -15,7 +15,7 @@ services:
     ports:
       - '5432:5432'
     volumes:
-      - postgresdb:/var/lib/postgresql/data/
+      - postgresdb_test:/var/lib/postgresql/data/
   
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "${DB_USER}", "-d", "${DB_NAME}", "-h", "localhost", "-p", "5432"]
@@ -77,4 +77,4 @@ services:
       VITE_CLIENT_PORT: ${CLIENT_PORT}
         
 volumes:
-  postgresdb: 
+  postgresdb_test: 
