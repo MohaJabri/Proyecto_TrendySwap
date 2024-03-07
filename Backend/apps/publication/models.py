@@ -2,8 +2,9 @@ from django.db import models
 from datetime import datetime
 from apps.category.models import Category
 from django.conf import settings
-User=settings.AUTH_USER_MODEL
+User = settings.AUTH_USER_MODEL
 # Create your models here.
+
 
 class Publication(models.Model):
     service_requested = models.CharField(max_length=100)
@@ -22,6 +23,7 @@ class Publication(models.Model):
             return self.publicationimage_set.first().image.url
         else:
             return 'https://via.placeholder.com/300x300.png?text=No+Image'
+
 
 class PublicationImage(models.Model):
     publication = models.ForeignKey(Publication, on_delete=models.CASCADE)
