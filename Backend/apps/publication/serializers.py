@@ -8,7 +8,6 @@ class PublicationImageSerializer(serializers.ModelSerializer):
         model = PublicationImage
         fields = ('image',)
 
-
 class PublicationSerializer(serializers.ModelSerializer):
     user_full_name = serializers.SerializerMethodField()
     category_name = serializers.SerializerMethodField()
@@ -17,7 +16,7 @@ class PublicationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Publication
         fields = '__all__'
-        read_only_fields = ['user', 'photos']
+        read_only_fields = ['user']
 
     def get_user_full_name(self, obj):
         if obj.user:

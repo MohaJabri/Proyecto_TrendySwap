@@ -263,7 +263,7 @@ export const create_publication =
     location,
     description,
     category_id,
-    photo
+    photos
   ) =>
   async (dispatch) => {
     if (localStorage.getItem("access")) {
@@ -281,8 +281,9 @@ export const create_publication =
       body.append("location", location);
       body.append("description", description);
       body.append("category", category_id);
-      body.append("photo", photo);
-
+      for (let i = 0; i < photos.length; i++) {
+        body.append(`photos${i}`, photos[i]);
+      }
       try {
         const res = await axios.post(
           `${backend_url}/api/publication/create/`,

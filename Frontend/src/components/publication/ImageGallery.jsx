@@ -14,7 +14,7 @@ const ImageGallery = ({ photo }) => {
       <Tab.Panels className="w-full  py-5 aspect-w-1 aspect-h-1">
         <Tab.Panel>
           <img
-            src={`${backend_url}${photo} `}
+            src={`${backend_url}${photo[0].image} `}
             className="w-full object-center object-contain sm:rounded-lg"
           />
         </Tab.Panel>

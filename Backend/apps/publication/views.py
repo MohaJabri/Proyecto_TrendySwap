@@ -6,7 +6,7 @@ from rest_framework import status
 from rest_framework import permissions
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
-from .serializers import PublicationSerializer
+from .serializers import PublicationSerializer, PublicationImageSerializer
 from core.pagination import CustomPagination
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
@@ -19,8 +19,8 @@ class CreatePublicationView(APIView):
         publication_serializer = PublicationSerializer(data=request.data)
         if publication_serializer.is_valid():
             publication = publication_serializer.save(user=self.request.user)
-            images_data = request.FILES.getlist(
-                'photos')  # Obtener lista de imágenes
+            images_data = [value for key, value in request.FILES.items() if key.startswith('photo')]
+            
             for image_data in images_data:
                 PublicationImage.objects.create(
                     publication=publication, image=image_data)
@@ -94,10 +94,18 @@ class PublicationDetailView(APIView):
 
         if Publication.objects.filter(id=publication_id).exists():
             publication = Publication.objects.get(id=publication_id)
-            publication = PublicationSerializer(publication)
-            return Response({'publication': publication.data}, status=status.HTTP_200_OK)
+            serializer = PublicationSerializer(publication)
+            data = serializer.data
+
+            # Obtener las imágenes asociadas a la publicación
+            images = PublicationImage.objects.filter(publication=publication)
+            image_serializer = PublicationImageSerializer(images, many=True)
+            data['images'] = image_serializer.data
+
+            return Response({'publication': data}, status=status.HTTP_200_OK)
         else:
             return Response({'error': 'publication does not exist'}, status=status.HTTP_404_NOT_FOUND)
+
 
 
 class PublicationListView(APIView):

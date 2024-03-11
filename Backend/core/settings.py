@@ -13,7 +13,7 @@ SECRET_KEY = config("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['trendyswap.es']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -173,11 +173,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #CORS
 CORS_ALLOWED_ORIGINS=[
-    'http://trendyswap.es',
+    'http://localhost:3000',
+    'http://localhost:8000',
+    'http://localhost',
 ]
 
 CORS_ALLOWED_WHITELIST=[
-    'http://trendyswap.es',
+    'http://localhost:3000',
+    'http://localhost:8000',
+    'http://localhost',
 ]
 
 PASSWORD_HASHERS = [
@@ -198,7 +202,7 @@ SIMPLE_JWT={
 
 }
 
-DOMAIN = 'trendyswap.es'
+DOMAIN = 'localhost'
 
 DJOSER={
     'LOGIN_FIELD':'email',
