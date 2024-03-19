@@ -72,49 +72,34 @@ const Swap = ({
   };
 
   const showPublications = () => {
-    let results = [];
-    let display = [];
-
     if (
       filtered_publications &&
       filtered_publications !== null &&
       filtered_publications !== undefined &&
       filtered
     ) {
-      filtered_publications.map((publication, index) => {
-        return display.push(
-          <div key={index}>
-            <PublicationCard publication={publication} />
-          </div>
-        );
-      });
+      return filtered_publications.map((publication, index) => (
+        <div
+          className="mt-10 grid gap-10 md:grid-cols-2 lg:gap-10 xl:grid-cols-3"
+          key={index}
+        >
+          <PublicationCard publication={publication} />
+        </div>
+      ));
     } else if (
       !filtered &&
       publications &&
       publications !== null &&
       publications !== undefined
     ) {
-      publications.data.map((publication, index) => {
-        return display.push(
-          <div key={index}>
-            <PublicationCard publication={publication} />
-          </div>
-        );
-      });
-    }
-
-    for (let i = 0; i < display.length; i += 4) {
-      results.push(
-        <div key={i} className="grid md:grid-cols-4 ">
-          {display[i] ? display[i] : <div className=""></div>}
-          {display[i + 1] ? display[i + 1] : <div className=""></div>}
-          {display[i + 2] ? display[i + 2] : <div className=""></div>}
-          {display[i + 3] ? display[i + 3] : <div className=""></div>}
+      return (
+        <div className="mt-10 grid gap-10 md:grid-cols-2 lg:gap-10 xl:grid-cols-3">
+          {publications.data.map((publication, index) => (
+            <PublicationCard key={index} publication={publication} />
+          ))}
         </div>
       );
     }
-
-    return results;
   };
 
   return (
@@ -337,15 +322,14 @@ const Swap = ({
                 Publicaciones
               </h2>
 
-              <div className="grid grid-cols-1 lg:grid-cols-4 gap-x-8 gap-y-10">
+              <div>
                 {/* Filters */}
 
                 {/* Product grid */}
-                <div className="lg:col-span-4">
-                  {/* Replace with your content */}
-                  {publications && showPublications()}
-                  {/* /End replace */}
-                </div>
+
+                {/* Replace with your content */}
+                {publications && showPublications()}
+                {/* /End replace */}
               </div>
               {publications?.data?.length > 0 && (
                 <Pagination

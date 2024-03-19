@@ -38,6 +38,7 @@ class UpdateUserProfileView(APIView):
             country = data['country']
             state = data['state']
             postal_code = data['postal_code']
+            profile_image = request.FILES.get('profile_image')
 
             # Retrieve the UserProfile instance based on provided user_id
             user_profile = UserProfile.objects.get(user__id=user_id)
@@ -54,6 +55,8 @@ class UpdateUserProfileView(APIView):
             user_profile.country = country
             user_profile.state = state
             user_profile.postal_code = postal_code
+            if profile_image:
+                user_profile.profile_image = profile_image
             user_profile.save()
 
             # Update User fields if provided

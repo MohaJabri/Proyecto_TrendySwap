@@ -13,7 +13,7 @@ export default function NewPublications({ data }) {
             <div key={publication.id} className="group relative">
               <div className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
                 <img
-                  src={`${backend_url}${publication.photo} `}
+                  src={`${backend_url}${publication.photos[0].image} `}
                   alt=""
                   className="w-full h-full object-center object-cover lg:w-full lg:h-full"
                 />

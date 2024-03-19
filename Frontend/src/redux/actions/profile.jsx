@@ -53,28 +53,29 @@ export const update_user_profile =
     country,
     state,
     postal_code,
-    userId
+    userId,
+    profile_image
   ) =>
   async (dispatch) => {
     if (localStorage.getItem("access")) {
       const config = {
         headers: {
           Accept: "application/json",
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
           Authorization: `JWT ${localStorage.getItem("access")}`,
         },
       };
 
-      const body = JSON.stringify({
-        first_name,
-        last_name,
-        phone,
-        address,
-        city,
-        country,
-        state,
-        postal_code,
-      });
+      const body = new FormData();
+      body.append("first_name", first_name);
+      body.append("last_name", last_name);
+      body.append("phone", phone);
+      body.append("address", address);
+      body.append("city", city);
+      body.append("country", country);
+      body.append("state", state);
+      body.append("postal_code", postal_code);
+      body.append("profile_image", profile_image);
 
       try {
         const res = await axios.put(

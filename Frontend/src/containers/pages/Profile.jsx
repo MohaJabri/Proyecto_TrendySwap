@@ -23,6 +23,7 @@ const Profile = ({ user, update_user_profile, profile, get_user_profile }) => {
     state: "",
     country: "",
     postal_code: "",
+    profile_image: "",
   });
 
   const {
@@ -34,6 +35,7 @@ const Profile = ({ user, update_user_profile, profile, get_user_profile }) => {
     state,
     country,
     postal_code,
+    profile_image,
   } = formData;
   const params = useParams();
   const userId = params.userId;
@@ -56,8 +58,14 @@ const Profile = ({ user, update_user_profile, profile, get_user_profile }) => {
     }
   }, [userId, profile]);
 
-  const onChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const onChange = (e) => {
+    if (e.target.name === "profile_image") {
+      console.log(e.target.files);
+      setFormData({ ...formData, [e.target.name]: e.target.files[0] });
+    } else {
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+    }
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -71,7 +79,8 @@ const Profile = ({ user, update_user_profile, profile, get_user_profile }) => {
       country,
       state,
       postal_code,
-      userId
+      userId,
+      profile_image
     );
 
     window.scrollTo(0, 0);
@@ -218,6 +227,28 @@ const Profile = ({ user, update_user_profile, profile, get_user_profile }) => {
                           }
                         />
                       </div>
+                    </div>
+                  </div>
+
+                  <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm: sm:border-gray-200 sm:pt-5">
+                    <label
+                      htmlFor="profile_image"
+                      className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+                    >
+                      Imagen de perfil:
+                    </label>
+                    <div className="mt-1 sm:mt-0 sm:col-span-2">
+                      <input
+                        type="file"
+                        name="profile_image"
+                        onChange={(e) => onChange(e)}
+                        className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        accept="image/*"
+                        disabled={
+                          !user ||
+                          (user?.id !== profile?.user && !user?.is_staff)
+                        }
+                      />
                     </div>
                   </div>
 
