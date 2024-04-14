@@ -22,6 +22,7 @@ const Layout = (props) => {
     let webSocket = null;
 
     if (userId) {
+      props.get_user_profile(userId);
       webSocket = new WebSocket(
         `ws://localhost:8000/ws/notification/${userId}/`
       );
@@ -62,4 +63,5 @@ export default connect(mapStateToProps, {
   check_authenticated,
   load_user,
   refresh,
+  get_user_profile,
 })(Layout);

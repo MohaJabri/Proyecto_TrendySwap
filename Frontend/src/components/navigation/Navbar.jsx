@@ -19,6 +19,7 @@ import { get_search_publications } from "../../redux/actions/publications";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import SearchBox from "./SearchBox";
 import { get_notifications } from "../../redux/actions/notification";
+const backend_url = import.meta.env.VITE_API_URL;
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -26,6 +27,7 @@ function classNames(...classes) {
 function Navbar({
   get_notifications,
   update,
+  profile,
   isAuthenticated,
   user,
   logout,
@@ -105,13 +107,10 @@ function Navbar({
         <div>
           <Menu.Button className="inline-flex justify-center w-full rounded-full  text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
             <span className="inline-block h-10 w-10 rounded-full overflow-hidden bg-gray-100">
-              <svg
+              <img
                 className="h-full w-full text-gray-300"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-              </svg>
+                src={`${backend_url}${profile?.profile_image}`}
+              ></img>
             </span>
           </Menu.Button>
         </div>
@@ -334,6 +333,7 @@ const mapStateToProps = (state) => {
     user: state.Auth.user,
     categories: state.Categories.categories,
     notifications: state.Notifications.notifications,
+    profile: state.Profile.profile,
   };
 };
 
