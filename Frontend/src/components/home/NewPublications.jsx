@@ -2,13 +2,16 @@ import { Link } from "react-router-dom";
 const backend_url = import.meta.env.VITE_API_URL;
 export default function NewPublications({ data }) {
   return (
-    <div className="bg-white">
-      <div className="max-w-2xl mx-auto py-8 px-4 sm:py-4 sm:px-6 lg:max-w-7xl lg:px-8">
-        <h2 className="text-2xl font-extrabold tracking-tight text-gray-900">
+    <div className="bg-white min-h-screen">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 flex items-baseline justify-between pt-16 pb-6 border-b border-gray-200">
+        <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">
           Publicaciones Recientes
-        </h2>
+        </h1>
 
-        <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+        
+      </div>
+      <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
           {data?.map((publication) => (
             <div key={publication.id} className="group relative">
               <div className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
@@ -33,7 +36,7 @@ export default function NewPublications({ data }) {
             </div>
           ))}
         </div>
-      </div>
+      </main>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import Layout from "../../hocs/Layout";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import { create_publication } from "../../redux/actions/publications";
 import { TailSpin } from "react-loader-spinner";
@@ -7,6 +7,7 @@ import { comunidadesAutonomas } from "../../utils/locations";
 const AddPublication = ({ create_publication, categories }) => {
   const [loading, setLoading] = useState(false);
   const [filePreviews, setFilePreviews] = useState([]);
+  const fileInputRef = useRef(null);
   const resetForm = () => {
     setFormData({
       service_requested: "",
@@ -17,6 +18,9 @@ const AddPublication = ({ create_publication, categories }) => {
       photos: [],
     });
     setFilePreviews([]);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   };
 
   useEffect(() => {
@@ -77,9 +81,18 @@ const AddPublication = ({ create_publication, categories }) => {
     setIsHovered(false);
   };
 
-  const removeImage = () => {
-    setFormData({ ...formData, photo: null });
-    setIsHovered(false);
+  const removeImage = (index) => {
+    const updatedPhotos = [...formData.photos];
+    updatedPhotos.splice(index, 1);
+    setFormData({ ...formData, photos: updatedPhotos });
+
+    const updatedPreviews = [...filePreviews];
+    URL.revokeObjectURL(updatedPreviews[index]); // Revoke the URL to free up memory
+    updatedPreviews.splice(index, 1);
+    setFilePreviews(updatedPreviews);
+    if (fileInputRefs.current && fileInputRefs.current[index]) {
+      fileInputRefs.current[index].value = "";
+    }
   };
 
   return (
@@ -230,6 +243,7 @@ const AddPublication = ({ create_publication, categories }) => {
                       </p>
                     </div>
                     <input
+                      ref={fileInputRef}
                       required
                       name="photos"
                       type="file"
@@ -249,14 +263,7 @@ const AddPublication = ({ create_publication, categories }) => {
                         />
                         <button
                           type="button"
-                          onClick={() => {
-                            const updatedFiles = [...photos];
-                            updatedFiles.splice(index, 1);
-                            const updatedPreviews = [...filePreviews];
-                            updatedPreviews.splice(index, 1);
-                            setFormData({ ...formData, photos: updatedFiles });
-                            setFilePreviews(updatedPreviews);
-                          }}
+                          onClick={() => removeImage(index)}
                           className="absolute top-0 right-0 w-6 h-6 bg-red-500 text-white rounded-full flex justify-center items-center"
                         >
                           &times;
