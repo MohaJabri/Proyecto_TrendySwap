@@ -45,8 +45,8 @@ const PublicationCard = ({ publication, aspect }) => {
 
         <div className={cx("flex items-center")}>
           <div>
-            <div class="flex gap-3">
-              <span class="inline-block text-xs font-medium tracking-wider uppercase   mt-5 text-blue-600">
+            <div className="flex gap-3">
+              <span className="inline-block text-xs font-medium tracking-wider uppercase   mt-5 text-blue-600">
                 {publication.category_name}
               </span>
             </div>

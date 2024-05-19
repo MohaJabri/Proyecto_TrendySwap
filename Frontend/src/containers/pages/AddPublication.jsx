@@ -19,6 +19,7 @@ const AddPublication = ({ create_publication, categories }) => {
     });
     setFilePreviews([]);
     if (fileInputRef.current) {
+      
       fileInputRef.current.value = "";
     }
   };
@@ -47,9 +48,11 @@ const AddPublication = ({ create_publication, categories }) => {
   const onChange = (e) => {
     if (e.target.name === "photos") {
       const files = Array.from(e.target.files);
-      setFormData({ ...formData, [e.target.name]: files });
+      const newPhotos = [...photos, ...files];
+      console.log(newPhotos);
+      setFormData({ ...formData, [e.target.name]: newPhotos });
       const previews = files.map((file) => URL.createObjectURL(file));
-      setFilePreviews(previews);
+      setFilePreviews([...filePreviews, ...previews]);
     } else {
       setFormData({ ...formData, [e.target.name]: e.target.value });
     }
@@ -89,9 +92,13 @@ const AddPublication = ({ create_publication, categories }) => {
     const updatedPreviews = [...filePreviews];
     URL.revokeObjectURL(updatedPreviews[index]); // Revoke the URL to free up memory
     updatedPreviews.splice(index, 1);
+    
     setFilePreviews(updatedPreviews);
-    if (fileInputRefs.current && fileInputRefs.current[index]) {
-      fileInputRefs.current[index].value = "";
+    if (updatedPreviews.length === 0) {
+      if (fileInputRef.current) {
+      
+        fileInputRef.current.value = "";
+      }
     }
   };
 
