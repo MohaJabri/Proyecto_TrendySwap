@@ -6,7 +6,7 @@ from .models import PublicationImage
 class PublicationImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = PublicationImage
-        fields = ('image',)
+        fields = '__all__'
 
 class PublicationSerializer(serializers.ModelSerializer):
     user_full_name = serializers.SerializerMethodField()

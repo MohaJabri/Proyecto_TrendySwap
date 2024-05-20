@@ -356,7 +356,8 @@ export const update_publication =
     location,
     description,
     category_id,
-    photo
+    new_photos,
+    images_to_delete
   ) =>
   async (dispatch) => {
     if (localStorage.getItem("access")) {
@@ -374,10 +375,12 @@ export const update_publication =
       body.append("location", location);
       body.append("description", description);
       body.append("category", category_id);
-      if (photo) {
-        body.append("photo", photo);
+      for (let i = 0; i < new_photos.length; i++) {
+        body.append(`photos${i}`, new_photos[i]);
       }
-
+      if (images_to_delete.length > 0) {
+        body.append('images_to_delete', JSON.stringify(images_to_delete));
+      }
       try {
         const res = await axios.put(
           `${backend_url}/api/publication/update/${publicationId}/`,

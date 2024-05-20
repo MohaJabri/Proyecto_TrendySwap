@@ -41,7 +41,7 @@ const PublicationDetail = ({
           <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
             <div className="lg:grid lg:grid-cols-2 lg:gap-x-8 lg:items-start">
               {/* Image gallery */}
-              <ImageGallery photo={publication && publication.images} />
+              <ImageGallery photo={publication && publication.photos} />
               {/* Product info */}
               <div className="mt-10 p-4 sm:px-0 sm:mt-16 lg:mt-0">
                 <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">

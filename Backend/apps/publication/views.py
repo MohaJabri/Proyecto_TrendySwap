@@ -10,7 +10,7 @@ from .serializers import PublicationSerializer, PublicationImageSerializer
 from core.pagination import CustomPagination
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
-
+import json
 
 class CreatePublicationView(APIView):
     permission_classes = [permissions.IsAuthenticated]
@@ -39,23 +39,41 @@ class UpdatePublicationView(APIView):
         except ValueError:
             return Response({'error': 'invalid publication id'}, status=status.HTTP_400_BAD_REQUEST)
 
-        if not Publication.objects.filter(id=publication_id).exists():
-            return Response({'error': 'publication does not exist'}, status=status.HTTP_404_NOT_FOUND)
+        publication = get_object_or_404(Publication, id=publication_id)
 
-        publication = Publication.objects.get(id=publication_id)
-        if not request.user.is_staff:  # Verificar si el usuario no es staff
-            if publication.user != request.user:
-                return Response({'error': 'you are not authorized to update this publication'}, status=status.HTTP_401_UNAUTHORIZED)
+        if not request.user.is_staff and publication.user != request.user:
+            return Response({'error': 'you are not authorized to update this publication'}, status=status.HTTP_401_UNAUTHORIZED)
 
-        publication_serializer = PublicationSerializer(
-            publication, data=request.data)
-
+        publication_serializer = PublicationSerializer(publication, data=request.data, partial=True)
         if publication_serializer.is_valid():
-            publication_serializer.save(user=request.user)
+            publication_serializer.save()
+
+            # Gestionar las imágenes
+            images_data = [value for key, value in request.FILES.items() if key.startswith('photo')]
+            
+            # Eliminar imágenes existentes si se proporciona una lista de IDs para eliminar
+            images_to_delete = request.data.get('images_to_delete', '[]')
+            try:
+                image_ids_to_delete = json.loads(images_to_delete)  # Decodificamos la cadena JSON
+                if not isinstance(image_ids_to_delete, list):
+                    return Response({'error': 'images_to_delete should be a list'}, status=status.HTTP_400_BAD_REQUEST)
+            except json.JSONDecodeError:
+                return Response({'error': 'Invalid JSON for images_to_delete'}, status=status.HTTP_400_BAD_REQUEST)
+            for image_id in image_ids_to_delete:
+                try:
+                    image = PublicationImage.objects.get(id=image_id, publication=publication)
+                    image.delete()
+                except PublicationImage.DoesNotExist:
+                    continue
+
+            # Añadir nuevas imágenes
+            for image_data in images_data:
+                PublicationImage.objects.create(publication=publication, image=image_data)
+
             return Response(publication_serializer.data, status=status.HTTP_201_CREATED)
         else:
-            print('error', publication_serializer.errors)
             return Response(publication_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 class DeletePublicationView(APIView):
@@ -98,9 +116,7 @@ class PublicationDetailView(APIView):
             data = serializer.data
 
             # Obtener las imágenes asociadas a la publicación
-            images = PublicationImage.objects.filter(publication=publication)
-            image_serializer = PublicationImageSerializer(images, many=True)
-            data['images'] = image_serializer.data
+            
 
             return Response({'publication': data}, status=status.HTTP_200_OK)
         else:
