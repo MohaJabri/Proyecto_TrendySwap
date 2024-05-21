@@ -2,12 +2,20 @@ import Layout from "../../hocs/Layout";
 import { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router";
-import { update_publication, get_publication } from "../../redux/actions/publications";
+import {
+  update_publication,
+  get_publication,
+} from "../../redux/actions/publications";
 import { TailSpin } from "react-loader-spinner";
 import { comunidadesAutonomas } from "../../utils/locations";
 const backend_url = import.meta.env.VITE_API_URL;
 
-const UpdatePublication = ({ update_publication, categories, get_publication, publication }) => {
+const UpdatePublication = ({
+  update_publication,
+  categories,
+  get_publication,
+  publication,
+}) => {
   const inputRef = useRef(null);
   const params = useParams();
   const publicationId = params.publicationId;
@@ -36,21 +44,40 @@ const UpdatePublication = ({ update_publication, categories, get_publication, pu
         location: publication.location,
         description: publication.description,
         category_id: publication.category,
-        photos: publication.photos.map((photo) => ({ file: null, url: `${backend_url}${photo.image}`, id: photo.id })),
+        photos: publication.photos.map((photo) => ({
+          file: null,
+          url: `${backend_url}${photo.image}`,
+          id: photo.id,
+        })),
       });
-      setFilePreviews(publication.photos.map((photo) => `${backend_url}${photo.image}`));
+      setFilePreviews(
+        publication.photos.map((photo) => `${backend_url}${photo.image}`)
+      );
     }
   }, [publication]);
 
   const [isHovered, setIsHovered] = useState(false);
-  const { service_requested, object_offered, location, description, category_id, photos } = formData;
+  const {
+    service_requested,
+    object_offered,
+    location,
+    description,
+    category_id,
+    photos,
+  } = formData;
 
   const onChange = (e) => {
     if (e.target.name === "photos") {
       const files = Array.from(e.target.files);
-      const newPhotos = [...photos, ...files.map((file) => ({ file, url: URL.createObjectURL(file) }))];
+      const newPhotos = [
+        ...photos,
+        ...files.map((file) => ({ file, url: URL.createObjectURL(file) })),
+      ];
       setFormData({ ...formData, [e.target.name]: newPhotos });
-      setFilePreviews([...filePreviews, ...files.map((file) => URL.createObjectURL(file))]);
+      setFilePreviews([
+        ...filePreviews,
+        ...files.map((file) => URL.createObjectURL(file)),
+      ]);
     } else {
       setFormData({ ...formData, [e.target.name]: e.target.value });
     }
@@ -60,10 +87,21 @@ const UpdatePublication = ({ update_publication, categories, get_publication, pu
     e.preventDefault();
     setLoading(true);
 
-    const updatedPhotos = photos.filter(photo => photo.file !== null).map(photo => photo.file);
+    const updatedPhotos = photos
+      .filter((photo) => photo.file !== null)
+      .map((photo) => photo.file);
     const photoIdsToRemove = filesToRemove;
-    
-    await update_publication(publicationId, service_requested, object_offered, location, description, category_id, updatedPhotos, photoIdsToRemove);
+
+    await update_publication(
+      publicationId,
+      service_requested,
+      object_offered,
+      location,
+      description,
+      category_id,
+      updatedPhotos,
+      photoIdsToRemove
+    );
 
     setLoading(false);
     window.scrollTo(0, 0);
@@ -81,9 +119,9 @@ const UpdatePublication = ({ update_publication, categories, get_publication, pu
 
   const removeImage = (index) => {
     const updatedPhotos = [...photos];
-    
+
     const removedPhoto = updatedPhotos[index];
-    
+
     if (removedPhoto.id !== null && removedPhoto.id !== undefined) {
       setFilesToRemove([...filesToRemove, removedPhoto.id]);
     }
@@ -103,12 +141,17 @@ const UpdatePublication = ({ update_publication, categories, get_publication, pu
         <div className="p-4 w-full max-w-2xl h-full md:h-auto">
           <div className="p-4 bg-white rounded-lg shadow sm:p-5">
             <div className="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5">
-              <h3 className="text-lg font-semibold text-gray-900">Actualizar Publicación</h3>
+              <h3 className="text-lg font-semibold text-gray-900">
+                Actualizar Publicación
+              </h3>
             </div>
             <form onSubmit={onSubmit}>
               <div className="grid gap-4 mb-4 sm:grid-cols-2">
                 <div>
-                  <label htmlFor="service_requested" className="block mb-2 text-sm font-medium text-gray-900">
+                  <label
+                    htmlFor="service_requested"
+                    className="block mb-2 text-sm font-medium text-gray-900"
+                  >
                     Solicito
                   </label>
                   <input
@@ -123,7 +166,10 @@ const UpdatePublication = ({ update_publication, categories, get_publication, pu
                   />
                 </div>
                 <div>
-                  <label htmlFor="object_offered" className="block mb-2 text-sm font-medium text-gray-900">
+                  <label
+                    htmlFor="object_offered"
+                    className="block mb-2 text-sm font-medium text-gray-900"
+                  >
                     Ofrezco
                   </label>
                   <input
@@ -138,7 +184,10 @@ const UpdatePublication = ({ update_publication, categories, get_publication, pu
                   />
                 </div>
                 <div>
-                  <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900">
+                  <label
+                    htmlFor="category"
+                    className="block mb-2 text-sm font-medium text-gray-900"
+                  >
                     Categoría
                   </label>
                   <select
@@ -157,7 +206,10 @@ const UpdatePublication = ({ update_publication, categories, get_publication, pu
                   </select>
                 </div>
                 <div>
-                  <label htmlFor="location" className="block mb-2 text-sm font-medium text-gray-900">
+                  <label
+                    htmlFor="location"
+                    className="block mb-2 text-sm font-medium text-gray-900"
+                  >
                     Ubicación
                   </label>
                   <select
@@ -176,7 +228,10 @@ const UpdatePublication = ({ update_publication, categories, get_publication, pu
                   </select>
                 </div>
                 <div className="sm:col-span-2">
-                  <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900">
+                  <label
+                    htmlFor="description"
+                    className="block mb-2 text-sm font-medium text-gray-900"
+                  >
                     Descripción
                   </label>
                   <input
@@ -190,16 +245,40 @@ const UpdatePublication = ({ update_publication, categories, get_publication, pu
                   />
                 </div>
                 <div className="sm:col-span-2">
-                  <div className={`shadow relative flex flex-col items-center justify-center w-full h-64 rounded-lg cursor-pointer bg-white ${isHovered ? "bg-gray-400 text-white" : "bg-white text-gray-400 hover:bg-gray-400 hover:text-white"}`} onDragEnter={onDragEnter} onDragLeave={onDragLeave}>
-                    <svg aria-hidden="true" className="w-10 h-10 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                  <div
+                    className={`shadow relative flex flex-col items-center justify-center w-full h-64 rounded-lg cursor-pointer bg-white ${
+                      isHovered
+                        ? "bg-gray-400 text-white"
+                        : "bg-white text-gray-400 hover:bg-gray-400 hover:text-white"
+                    }`}
+                    onDragEnter={onDragEnter}
+                    onDragLeave={onDragLeave}
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="w-10 h-10 mb-3"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                      ></path>
                     </svg>
                     <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                      <p className="mb-2 text-sm"><span className="font-semibold">Click to upload</span> or drag and drop</p>
-                      <p className="text-xs">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                      <p className="mb-2 text-sm">
+                        <span className="font-semibold">Click to upload</span>{" "}
+                        or drag and drop
+                      </p>
+                      <p className="text-xs">
+                        SVG, PNG, JPG or GIF (MAX. 800x400px)
+                      </p>
                     </div>
                     <input
-                      required
                       ref={inputRef}
                       name="photos"
                       type="file"
@@ -212,10 +291,29 @@ const UpdatePublication = ({ update_publication, categories, get_publication, pu
                   <div className="flex flex-wrap mt-4">
                     {filePreviews.map((preview, index) => (
                       <div key={index} className="relative w-24 h-24 m-2">
-                        <img src={preview} alt={`preview-${index}`} className="object-cover w-full h-full rounded-lg" />
-                        <button type="button" onClick={() => removeImage(index)} className="absolute top-0 right-0 p-1 bg-red-600 rounded-full">
-                          <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                        <img
+                          src={preview}
+                          alt={`preview-${index}`}
+                          className="object-cover w-full h-full rounded-lg"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => removeImage(index)}
+                          className="absolute top-0 right-0 p-1 bg-red-600 rounded-full"
+                        >
+                          <svg
+                            className="w-4 h-4 text-white"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M6 18L18 6M6 6l12 12"
+                            ></path>
                           </svg>
                         </button>
                       </div>
@@ -244,7 +342,7 @@ const UpdatePublication = ({ update_publication, categories, get_publication, pu
                 </button>
               ) : (
                 <button
-                   type="submit"
+                  type="submit"
                   className="mx-auto flex items-center border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500  px-5 py-2.5 text-center "
                 >
                   <svg
@@ -275,4 +373,7 @@ const mapStateToProps = (state) => ({
   publication: state.Publications.publication,
 });
 
-export default connect(mapStateToProps, { update_publication, get_publication })(UpdatePublication);
+export default connect(mapStateToProps, {
+  update_publication,
+  get_publication,
+})(UpdatePublication);

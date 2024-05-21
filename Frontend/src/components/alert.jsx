@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
-import { CheckCircleIcon } from "@heroicons/react/solid";
+import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/solid";
+
 
 const Alert = ({ alert }) => {
   if (!alert) {
@@ -52,10 +53,13 @@ const Alert = ({ alert }) => {
       <div className={`rounded-md ${alertBgColor} p-4 shadow-lg text-center`}>
         <div className="flex justify-center">
           <div className="flex-shrink-0">
-            <CheckCircleIcon
-              className={`h-5 w-5 ${alertIconColor}`}
-              aria-hidden="true"
-            />
+            {
+              alertType === "green" ? (
+                <CheckCircleIcon className={`h-5 w-5 ${alertIconColor}`} aria-hidden="true" />
+              ) : (
+                <XCircleIcon className={`h-5 w-5 ${alertIconColor}`} aria-hidden="true" />
+              )
+            }
           </div>
           <div className="ml-3">
             <p className={`text-sm font-medium ${alertTextColor}`}>{msg}</p>

@@ -26,6 +26,7 @@ const initialState = {
   publication_arrival: null,
   publication_sold: null,
   publications: null,
+  isPublicationCreated: false,
   search_publication: null,
   related_publication: null,
   filtered_publication: null,
@@ -109,11 +110,13 @@ export default function Publications(state = initialState, action) {
     case CREATE_PUBLICATION_SUCCESS:
       return {
         ...state,
+        isPublicationCreated: true,
       };
 
     case CREATE_PUBLICATION_FAIL:
       return {
         ...state,
+        isPublicationCreated: false,
       };
 
     case DELETE_PUBLICATION_SUCCESS:

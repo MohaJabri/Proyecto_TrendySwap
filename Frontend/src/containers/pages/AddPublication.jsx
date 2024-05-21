@@ -4,7 +4,11 @@ import { connect } from "react-redux";
 import { create_publication } from "../../redux/actions/publications";
 import { TailSpin } from "react-loader-spinner";
 import { comunidadesAutonomas } from "../../utils/locations";
-const AddPublication = ({ create_publication, categories }) => {
+const AddPublication = ({
+  create_publication,
+  categories,
+  isPublicationCreated,
+}) => {
   const [loading, setLoading] = useState(false);
   const [filePreviews, setFilePreviews] = useState([]);
   const fileInputRef = useRef(null);
@@ -19,7 +23,6 @@ const AddPublication = ({ create_publication, categories }) => {
     });
     setFilePreviews([]);
     if (fileInputRef.current) {
-      
       fileInputRef.current.value = "";
     }
   };
@@ -70,9 +73,14 @@ const AddPublication = ({ create_publication, categories }) => {
       photos
     );
     setLoading(false);
-    window.scrollTo(0, 0);
-    resetForm();
   };
+
+  useEffect(() => {
+    if (isPublicationCreated && !loading) {
+      resetForm();
+      window.scrollTo(0, 0);
+    }
+  }, [isPublicationCreated, loading]);
 
   const onDragEnter = (e) => {
     e.preventDefault();
@@ -92,11 +100,10 @@ const AddPublication = ({ create_publication, categories }) => {
     const updatedPreviews = [...filePreviews];
     URL.revokeObjectURL(updatedPreviews[index]); // Revoke the URL to free up memory
     updatedPreviews.splice(index, 1);
-    
+
     setFilePreviews(updatedPreviews);
     if (updatedPreviews.length === 0) {
       if (fileInputRef.current) {
-      
         fileInputRef.current.value = "";
       }
     }
@@ -251,7 +258,6 @@ const AddPublication = ({ create_publication, categories }) => {
                     </div>
                     <input
                       ref={fileInputRef}
-                      required
                       name="photos"
                       type="file"
                       multiple
@@ -328,6 +334,7 @@ const AddPublication = ({ create_publication, categories }) => {
 };
 const mapStateToProps = (state) => ({
   categories: state.Categories.categories,
+  isPublicationCreated: state.Publications.isPublicationCreated,
 });
 export default connect(mapStateToProps, {
   create_publication,

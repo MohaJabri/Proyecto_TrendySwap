@@ -27,4 +27,4 @@ class Publication(models.Model):
 
 class PublicationImage(models.Model):
     publication = models.ForeignKey(Publication,related_name='photos', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='photos/%Y/%m/', blank=True, null=True)
+    image = models.ImageField(upload_to='photos/%Y/%m/', blank=False, null=True)

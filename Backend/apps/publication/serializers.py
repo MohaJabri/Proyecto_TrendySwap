@@ -27,3 +27,11 @@ class PublicationSerializer(serializers.ModelSerializer):
         if obj.category:
             return obj.category.name
         return ''
+    
+    def validate(self, data):
+        # Verifica si se han proporcionado al menos una foto
+       if self.instance is None:
+            photos = self.initial_data.get('photos0', [])
+            if not photos:
+                raise serializers.ValidationError("Se requiere al menos una imagen para crear una publicación.")
+       return data

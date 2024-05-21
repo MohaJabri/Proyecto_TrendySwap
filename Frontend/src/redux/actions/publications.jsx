@@ -281,8 +281,10 @@ export const create_publication =
       body.append("location", location);
       body.append("description", description);
       body.append("category", category_id);
-      for (let i = 0; i < photos.length; i++) {
-        body.append(`photos${i}`, photos[i]);
+      if (photos.length > 0) {
+        for (let i = 0; i < photos.length; i++) {
+          body.append(`photos${i}`, photos[i]);
+        }
       }
       try {
         const res = await axios.post(
@@ -309,8 +311,11 @@ export const create_publication =
         dispatch({
           type: CREATE_PUBLICATION_FAIL,
         });
-
-        dispatch(setAlert("Error al crear la publicación", "red"));
+        if (err.response.data) {
+          dispatch(setAlert(err.response.data.non_field_errors[0], "red"));
+        } else {
+          dispatch(setAlert("Error al crear la publicación", "red"));
+        }
       }
     }
   };
@@ -379,7 +384,7 @@ export const update_publication =
         body.append(`photos${i}`, new_photos[i]);
       }
       if (images_to_delete.length > 0) {
-        body.append('images_to_delete', JSON.stringify(images_to_delete));
+        body.append("images_to_delete", JSON.stringify(images_to_delete));
       }
       try {
         const res = await axios.put(
@@ -407,7 +412,11 @@ export const update_publication =
           type: UPDATE_PUBLICATION_FAIL,
         });
 
-        dispatch(setAlert("Error al actualizar la publicación", "red"));
+        if (err.response.data) {
+          dispatch(setAlert(err.response.data.non_field_errors[0], "red"));
+        } else {
+          dispatch(setAlert("Error al crear la publicación", "red"));
+        }
       }
     }
   };

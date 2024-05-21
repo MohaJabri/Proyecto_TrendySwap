@@ -5,12 +5,11 @@ import { connect } from "react-redux";
 import { signup } from "../../redux/actions/auth";
 import { TailSpin } from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
-const Signup = ({ signup, loading }) => {
+const Signup = ({ signup, loading, isCreated }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
   const navigate = useNavigate();
-  const [accountCreated, setAccountCreated] = useState(false);
 
   const [formData, setFormData] = useState({
     first_name: "",
@@ -29,14 +28,15 @@ const Signup = ({ signup, loading }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     await signup(first_name, last_name, email, password, re_password);
-    setAccountCreated(true);
   };
 
   useEffect(() => {
-    if (accountCreated && !loading) {
+    if (isCreated && !loading) {
       navigate("/");
+    } else if (!isCreated && !loading) {
+      window.scrollTo(0, 0);
     }
-  }, [accountCreated, loading]);
+  }, [isCreated, loading]);
 
   return (
     <Layout>
@@ -175,6 +175,7 @@ const Signup = ({ signup, loading }) => {
 };
 const mapStateToProps = (state) => ({
   loading: state.Auth.loading,
+  isCreated: state.Auth.userIsCreated,
 });
 
 export default connect(mapStateToProps, {

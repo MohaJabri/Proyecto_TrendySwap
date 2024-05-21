@@ -24,6 +24,7 @@ const initialState = {
   access: localStorage.getItem("access"),
   refresh: localStorage.getItem("refresh"),
   isAuthenticated: null,
+  userIsCreated: false,
   user: null,
   loading: false,
 };
@@ -95,7 +96,15 @@ export default function Auth(state = initialState, action) {
       };
 
     case SIGNUP_SUCCESS:
+      return {
+        ...state,
+        userIsCreated: true,
+      };
     case SIGNUP_FAIL:
+      return {
+        ...state,
+        userIsCreated: false,
+      };
     case LOGIN_FAIL:
     case REFRESH_FAIL:
     case LOGOUT:

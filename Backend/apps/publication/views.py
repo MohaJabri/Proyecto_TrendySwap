@@ -20,7 +20,7 @@ class CreatePublicationView(APIView):
         if publication_serializer.is_valid():
             publication = publication_serializer.save(user=self.request.user)
             images_data = [value for key, value in request.FILES.items() if key.startswith('photo')]
-            
+            print(images_data)
             for image_data in images_data:
                 PublicationImage.objects.create(
                     publication=publication, image=image_data)

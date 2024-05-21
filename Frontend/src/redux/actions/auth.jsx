@@ -86,7 +86,7 @@ export const signup =
 
     try {
       const res = await axios.post(`${backend_url}/auth/users/`, body, config);
-      
+
       if (res.status === 201) {
         dispatch({
           type: SIGNUP_SUCCESS,
@@ -108,12 +108,17 @@ export const signup =
         type: REMOVE_AUTH_LOADING,
       });
     } catch (err) {
-      const { email, password } = err.response.data;
+      const { email, password, non_field_errors } = err.response.data;
       const errorMessages = {
-        "user account with this email already exists.": "El correo ya está registrado",
-        "This password is too short. It must contain at least 8 characters.": "La contraseña es muy corta. Debe contener al menos 8 caracteres.",
+        "user account with this email already exists.":
+          "El correo ya está registrado",
+        "This password is too short. It must contain at least 8 characters.":
+          "La contraseña es muy corta. Debe contener al menos 8 caracteres.",
         "This password is too common.": "La contraseña es muy común",
-        "This password is entirely numeric.": "La contraseña no puede ser solo números."
+        "This password is entirely numeric.":
+          "La contraseña no puede ser solo números.",
+        "The two password fields didn't match.":
+          "Las dos contraseñas no coinciden",
       };
       dispatch({
         type: SIGNUP_FAIL,
@@ -123,14 +128,17 @@ export const signup =
       });
       if (email?.[0] && errorMessages[email[0]]) {
         dispatch(setAlert(errorMessages[email[0]], "red"));
-      // Verificación de errores de password
+        // Verificación de errores de password
       } else if (password && Array.isArray(password)) {
-        const passwordError = password.find(msg => errorMessages[msg]);
+        const passwordError = password.find((msg) => errorMessages[msg]);
         if (passwordError) {
           dispatch(setAlert(errorMessages[passwordError], "red"));
         } else {
           dispatch(setAlert("Error al crear cuenta", "red"));
         }
+        // Verificación de errores generales (non_field_errors)
+      } else if (non_field_errors?.[0] && errorMessages[non_field_errors[0]]) {
+        dispatch(setAlert(errorMessages[non_field_errors[0]], "red"));
       } else {
         dispatch(setAlert("Error al crear cuenta", "red"));
       }
@@ -220,10 +228,14 @@ export const login = (email, password) => async (dispatch) => {
     dispatch({
       type: REMOVE_AUTH_LOADING,
     });
-    if (err.response?.data.detail === "No active account found with the given credentials") {
-
-      dispatch(setAlert("Ninguna cuenta activa para las credenciales dadas", "red"));
-        } else {
+    if (
+      err.response?.data.detail ===
+      "No active account found with the given credentials"
+    ) {
+      dispatch(
+        setAlert("Ninguna cuenta activa para las credenciales dadas", "red")
+      );
+    } else {
       dispatch(setAlert("Error al iniciar sesion. Intenta mas tarde", "red"));
     }
   }
