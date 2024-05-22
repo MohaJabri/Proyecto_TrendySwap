@@ -1,44 +1,234 @@
 [
-    {
-      "model": "category.Category",
-      "pk": 1,
-      "fields": {
-        "name": "Electrónica",
-        "parent": null
-      }
-    },
-    {
-      "model": "category.Category",
-      "pk": 2,
-      "fields": {
-        "name": "Moda y Accesorios",
-        "parent": null
-      }
-    },
-    {
-      "model": "category.Category",
-      "pk": 3,
-      "fields": {
-        "name": "Hogar y Jardín",
-        "parent": null
-      }
-    },
-    {
-      "model": "category.Category",
-      "pk": 4,
-      "fields": {
-        "name": "Deportes y Aire Libre",
-        "parent": null
-      }
-    },
-    {
-      "model": "category.Category",
-      "pk": 5,
-      "fields": {
-        "name": "Arte y Artesanía",
-        "parent": null
-      }
+  {
+    "model": "category.Category",
+    "pk": 1,
+    "fields": {
+      "name": "Arte y antigüedades",
+      "parent": null
     }
-   
-  ]
-  
+  },
+  {
+    "model": "category.Category",
+    "pk": 2,
+    "fields": {
+      "name": "Artesanía y manualidades",
+      "parent": null
+    }
+  },
+  {
+    "model": "category.Category",
+    "pk": 3,
+    "fields": {
+      "name": "Bebés",
+      "parent": null
+    }
+  },
+  {
+    "model": "category.Category",
+    "pk": 4,
+    "fields": {
+      "name": "Belleza y salud",
+      "parent": null
+    }
+  },
+  {
+    "model": "category.Category",
+    "pk": 5,
+    "fields": {
+      "name": "Cámaras y fotografía",
+      "parent": null
+    }
+  },
+  {
+    "model": "category.Category",
+    "pk": 6,
+    "fields": {
+      "name": "Casa, jardín y bricolaje",
+      "parent": null
+    }
+  },
+  {
+    "model": "category.Category",
+    "pk": 7,
+    "fields": {
+      "name": "Cine, DVD y películas",
+      "parent": null
+    }
+  },
+  {
+    "model": "category.Category",
+    "pk": 8,
+    "fields": {
+      "name": "Coches, motos y otros vehículos",
+      "parent": null
+    }
+  },
+  {
+    "model": "category.Category",
+    "pk": 9,
+    "fields": {
+      "name": "Coleccionismo",
+      "parent": null
+    }
+  },
+  {
+    "model": "category.Category",
+    "pk": 10,
+    "fields": {
+      "name": "Consolas y videojuegos",
+      "parent": null
+    }
+  },
+  {
+    "model": "category.Category",
+    "pk": 11,
+    "fields": {
+      "name": "Deportes",
+      "parent": null
+    }
+  },
+  {
+    "model": "category.Category",
+    "pk": 12,
+    "fields": {
+      "name": "Electrodomésticos",
+      "parent": null
+    }
+  },
+  {
+    "model": "category.Category",
+    "pk": 13,
+    "fields": {
+      "name": "Entradas y eventos",
+      "parent": null
+    }
+  },
+  {
+    "model": "category.Category",
+    "pk": 14,
+    "fields": {
+      "name": "Equipamiento y maquinaria",
+      "parent": null
+    }
+  },
+  {
+    "model": "category.Category",
+    "pk": 15,
+    "fields": {
+      "name": "Imagen y sonido",
+      "parent": null
+    }
+  },
+  {
+    "model": "category.Category",
+    "pk": 16,
+    "fields": {
+      "name": "Informática y tablets",
+      "parent": null
+    }
+  },
+  {
+    "model": "category.Category",
+    "pk": 17,
+    "fields": {
+      "name": "Instrumentos musicales",
+      "parent": null
+    }
+  },
+  {
+    "model": "category.Category",
+    "pk": 18,
+    "fields": {
+      "name": "Juguetes",
+      "parent": null
+    }
+  },
+  {
+    "model": "category.Category",
+    "pk": 19,
+    "fields": {
+      "name": "Libros, revistas y cómics",
+      "parent": null
+    }
+  },
+  {
+    "model": "category.Category",
+    "pk": 20,
+    "fields": {
+      "name": "Monedas y billetes",
+      "parent": null
+    }
+  },
+  {
+    "model": "category.Category",
+    "pk": 21,
+    "fields": {
+      "name": "Motor: recambios y accesorios",
+      "parent": null
+    }
+  },
+  {
+    "model": "category.Category",
+    "pk": 22,
+    "fields": {
+      "name": "Móviles y telefonía",
+      "parent": null
+    }
+  },
+  {
+    "model": "category.Category",
+    "pk": 23,
+    "fields": {
+      "name": "Música, CDs y vinilos",
+      "parent": null
+    }
+  },
+  {
+    "model": "category.Category",
+    "pk": 24,
+    "fields": {
+      "name": "Relojes y Joyas",
+      "parent": null
+    }
+  },
+  {
+    "model": "category.Category",
+    "pk": 25,
+    "fields": {
+      "name": "Ropa, calzado y complementos",
+      "parent": null
+    }
+  },
+  {
+    "model": "category.Category",
+    "pk": 26,
+    "fields": {
+      "name": "Sellos",
+      "parent": null
+    }
+  },
+  {
+    "model": "category.Category",
+    "pk": 27,
+    "fields": {
+      "name": "Viajes",
+      "parent": null
+    }
+  },
+  {
+    "model": "category.Category",
+    "pk": 28,
+    "fields": {
+      "name": "Vinos y gastronomía",
+      "parent": null
+    }
+  },
+  {
+    "model": "category.Category",
+    "pk": 29,
+    "fields": {
+      "name": "Otras categorías",
+      "parent": null
+    }
+  }
+]
