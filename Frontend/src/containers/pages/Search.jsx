@@ -12,7 +12,6 @@ import Layout from "../../hocs/Layout";
 const Search = ({
   getCategories,
   categories,
-  get_publications,
   publications,
   get_filtered_publications,
   filtered_publications,
@@ -28,7 +27,6 @@ const Search = ({
   const { category_id, sortBy, order } = formData;
   useEffect(() => {
     getCategories();
-    get_publications();
   }, []);
 
   const onChange = (e) =>
