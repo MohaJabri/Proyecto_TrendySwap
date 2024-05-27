@@ -1,7 +1,23 @@
+<style>
+    .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn:hover {
+        background-color: #0056b3;
+    }
+</style>
 {% load i18n %}
 
 {% block subject %}
-{% blocktrans %}Activación de cuante en {{ site_name }}{% endblocktrans %}
+{% blocktrans %}Activación de cuenta en TrendySwap{% endblocktrans %}
 {% endblock subject %}
 
 {% block text_body %}
@@ -16,13 +32,13 @@
 {% endblock text_body %}
 
 {% block html_body %}
-<p>{% blocktrans %}You're receiving this email because you need to finish activation process on {{ site_name }}.{% endblocktrans %}</p>
+<p>{% blocktrans %}Correo de verificación para el registro en TrendySwap.{% endblocktrans %}</p>
 
-<p>{% trans "Please go to the following page to activate account:" %}</p>
-<p><a href="{{ protocol }}://{{ domain }}/{{ url|safe }}">{{ protocol }}://{{ domain }}/{{ url|safe }}</a></p>
+<p>{% trans "Si es usted quien se ha registrado, por favor pinche en el siguiente enlace para activar su cuenta:" %}</p>
+<p><button><a href="{{ protocol }}://{{ domain }}/{{ url|safe }}">Activar</a></button></p>
 
-<p>{% trans "Thanks for using our site!" %}</p>
+<p>{% trans "¡Gracias por confiar en nosotros!" %}</p>
 
-<p>{% blocktrans %}The {{ site_name }} team{% endblocktrans %}</p>
+<p>{% blocktrans %}El equipo de TrendySwap{% endblocktrans %}</p>
 
 {% endblock html_body %}

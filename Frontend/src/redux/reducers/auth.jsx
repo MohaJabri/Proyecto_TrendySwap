@@ -107,6 +107,9 @@ export default function Auth(state = initialState, action) {
       };
     case LOGIN_FAIL:
     case REFRESH_FAIL:
+      return{
+        userIsCreated: false,
+      }
     case LOGOUT:
       localStorage.removeItem("access");
       localStorage.removeItem("refresh");

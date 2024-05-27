@@ -54,6 +54,7 @@ const Profile = ({ user, update_user_profile, profile, get_user_profile }) => {
         state: profile.state,
         country: profile.country,
         postal_code: profile.postal_code,
+        profile_image: profile.profile_image,
       });
     }
   }, [userId, profile]);
