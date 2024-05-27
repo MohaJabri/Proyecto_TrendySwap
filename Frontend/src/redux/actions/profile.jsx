@@ -5,8 +5,45 @@ import {
   GET_USER_PROFILE_FAIL,
   UPDATE_USER_PROFILE_SUCCESS,
   UPDATE_USER_PROFILE_FAIL,
+  GET_OWNER_USER_PROFILE_SUCCESS,
+  GET_OWNER_USER_PROFILE_FAIL,
 } from "./types";
 const backend_url = import.meta.env.VITE_API_URL;
+
+export const get_owner_user_profile = (userId) => async (dispatch) => {
+  if (localStorage.getItem("access")) {
+    const config = {
+      headers: {
+        Accept: "application/json",
+        Authorization: `JWT ${localStorage.getItem("access")}`,
+      },
+    };
+
+    try {
+      const res = await axios.get(
+        `${backend_url}/api/profile/user/${userId}`,
+        config
+      );
+
+      if (res.status === 200) {
+        dispatch({
+          type: GET_OWNER_USER_PROFILE_SUCCESS,
+          payload: res.data,
+        });
+      } else {
+        dispatch({
+          type: GET_OWNER_USER_PROFILE_FAIL,
+        });
+        dispatch(setAlert("Failed to get profile", "red"));
+      }
+    } catch (err) {
+      dispatch({
+        type: GET_USER_PROFILE_FAIL,
+      });
+      dispatch(setAlert("Failed to get profile", "red"));
+    }
+  }
+};
 
 export const get_user_profile = (userId) => async (dispatch) => {
   if (localStorage.getItem("access")) {

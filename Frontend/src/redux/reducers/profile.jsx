@@ -3,9 +3,12 @@ import {
   GET_USER_PROFILE_FAIL,
   UPDATE_USER_PROFILE_SUCCESS,
   UPDATE_USER_PROFILE_FAIL,
+  GET_OWNER_USER_PROFILE_SUCCESS,
+  GET_OWNER_USER_PROFILE_FAIL,
 } from "../actions/types";
 
 const initialState = {
+  ownerProfile: null,
   profile: null,
 };
 
@@ -22,6 +25,16 @@ export default function Profile(state = initialState, action) {
       return {
         ...state,
         profile: null,
+      };
+    case GET_OWNER_USER_PROFILE_SUCCESS:
+      return {
+        ...state,
+        ownerProfile: payload.profile,
+      };
+    case GET_OWNER_USER_PROFILE_FAIL:
+      return {
+        ...state,
+        ownerProfile: null,
       };
     case UPDATE_USER_PROFILE_SUCCESS:
       return {
