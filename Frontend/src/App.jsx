@@ -19,6 +19,7 @@ import AdminPrivateRoute from "./components/AdminPrivateRoute";
 import Notifications from "./containers/pages/Notifications";
 import UserPublications from "./containers/pages/UserPublications";
 import UpdatePublication from "./containers/pages/UpdatePublication";
+import About from "./containers/pages/About";
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
             path="/publication/:publicationId"
             element={<PublicationDetail />}
           />
+          <Route exact path="/about" element={<About />} />
           <Route exact path="/search" element={<Search />} />
           <Route element={<PrivateRoute />}>
             <Route exact path="/profile/:userId" element={<Profile />} />
