@@ -410,7 +410,11 @@ const Profile = ({
             <Card className="w-100 h-[75vh] relative my-2">
               <CardHeader floated={false} className="h-80 relative">
                 <img
-                  src={`${backend_url}${profile?.profile_image}`}
+                  src={`${backend_url}${
+                    isOwner
+                      ? ownerProfile?.profile_image
+                      : profile?.profile_image
+                  }`}
                   alt="profile-picture"
                   className="object-contain h-full rounded-t-lg"
                 />
