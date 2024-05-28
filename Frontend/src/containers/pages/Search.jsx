@@ -60,27 +60,14 @@ const Search = ({
       search_publications !== null &&
       search_publications !== undefined
     ) {
-      search_publications.data.map((publication, index) => {
-        return display.push(
-          <div key={index}>
-            <PublicationCard publication={publication} />
-          </div>
-        );
-      });
-    }
-
-    for (let i = 0; i < display.length; i += 4) {
-      results.push(
-        <div key={i} className="grid md:grid-cols-4 ">
-          {display[i] ? display[i] : <div className=""></div>}
-          {display[i + 1] ? display[i + 1] : <div className=""></div>}
-          {display[i + 2] ? display[i + 2] : <div className=""></div>}
-          {display[i + 3] ? display[i + 3] : <div className=""></div>}
+      return (
+        <div className="mt-10 grid gap-10 md:grid-cols-2 lg:gap-10 xl:grid-cols-3">
+          {search_publications.data.map((publication, index) => (
+            <PublicationCard key={index} publication={publication} />
+          ))}
         </div>
       );
     }
-
-    return results;
   };
 
   return (
