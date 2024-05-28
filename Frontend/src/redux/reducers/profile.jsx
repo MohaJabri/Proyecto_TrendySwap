@@ -2,6 +2,7 @@ import {
   GET_USER_PROFILE_SUCCESS,
   GET_USER_PROFILE_FAIL,
   UPDATE_USER_PROFILE_SUCCESS,
+  UPDATE_OWNER_PROFILE_SUCCESS,
   UPDATE_USER_PROFILE_FAIL,
   GET_OWNER_USER_PROFILE_SUCCESS,
   GET_OWNER_USER_PROFILE_FAIL,
@@ -40,6 +41,12 @@ export default function Profile(state = initialState, action) {
       return {
         ...state,
         profile: payload.profile,
+      };
+
+    case UPDATE_OWNER_PROFILE_SUCCESS:
+      return {
+        ...state,
+        ownerProfile: payload.profile,
       };
     case UPDATE_USER_PROFILE_FAIL:
       return {

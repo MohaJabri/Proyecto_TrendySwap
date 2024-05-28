@@ -6,7 +6,7 @@ const ImageGallery = ({ photo }) => {
   return (
     <Carousel transition={{ duration: 2 }} className="h-screen rounded-xl">
       {photo.map((image, index) => (
-        <div className="flex h-full w-full justify-around">
+        <div key={index} className="flex h-full w-full justify-around">
           <img
             src={`${backend_url}${image.image} `}
             alt="..."

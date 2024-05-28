@@ -4,6 +4,7 @@ import {
   GET_USER_PROFILE_SUCCESS,
   GET_USER_PROFILE_FAIL,
   UPDATE_USER_PROFILE_SUCCESS,
+  UPDATE_OWNER_PROFILE_SUCCESS,
   UPDATE_USER_PROFILE_FAIL,
   GET_OWNER_USER_PROFILE_SUCCESS,
   GET_OWNER_USER_PROFILE_FAIL,
@@ -82,6 +83,7 @@ export const get_user_profile = (userId) => async (dispatch) => {
 
 export const update_user_profile =
   (
+    is_owner,
     first_name,
     last_name,
     phone,
@@ -122,11 +124,20 @@ export const update_user_profile =
         );
 
         if (res.status === 200) {
-          dispatch({
-            type: UPDATE_USER_PROFILE_SUCCESS,
-            payload: res.data,
-          });
-          dispatch(setAlert("Profile updated successfully", "green"));
+          if (is_owner) {
+            dispatch({
+              type: UPDATE_OWNER_PROFILE_SUCCESS,
+              payload: res.data,
+            });
+
+            dispatch(setAlert("Profile updated successfully", "green"));
+          } else {
+            dispatch({
+              type: UPDATE_USER_PROFILE_SUCCESS,
+              payload: res.data,
+            });
+            dispatch(setAlert("Profile updated successfully", "green"));
+          }
         } else {
           dispatch({
             type: UPDATE_USER_PROFILE_FAIL,

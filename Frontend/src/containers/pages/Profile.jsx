@@ -26,7 +26,14 @@ import Layout from "../../hocs/Layout";
 
 const backend_url = import.meta.env.VITE_API_URL;
 
-const Profile = ({ user, update_user_profile, profile, get_user_profile }) => {
+const Profile = ({
+  user,
+  update_user_profile,
+  profile,
+  ownerProfile,
+  get_user_profile,
+}) => {
+  const [isOwner, setIsOwner] = useState(false);
   const [loading1, setLoading1] = useState(false);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -63,6 +70,18 @@ const Profile = ({ user, update_user_profile, profile, get_user_profile }) => {
   }, [userId]);
 
   useEffect(() => {
+    if (userId) {
+      if (userId == ownerProfile?.id) {
+        setIsOwner(true);
+      } else {
+        setIsOwner(false);
+      }
+    } else {
+      setIsOwner(false);
+    }
+  }, [userId, ownerProfile]);
+
+  useEffect(() => {
     if (profile) {
       const profileData = {
         first_name: profile.first_name || "",
@@ -91,6 +110,7 @@ const Profile = ({ user, update_user_profile, profile, get_user_profile }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     update_user_profile(
+      isOwner,
       first_name,
       last_name,
       phone,
@@ -424,6 +444,7 @@ const Profile = ({ user, update_user_profile, profile, get_user_profile }) => {
 const mapStateToProps = (state) => ({
   user: state.Auth.user,
   profile: state.Profile.profile,
+  ownerProfile: state.Profile.ownerProfile,
 });
 
 export default connect(mapStateToProps, {
