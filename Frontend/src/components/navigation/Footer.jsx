@@ -14,11 +14,16 @@ const Footer = () => {
         </div>
 
         <p className="mx-auto mt-6 max-w-md text-center leading-relaxed text-gray-500">
-          Gracias por confiar en nosotros, TrendySwap no decepciona. Copyright ©
-          2024 TrendySwap
+          Gracias por confiar en nosotros
+        </p>
+        <p className="mx-auto max-w-md text-center leading-relaxed text-gray-500">
+          ¡Contribuyendo a una economía más sostenible!
+        </p>
+        <p className="mx-auto mt-4 max-w-md text-center leading-relaxed text-gray-500">
+          Copyright © 2024 TrendySwap
         </p>
 
-        <ul className="mt-12 flex flex-wrap justify-center gap-6 md:gap-8 lg:gap-12">
+        <ul className="mt-8 flex flex-wrap justify-center gap-6 md:gap-8 lg:gap-12">
           <li>
             <Link
               className="text-gray-700 transition hover:text-gray-700/75"
@@ -45,7 +50,7 @@ const Footer = () => {
           </li>
         </ul>
 
-        <ul className="mt-12 flex justify-center gap-6 md:gap-8">
+        <ul className="mt-8 flex justify-center gap-6 md:gap-8">
           <li>Cóntactanos en:</li>
           <li>
             <a

@@ -72,20 +72,38 @@ const PublicationCard = ({ publication, aspect }) => {
               )}
             >
               <Link href={`/publication/${publication.id}`}>
-                <span
-                  className="bg-gradient-to-r from-green-200 to-green-100 bg-[length:0px_10px] bg-left-bottom
+                <p>
+                  <span className="text-gray-500 dark:text-gray-400">
+                    Se solicita:
+                  </span>{" "}
+                  <span
+                    className="bg-gradient-to-r from-green-200 to-green-100 bg-[length:0px_10px] bg-left-bottom
                               bg-no-repeat
                               transition-[background-size]
                               duration-500
                               hover:bg-[length:100%_3px]
                               group-hover:bg-[length:100%_10px]
                              dark:from-purple-800 dark:to-purple-900"
-                >
-                  {publication.object_offered}
-                </span>
-                <p className="text-gray-500 dark:text-gray-400">
-                  Se solicita: {publication.service_requested}
+                  >
+                    {publication.service_requested}
+                  </span>
                 </p>
+                <span>
+                  <span className="text-gray-500 dark:text-gray-400">
+                    Se ofrece:
+                  </span>{" "}
+                  <span
+                    className="bg-gradient-to-r from-green-200 to-green-100 bg-[length:0px_10px] bg-left-bottom
+                              bg-no-repeat
+                              transition-[background-size]
+                              duration-500
+                              hover:bg-[length:100%_3px]
+                              group-hover:bg-[length:100%_10px]
+                             dark:from-purple-800 dark:to-purple-900"
+                  >
+                    {publication.object_offered}
+                  </span>
+                </span>
               </Link>
             </h2>
 
