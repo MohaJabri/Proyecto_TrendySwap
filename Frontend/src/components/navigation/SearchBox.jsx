@@ -22,6 +22,45 @@ const SearchBox = ({
     <form className="items-center" onSubmit={(e) => onSubmit(e)}>
       <div className="flex flex-col gap-2">
         <div className="flex gap-2">
+          <div className="flex justify-end">
+            <button
+              type="button"
+              onClick={toggleFilters}
+              className="text-sm text-blue-500 focus:outline-none"
+            >
+              {showFilters ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="currentColor"
+                  class="w-6 h-6 text-gray-700 dark:text-gray-400"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M5 15l7-7 7 7"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="currentColor"
+                  class="w-6 h-6 text-gray-700 dark:text-gray-400"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              )}
+            </button>
+          </div>
           <div className="relative w-full gap-2 md:w-max">
             <Input
               type="search"
@@ -62,15 +101,6 @@ const SearchBox = ({
           <Button size="md" className="mt-1 rounded-lg sm:mt-0" type="submit">
             Buscar
           </Button>
-          <div className="flex justify-end">
-            <button
-              type="button"
-              onClick={toggleFilters}
-              className="text-sm text-blue-500 focus:outline-none"
-            >
-              {showFilters ? "Ocultar Filtros" : "Mostrar Filtros"}
-            </button>
-          </div>
         </div>
 
         {showFilters && (

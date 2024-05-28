@@ -264,6 +264,12 @@ function Navbar({
                     Admin
                   </Link>
                 )}
+                <Link
+                    to="/about"
+                    className="text-base font-bold text-gray-700 hover:text-gray-900"
+                  >
+                    Sobre Nosotros
+                  </Link>
               </Popover.Group>
               <div className="flex items-center md:ml-12">
                 {isAuthenticated ? authLinks : guestLinks}
