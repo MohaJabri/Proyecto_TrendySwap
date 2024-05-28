@@ -39,7 +39,7 @@ const PublicationDetail = ({
       <div className="bg-white min-h-screen">
         {loading ? (
           <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-            <div className="lg:grid lg:grid-cols-2 lg:gap-x-8 lg:items-start">
+            <div className="lg:grid lg:grid-cols-2 lg:gap-x-8 lg:items-center">
               {/* Image gallery */}
               <ImageGallery photo={publication && publication.photos} />
               {/* Product info */}

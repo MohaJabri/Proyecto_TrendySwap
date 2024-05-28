@@ -27,6 +27,7 @@ import Layout from "../../hocs/Layout";
 const backend_url = import.meta.env.VITE_API_URL;
 
 const Profile = ({ user, update_user_profile, profile, get_user_profile }) => {
+  const [loading1, setLoading1] = useState(false);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     first_name: "",
@@ -40,7 +41,7 @@ const Profile = ({ user, update_user_profile, profile, get_user_profile }) => {
     profile_image: "",
   });
   const [originalData, setOriginalData] = useState({});
-
+  const [open, setOpen] = useState(false);
   const {
     first_name,
     last_name,
@@ -56,7 +57,9 @@ const Profile = ({ user, update_user_profile, profile, get_user_profile }) => {
   const userId = params.userId;
 
   useEffect(() => {
-    get_user_profile(userId);
+    get_user_profile(userId).then(() => {
+      setLoading(true);
+    });
   }, [userId]);
 
   useEffect(() => {
@@ -103,8 +106,6 @@ const Profile = ({ user, update_user_profile, profile, get_user_profile }) => {
   };
 
   function DialogCustomAnimation() {
-    const [open, setOpen] = useState(false);
-
     const handleOpen = () => {
       if (!open) {
         setOriginalData(formData); // Save original data when opening
@@ -327,7 +328,7 @@ const Profile = ({ user, update_user_profile, profile, get_user_profile }) => {
                           user?.id === profile?.user ||
                           user?.is_staff) && (
                           <>
-                            {loading ? (
+                            {loading1 ? (
                               <button className="inline-flex mt-4 float-right items-center px-5 py-3 border ransparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                 <TailSpin color="#fff" width={20} height={20} />
                               </button>
@@ -366,50 +367,55 @@ const Profile = ({ user, update_user_profile, profile, get_user_profile }) => {
 
   return (
     <>
-      <Layout className="flex justify-center items-center min-w-screen">
-        <div className="flex justify-center items-center min-w-screen relative">
-          <Card className="w-96 h-[50vh] relative my-2">
-            <CardHeader floated={false} className="h-80 relative">
-              <img
-                src={`${backend_url}${profile?.profile_image}`}
-                alt="profile-picture"
-              />
-              <div className="absolute bottom-2 right-2">
-                {DialogCustomAnimation()}
-              </div>
-            </CardHeader>
-            <CardBody className="text-center">
-              <Typography
-                variant="h4"
-                color="blue-gray"
-                className="mb-2 inline-flex"
-              >
-                {first_name || "Nombre"} {last_name || "Apellido"}
-              </Typography>
-              <Typography
-                color="blue-gray"
-                className="font-medium"
-                textGradient
-              >
-                {phone || "No phone provided"}
-              </Typography>
-              <Typography
-                color="blue-gray"
-                className="font-medium"
-                textGradient
-              >
-                {profile?.email || "No email provided"}
-              </Typography>
-              <Typography
-                color="blue-gray"
-                className="font-medium"
-                textGradient
-              >
-                {city || "Ciudad"} ({state || "Provincia"})
-              </Typography>
-            </CardBody>
-          </Card>
-        </div>
+      <Layout className="min-h-screen">
+        {loading ? (
+          <div className="flex justify-center items-center relative min-h-screen">
+            <Card className="w-100 h-[75vh] relative my-2">
+              <CardHeader floated={false} className="h-80 relative">
+                <img
+                  src={`${backend_url}${profile?.profile_image}`}
+                  alt="profile-picture"
+                  className="object-contain h-full rounded-t-lg"
+                />
+                <div className="absolute bottom-2 right-2">
+                  {DialogCustomAnimation()}
+                </div>
+              </CardHeader>
+              <CardBody className="text-center">
+                <Typography
+                  variant="h4"
+                  color="blue-gray"
+                  className="mb-2 inline-flex"
+                >
+                  {first_name || "Nombre"} {last_name || "Apellido"}
+                </Typography>
+                <Typography
+                  color="blue-gray"
+                  className="font-medium"
+                  textGradient
+                >
+                  {phone || "No phone provided"}
+                </Typography>
+                <Typography
+                  color="blue-gray"
+                  className="font-medium"
+                  textGradient
+                >
+                  {profile?.email || "No email provided"}
+                </Typography>
+                <Typography
+                  color="blue-gray"
+                  className="font-medium"
+                  textGradient
+                >
+                  {city || "Ciudad"} ({state || "Provincia"})
+                </Typography>
+              </CardBody>
+            </Card>
+          </div>
+        ) : (
+          <div></div>
+        )}
       </Layout>
     </>
   );
