@@ -242,7 +242,7 @@ function Navbar({
               <Popover.Group as="nav" className="space-x-10 flex items-center">
                 <Link
                   to="/swap"
-                  className="text-base font-medium text-gray-500 hover:text-gray-900"
+                  className="text-base font-bold text-gray-700 hover:text-gray-900"
                 >
                   Swap
                 </Link>
@@ -259,7 +259,7 @@ function Navbar({
                 {user?.is_staff && (
                   <Link
                     to="/admin"
-                    className="text-base font-medium text-gray-500 hover:text-gray-900"
+                    className="text-base font-bold text-gray-700 hover:text-gray-900"
                   >
                     Admin
                   </Link>

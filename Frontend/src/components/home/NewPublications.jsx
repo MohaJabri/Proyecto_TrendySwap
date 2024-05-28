@@ -5,7 +5,7 @@ export default function NewPublications({ data }) {
     <div className="bg-white min-h-screen">
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative z-10 flex items-baseline justify-between pt-16 pb-6 border-b border-gray-200">
-          <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">
+          <h1 className="text-4xl font-bold tracking-tight text-gray-700 dark:text-gray-400">
             Publicaciones Recientes
           </h1>
         </div>
