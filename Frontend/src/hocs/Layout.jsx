@@ -4,7 +4,7 @@ import { check_authenticated, load_user, refresh } from "../redux/actions/auth";
 import { get_owner_user_profile } from "../redux/actions/profile";
 import { setHuboCambio } from "../redux/actions/notification";
 
-import { Footer } from "../components/navigation/Footer";
+
 import Navbar from "../components/navigation/Navbar";
 import { connect } from "react-redux";
 import { useEffect, useState } from "react";
@@ -48,7 +48,7 @@ const Layout = (props) => {
       <Navbar update={props.huboCambio} />
       <ToastContainer autoClose={5000} />
       {props.children}
-      <Footer />
+      
     </>
   );
 };

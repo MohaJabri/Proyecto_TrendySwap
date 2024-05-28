@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 
-export const Footer = () => {
-
+const Footer = () => {
   return (
     <footer className="bg-gray-100">
       <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
@@ -25,28 +24,23 @@ export const Footer = () => {
               className="text-gray-700 transition hover:text-gray-700/75"
               to="/"
             >
-              {" "}
-              Home{" "}
+              Home
             </Link>
           </li>
-
           <li>
             <Link
               className="text-gray-700 transition hover:text-gray-700/75"
               to="/swap"
             >
-              {" "}
-              Intercambiar{" "}
+              Intercambiar
             </Link>
           </li>
-
           <li>
             <Link
               className="text-gray-700 transition hover:text-gray-700/75"
-              to="/About"
+              to="/about"
             >
-              {" "}
-              Acerca de TrendySwap{" "}
+              Acerca de TrendySwap
             </Link>
           </li>
         </ul>
@@ -54,26 +48,26 @@ export const Footer = () => {
         <ul className="mt-12 flex justify-center gap-6 md:gap-8">
           <li>Cóntactanos en:</li>
           <li>
-              <a
-                href="mailto:trendyswap@gmail.com"
-                rel="noreferrer"
-                target="_blank"
-                className="text-gray-700 transition hover:text-gray-700/75"
+            <a
+              href="mailto:trendyswap@gmail.com"
+              rel="noreferrer"
+              target="_blank"
+              className="text-gray-700 transition hover:text-gray-700/75"
+            >
+              <p className="sr-only">Gmail</p>
+              <svg
+                className="h-6 w-6"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
               >
-                <p className="sr-only">Gmail</p>
-                <svg
-                  className="h-6 w-6"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M12 13.615L1.2 6.404V18.6c0 .773.627 1.4 1.4 1.4h18.8c.773 0 1.4-.627 1.4-1.4V6.404L12 13.615zm9.6-10.273c.387.276.6.72.6 1.2v1.732L12 12.318 1.8 6.274V5.2c0-.48.213-.924.6-1.2L12 10.045l9.6-6.703z"
-                  />
-                </svg>
-              </a>
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M12 13.615L1.2 6.404V18.6c0 .773.627 1.4 1.4 1.4h18.8c.773 0 1.4-.627 1.4-1.4V6.404L12 13.615zm9.6-10.273c.387.276.6.72.6 1.2v1.732L12 12.318 1.8 6.274V5.2c0-.48.213-.924.6-1.2L12 10.045l9.6-6.703z"
+                />
+              </svg>
+            </a>
           </li>
           <li>
             <a
@@ -97,7 +91,6 @@ export const Footer = () => {
               </svg>
             </a>
           </li>
-
           <li>
             <a
               href="https://www.instagram.com/trueque_giveandtake/"
@@ -120,7 +113,6 @@ export const Footer = () => {
               </svg>
             </a>
           </li>
-
           <li>
             <a
               href="https://twitter.com/truequeycambio?lang=es"
@@ -139,7 +131,6 @@ export const Footer = () => {
               </svg>
             </a>
           </li>
-
           <li>
             <a
               href="https://github.com/MohaJabri/Proyecto_TrendySwap"
@@ -168,3 +159,4 @@ export const Footer = () => {
   );
 };
 
+export default Footer;
