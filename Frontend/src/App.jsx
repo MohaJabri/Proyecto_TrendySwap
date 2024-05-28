@@ -23,6 +23,7 @@ import UserPublications from './containers/pages/UserPublications';
 import UpdatePublication from './containers/pages/UpdatePublication';
 import About from './containers/pages/About';
 import Footer from './components/navigation/Footer'; 
+import Navbar from './components/navigation/Navbar'; 
 
 const AppContainer = styled.div`
   display: flex;
@@ -41,6 +42,7 @@ function App() {
     <Provider store={store}>
       <Router>
         <AppContainer>
+          <Navbar /> {/* Añade el Navbar aquí */}
           <MainContent>
             <Routes>
               <Route path="*" element={<Error404 />} />

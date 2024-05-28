@@ -5,7 +5,6 @@ import { get_owner_user_profile } from "../redux/actions/profile";
 import { setHuboCambio } from "../redux/actions/notification";
 
 
-import Navbar from "../components/navigation/Navbar";
 import { connect } from "react-redux";
 import { useEffect, useState } from "react";
 
@@ -45,7 +44,7 @@ const Layout = (props) => {
 
   return (
     <>
-      <Navbar update={props.huboCambio} />
+      
       <ToastContainer autoClose={5000} />
       {props.children}
       
