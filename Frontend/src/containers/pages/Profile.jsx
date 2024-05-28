@@ -78,7 +78,7 @@ const Profile = ({ user, update_user_profile, profile, get_user_profile }) => {
       setFormData(profileData);
       setOriginalData(profileData);
     }
-  }, [profile]);
+  }, [userId, profile]);
 
   const onChange = (e) => {
     if (e.target.name === "profile_image") {
