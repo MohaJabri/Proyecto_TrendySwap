@@ -83,21 +83,38 @@ const Profile = ({
 
   useEffect(() => {
     if (profile) {
-      const profileData = {
-        first_name: profile.first_name || "",
-        last_name: profile.last_name || "",
-        phone: profile.phone || "",
-        address: profile.address || "",
-        city: profile.city || "",
-        state: profile.state || "",
-        country: profile.country || "",
-        postal_code: profile.postal_code || "",
-        profile_image: profile.profile_image || "",
-      };
-      setFormData(profileData);
-      setOriginalData(profileData);
+      console.log(isOwner);
+      if (isOwner) {
+        const ownerProfileData = {
+          first_name: ownerProfile.first_name || "",
+          last_name: ownerProfile.last_name || "",
+          phone: ownerProfile.phone || "",
+          address: ownerProfile.address || "",
+          city: ownerProfile.city || "",
+          state: ownerProfile.state || "",
+          country: ownerProfile.country || "",
+          postal_code: ownerProfile.postal_code || "",
+          profile_image: ownerProfile.profile_image || "",
+        };
+        setFormData(ownerProfileData);
+        setOriginalData(ownerProfileData);
+      } else {
+        const profileData = {
+          first_name: profile.first_name || "",
+          last_name: profile.last_name || "",
+          phone: profile.phone || "",
+          address: profile.address || "",
+          city: profile.city || "",
+          state: profile.state || "",
+          country: profile.country || "",
+          postal_code: profile.postal_code || "",
+          profile_image: profile.profile_image || "",
+        };
+        setFormData(profileData);
+        setOriginalData(profileData);
+      }
     }
-  }, [userId, profile]);
+  }, [userId, profile, ownerProfile]);
 
   const onChange = (e) => {
     if (e.target.name === "profile_image") {
@@ -137,24 +154,26 @@ const Profile = ({
 
     return (
       <div className="relative z-[9999]">
-        <Button
-          onClick={handleOpen}
-          className="inline-flex items-center justify-center p-2 border-transparent rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            className="h-4 w-4"
+        {(!user || user?.id === profile?.user || user?.is_staff) && (
+          <Button
+            onClick={handleOpen}
+            className="inline-flex items-center justify-center p-2 border-transparent rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-            <path
-              fillRule="evenodd"
-              d="M14.828 2.172a4 4 0 015.656 5.656L7.414 20.9a1 1 0 01-.707.293H2v-4.707a1 1 0 01.293-.707L14.828 2.172zm1.414 1.414L4.414 15.414V19h3.586l11.828-11.828a2 2 0 00-2.828-2.828L14.828 3.586a2 2 0 00-2.828 2.828L3.414 14.828a1 1 0 00-.293.707V21h5.586a1 1 0 00.707-.293L21.9 7.414a4 4 0 00-5.656-5.656z"
-              clipRule="evenodd"
-            />
-          </svg>{" "}
-          Editar perfil
-        </Button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="h-4 w-4"
+            >
+              <path
+                fillRule="evenodd"
+                d="M14.828 2.172a4 4 0 015.656 5.656L7.414 20.9a1 1 0 01-.707.293H2v-4.707a1 1 0 01.293-.707L14.828 2.172zm1.414 1.414L4.414 15.414V19h3.586l11.828-11.828a2 2 0 00-2.828-2.828L14.828 3.586a2 2 0 00-2.828 2.828L3.414 14.828a1 1 0 00-.293.707V21h5.586a1 1 0 00.707-.293L21.9 7.414a4 4 0 00-5.656-5.656z"
+                clipRule="evenodd"
+              />
+            </svg>{" "}
+            Editar perfil
+          </Button>
+        )}
 
         <Dialog
           className="fixed inset-0 flex items-center justify-center z-[9999]"
@@ -193,9 +212,7 @@ const Profile = ({
                                 className="flex-1 block w-full focus:ring-indigo-500 focus:border-indigo-500 min-w-0 rounded-md sm:text-sm border-gray-500 bg-gray-50 border text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 p-2.5"
                                 placeholder="Nombre"
                                 disabled={
-                                  !user ||
-                                  (user?.id !== profile?.user &&
-                                    !user?.is_staff)
+                                  !user || (!isOwner && !user?.is_staff)
                                 }
                               />
                             </div>
