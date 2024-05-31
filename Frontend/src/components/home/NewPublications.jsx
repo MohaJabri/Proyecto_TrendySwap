@@ -18,7 +18,7 @@ export default function NewPublications({ data }) {
 
           <div>
             <div className="mt-10 grid gap-10 md:grid-cols-2 lg:gap-10 xl:grid-cols-3">
-              {data.map((publication, index) => (
+              {data?.map((publication, index) => (
                 <PublicationCard key={index} publication={publication} />
               ))}
             </div>
