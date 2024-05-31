@@ -166,6 +166,7 @@ const AddPublication = ({
                     Categoría
                   </label>
                   <select
+                    required
                     value={category_id}
                     onChange={onChange}
                     name="category_id"
@@ -189,6 +190,7 @@ const AddPublication = ({
                     Ubicación
                   </label>
                   <select
+                    required
                     value={formData.location}
                     onChange={onChange}
                     name="location"
