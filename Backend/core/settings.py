@@ -176,12 +176,16 @@ CORS_ALLOWED_ORIGINS=[
     'http://localhost:3000',
     'http://localhost:8000',
     'http://localhost',
+    'http://trendyswap.es',
+    'http://trendyswap.es:8000',
 ]
 
 CORS_ALLOWED_WHITELIST=[
     'http://localhost:3000',
     'http://localhost:8000',
     'http://localhost',
+    'http://trendyswap.es',
+    'http://trendyswap.es:8000',
 ]
 
 PASSWORD_HASHERS = [
@@ -202,7 +206,7 @@ SIMPLE_JWT={
 
 }
 
-DOMAIN = 'localhost'
+DOMAIN = 'http://trendyswap.es'
 
 DJOSER={
     'LOGIN_FIELD':'email',
