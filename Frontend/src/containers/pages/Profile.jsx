@@ -344,9 +344,7 @@ const Profile = ({
                             </div>
                           </div>
                         </div>
-                        {(!user ||
-                          user?.id === profile?.user ||
-                          user?.is_staff) && (
+                        {(!user || isOwner || user?.is_staff) && (
                           <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm: sm:border-gray-200 sm:pt-5">
                             <label
                               htmlFor="email"
@@ -430,20 +428,26 @@ const Profile = ({
                 >
                   {first_name || "Nombre"} {last_name || "Apellido"}
                 </Typography>
-                <Typography
-                  color="blue-gray"
-                  className="font-medium"
-                  textGradient
-                >
-                  {phone || "No phone provided"}
-                </Typography>
-                <Typography
-                  color="blue-gray"
-                  className="font-medium"
-                  textGradient
-                >
-                  {profile?.email || "No email provided"}
-                </Typography>
+                {(!user || isOwner || user?.is_staff) && (
+                  <Typography
+                    color="blue-gray"
+                    className="font-medium"
+                    textGradient
+                  >
+                    {phone || "No phone provided"}
+                  </Typography>
+                )}
+
+                {(!user || isOwner || user?.is_staff) && (
+                  <Typography
+                    color="blue-gray"
+                    className="font-medium"
+                    textGradient
+                  >
+                    {profile?.email || "No email provided"}
+                  </Typography>
+                )}
+
                 <Typography
                   color="blue-gray"
                   className="font-medium"
