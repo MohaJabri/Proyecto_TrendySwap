@@ -9,6 +9,8 @@ const ImageGallery = ({ photo }) => {
         <div key={index} className="flex  w-full justify-around">
           <img
             src={`${backend_url}${image.image} `}
+            style={{height: 850+'px'}}
+           
             alt="..."
             className=" object-center object-contain rounded-t-lg rounded-b-lg"
           />

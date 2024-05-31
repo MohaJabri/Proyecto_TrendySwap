@@ -36,104 +36,102 @@ const PublicationDetail = ({
 
   return (
     <Layout>
-      <div className="bg-white min-h-screen">
-        {loading ? (
-          <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-            <div className="lg:grid lg:grid-cols-2 lg:gap-x-8 lg:items-center">
-              
-              {/* Image gallery */}
-              <ImageGallery
-                photo={publication && publication.photos}
-              />
-              {/* Product info */}
-              <div className="mt-10 p-4 sm:px-0 sm:mt-16 lg:mt-0">
-                <h1 className="text-3xl font-bold tracking-tight text-gray-700 dark:text-gray-400">
-                  {publication && publication.service_requested}
-                </h1>
-                <div className="mt-3">
-                  <h2 className="sr-only">Product information</h2>
-                </div>
-
-                <div className="mt-6">
-                  <h3 className="sr-only">Description</h3>
-
-                  <div
-                    className="text-base text-gray-700 space-y-6"
-                    dangerouslySetInnerHTML={{
-                      __html: publication && publication.description,
-                    }}
-                  />
-                </div>
-                <div className="mt-6 space-y-4">
-                  <div className="flex items-center">
-                    <span className="font-bold mr-2 text-gray-600 dark:text-gray-400">Ofrezco:</span>
-                    <span>{publication && publication.object_offered}</span>
-                  </div>
-                  <div className="flex items-center">
-                    <span className="font-bold mr-2 text-gray-600 dark:text-gray-400">Publicado por:</span>
-                    <Link
-                      to={`/profile/${publication && publication.user}`}
-                      className="text-teal-600 hover:text-teal-800 cursor-pointer"
-                    >
-                      <span>{publication && publication.user_full_name } </span>
-                    </Link>
-                    
-                    <span className=" mx-2">
-                      el día
-                    </span>
-                    <span>
-                      {publication &&
-                        new Date(publication.date_created).toLocaleDateString()}
-                    </span>
-                  
-                  </div>
-                </div>
-
-                <form className="mt-6">
-                  {!notification_sent.notification_sent &&
-                  isAuthenticated &&
-                  user.id !== publication.user ? (
-                    <div className="mt-10 flex sm:flex-col1">
-                      <button
-                        type="button"
-                        onClick={async () => {
-                          await create_notification(publicationId);
-                          await send_notification(publication.user, user.id);
-                          check_notifications_sended(publicationId);
-                        }}
-                        className=" w-full flex-1 bg-teal-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500 sm:w-full"
-                      >
-                        Solicitar
-                      </button>
-                    </div>
-                  ) : (
-                    <span></span>
-                  )}
-
-                  {/* mapa */}
-                  <div className="mt-2 w-full">
-                    <iframe
-                      src={
-                        publication &&
-                        mapas.find(
-                          (mapa) => mapa.name === publication?.location
-                        )?.value
-                      }
-                      width="100%"
-                      height="325"
-                      loading="lazy"
-                      className="rounded"
-                    ></iframe>
-                  </div>
-                </form>
-              </div>
-              
-            </div>
+      <div>
+      {loading ? ( <div class="grid grid-rows-3 grid-flow-col gap-4 mx-8">
+      <div class="row-span-3 w-full h-full ...">
+          {/* Image gallery */}
+          <ImageGallery photo={publication && publication.photos} />
+        </div>
+        <div class=" ...">
+          <h1 className="text-3xl font-bold tracking-tight text-gray-700 dark:text-gray-400">
+            {publication && publication.service_requested}
+          </h1>
+          <div className="mt-3">
+            <h2 className="sr-only">Product information</h2>
           </div>
+
+          <div className="mt-6">
+            <h3 className="sr-only">Description</h3>
+
+            <div
+              className="text-base text-gray-700 space-y-6"
+              dangerouslySetInnerHTML={{
+                __html: publication && publication.description,
+              }}
+            />
+          </div>
+        </div>
+        <div class="row-span-2  ...">
+          <div className="mt-10 p-4 sm:px-0 sm:mt-16 lg:mt-0">
+            <div className="mt-6 space-y-4">
+              <div className="flex items-center">
+                <span className="font-bold mr-2 text-gray-600 dark:text-gray-400">
+                  Ofrezco:
+                </span>
+                <span>{publication && publication.object_offered}</span>
+              </div>
+              <div className="flex items-center">
+                <span className="font-bold mr-2 text-gray-600 dark:text-gray-400">
+                  Publicado por:
+                </span>
+                <Link
+                  to={`/profile/${publication && publication.user}`}
+                  className="text-teal-600 hover:text-teal-800 cursor-pointer"
+                >
+                  <span>{publication && publication.user_full_name} </span>
+                </Link>
+
+                <span className=" mx-2">el día</span>
+                <span>
+                  {publication &&
+                    new Date(publication.date_created).toLocaleDateString()}
+                </span>
+              </div>
+            </div>
+
+            <form className="mt-6">
+              {!notification_sent.notification_sent &&
+              isAuthenticated &&
+              user.id !== publication.user ? (
+                <div className="mt-10 flex sm:flex-col1">
+                  <button
+                    type="button"
+                    onClick={async () => {
+                      await create_notification(publicationId);
+                      await send_notification(publication.user, user.id);
+                      check_notifications_sended(publicationId);
+                    }}
+                    className=" w-full flex-1 bg-teal-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500 sm:w-full"
+                  >
+                    Solicitar
+                  </button>
+                </div>
+              ) : (
+                <span></span>
+              )}
+
+              {/* mapa */}
+              <div className="mt-2 w-full">
+                <iframe
+                  src={
+                    publication &&
+                    mapas.find((mapa) => mapa.name === publication?.location)
+                      ?.value
+                  }
+                  width="100%"
+                  height="325"
+                  loading="lazy"
+                  className="rounded"
+                ></iframe>
+              </div>
+            </form>
+          </div>
+        </div></div>
         ) : (
           <div></div>
         )}
       </div>
+    
     </Layout>
   );
 };

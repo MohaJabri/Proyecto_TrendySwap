@@ -98,7 +98,7 @@ const SearchBox = ({
               </svg>
             </div>
           </div>
-          <Button size="md" className="mt-1 rounded-lg sm:mt-0" type="submit">
+          <Button size="md" className="mt-1 rounded-lg sm:mt-0 bg-teal-600" type="submit">
             Buscar
           </Button>
          
