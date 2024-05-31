@@ -18,7 +18,7 @@ services:
       - postgresdb_test:/var/lib/postgresql/data/
   
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "${DB_USER}", "-d", "${DB_NAME}", "-h", "localhost", "-p", "5432"]
+      test: ["CMD", "pg_isready", "-U", "${DB_USER}", "-d", "${DB_NAME}", "-h", "trendyswap.es", "-p", "5432"]
       interval: 1s
       retries: 60
 
