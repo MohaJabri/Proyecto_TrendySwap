@@ -64,7 +64,7 @@ export const get_publications_by_arrival = () => async (dispatch) => {
 
   try {
     const res = await axios.get(
-      `${backend_url}/api/publication/get-publications?sortBy=date_created&order=desc&limit=4`,
+      `${backend_url}/api/publication/get-publications?sortBy=date_created&order=desc&limit=6`,
       config
     );
 
