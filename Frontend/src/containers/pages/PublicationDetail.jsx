@@ -40,11 +40,14 @@ const PublicationDetail = ({
         {loading ? (
           <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
             <div className="lg:grid lg:grid-cols-2 lg:gap-x-8 lg:items-center">
+              
               {/* Image gallery */}
-              <ImageGallery photo={publication && publication.photos} />
+              <ImageGallery
+                photo={publication && publication.photos}
+              />
               {/* Product info */}
               <div className="mt-10 p-4 sm:px-0 sm:mt-16 lg:mt-0">
-                <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">
+                <h1 className="text-3xl font-bold tracking-tight text-gray-700 dark:text-gray-400">
                   {publication && publication.service_requested}
                 </h1>
                 <div className="mt-3">
@@ -63,31 +66,26 @@ const PublicationDetail = ({
                 </div>
                 <div className="mt-6 space-y-4">
                   <div className="flex items-center">
-                    <span className="font-bold mr-2">Ofrezco:</span>
+                    <span className="font-bold mr-2 text-gray-600 dark:text-gray-400">Ofrezco:</span>
                     <span>{publication && publication.object_offered}</span>
                   </div>
                   <div className="flex items-center">
-                    <span className="font-bold mr-2">Publicado por:</span>
+                    <span className="font-bold mr-2 text-gray-600 dark:text-gray-400">Publicado por:</span>
                     <Link
                       to={`/profile/${publication && publication.user}`}
-                      className="text-blue-500 hover:text-blue-700 underline cursor-pointer"
+                      className="text-teal-600 hover:text-teal-800 cursor-pointer"
                     >
-                      {publication && publication.user_full_name}
+                      <span>{publication && publication.user_full_name } </span>
                     </Link>
-                  </div>
-
-                  <div className="flex items-center">
-                    <span className="font-bold mr-2">
-                      Fecha de publicación:
+                    
+                    <span className=" mx-2">
+                      el día
                     </span>
                     <span>
                       {publication &&
                         new Date(publication.date_created).toLocaleDateString()}
                     </span>
-                  </div>
-                  <div className="flex items-center">
-                    <span className="font-bold mr-2">Ubicación:</span>
-                    <span>{publication && publication.location}</span>
+                  
                   </div>
                 </div>
 
@@ -103,7 +101,7 @@ const PublicationDetail = ({
                           await send_notification(publication.user, user.id);
                           check_notifications_sended(publicationId);
                         }}
-                        className="max-w-xs flex-1 bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500 sm:w-full"
+                        className=" w-full flex-1 bg-teal-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500 sm:w-full"
                       >
                         Solicitar
                       </button>
@@ -113,7 +111,7 @@ const PublicationDetail = ({
                   )}
 
                   {/* mapa */}
-                  <div className="mt-2">
+                  <div className="mt-2 w-full">
                     <iframe
                       src={
                         publication &&
@@ -121,13 +119,15 @@ const PublicationDetail = ({
                           (mapa) => mapa.name === publication?.location
                         )?.value
                       }
-                      width="600"
-                      height="450"
+                      width="100%"
+                      height="325"
                       loading="lazy"
+                      className="rounded"
                     ></iframe>
                   </div>
                 </form>
               </div>
+              
             </div>
           </div>
         ) : (

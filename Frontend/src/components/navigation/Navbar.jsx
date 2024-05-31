@@ -240,7 +240,7 @@ function Navbar({
               <Popover.Group as="nav" className="space-x-10 flex items-center">
                 <Link
                   to="/swap"
-                  className="text-base font-bold text-gray-700 hover:text-gray-900"
+                  className="text-base font-bold text-teal-600 hover:text-teal-900"
                 >
                   Swap
                 </Link>
