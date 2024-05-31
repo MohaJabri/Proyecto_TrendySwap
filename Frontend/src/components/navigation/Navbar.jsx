@@ -124,7 +124,72 @@ function Navbar({
           </Menu.Button>
         </div>
 
-        {/* Código del menú desplegable anterior ... */}
+        <Transition
+          as={Fragment}
+          enter="transition ease-out duration-100"
+          enterFrom="transform opacity-0 scale-95"
+          enterTo="transform opacity-100 scale-100"
+          leave="transition ease-in duration-75"
+          leaveFrom="transform opacity-100 scale-100"
+          leaveTo="transform opacity-0 scale-95"
+        >
+          <Menu.Items className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <div className="py-1">
+              <Menu.Item>
+                {({ active }) => (
+                  <Link
+                    to={`/profile/${user?.id}`}
+                    className={classNames(
+                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                      "block px-4 py-2 text-sm"
+                    )}
+                  >
+                    Ver mi perfil
+                  </Link>
+                )}
+              </Menu.Item>
+              <Menu.Item>
+                {({ active }) => (
+                  <Link
+                    to="/add_publication"
+                    className={classNames(
+                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                      "block px-4 py-2 text-sm"
+                    )}
+                  >
+                    Publicar
+                  </Link>
+                )}
+              </Menu.Item>
+              <Menu.Item>
+                {({ active }) => (
+                  <Link
+                    to="/user_publications"
+                    className={classNames(
+                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                      "block px-4 py-2 text-sm"
+                    )}
+                  >
+                    Editar Publicaciones
+                  </Link>
+                )}
+              </Menu.Item>
+              <Menu.Item>
+                {({ active }) => (
+                  <button
+                    onClick={handleLogout}
+                    className={classNames(
+                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                      "block w-full text-left px-4 py-2 text-sm"
+                    )}
+                  >
+                    Sign out
+                  </button>
+                )}
+              </Menu.Item>
+            </div>
+          </Menu.Items>
+        </Transition>
       </Menu>
     </div>
   );
@@ -212,7 +277,67 @@ function Navbar({
           </div>
         </div>
 
-        {/* Código del menú desplegable y del alerta de alerta anterior ... */}
+        <Transition
+          as={Fragment}
+          enter="duration-200 ease-out"
+          enterFrom="opacity-0 scale-95"
+          enterTo="opacity-100 scale-100"
+          leave="duration-100 ease-in"
+          leaveFrom="opacity-100 scale-100"
+          leaveTo="opacity-0 scale-95"
+        >
+          <Popover.Panel
+            focus
+            className="absolute z-30 top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden"
+          >
+            <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
+              <div className="pt-5 pb-6 px-5 sm:pb-8">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <img
+                      className="h-8 w-auto"
+                      src="https://icons.veryicon.com/png/o/miscellaneous/mirror-icon/swap-8.png"
+                      alt="Workflow"
+                    />
+                  </div>
+                  <div className="-mr-2">
+                    <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                      <span className="sr-only">Close menu</span>
+                      <XIcon className="h-6 w-6" aria-hidden="true" />
+                    </Popover.Button>
+                  </div>
+                </div>
+              </div>
+              <div className="py-6 px-5">
+                <div className="grid grid-cols-2 gap-4">
+                  <Link
+                    to="/swap"
+                    className="rounded-md text-base font-medium text-gray-900 hover:text-gray-700"
+                  >
+                    Intercambiar
+                  </Link>
+                </div>
+                <div className="mt-6">
+                  <Link
+                    to="/signup"
+                    className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+                  >
+                    Registrarse
+                  </Link>
+                  <p className="mt-6 text-center text-base font-medium text-gray-500">
+                    Ya esta registrado?{" "}
+                    <Link
+                      to="/login"
+                      className="text-indigo-600 hover:text-indigo-500"
+                    >
+                      Acceder
+                    </Link>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </Popover.Panel>
+        </Transition>
       </Popover>
       <Alert />
     </>
