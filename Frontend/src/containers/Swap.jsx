@@ -36,7 +36,7 @@ const Swap = ({
     const savedPage = localStorage.getItem("currentPage");
     const page = savedPage ? parseInt(savedPage, 10) : 1;
     setActive(page);
-    get_search_publications("", 1);
+    get_search_publications("", page);
   }, []);
 
   useEffect(() => {

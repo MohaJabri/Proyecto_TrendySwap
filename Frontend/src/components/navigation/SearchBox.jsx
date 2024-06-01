@@ -98,63 +98,64 @@ const SearchBox = ({
               </svg>
             </div>
           </div>
-          <Button size="md" className="mt-1 rounded-lg sm:mt-0 bg-teal-600" type="submit">
+          <Button
+            size="md"
+            className="mt-1 rounded-lg sm:mt-0 bg-teal-600"
+            type="submit"
+          >
             Buscar
           </Button>
-         
         </div>
 
         {showFilters && (
           <div className="flex flex-wrap gap-2">
-            <div className="focus:outline-none hover:bg-gray-100 flex
-border border-gray-300 rounded-md">
-<select
-value={location}
-onChange={(e) => onChange(e)}
-name="location"
-className="px-2 py-1 focus
-rounded-md"
->
-<option value={""}>Ubicaciones</option>
-{comunidadesAutonomas?.map((location, index) => (
-<option key={index} value={location.name}>
-{location.name}
-</option>
-))}
-</select>
-</div>        <div className="focus:outline-none hover:bg-gray-100 flex border border-gray-300 rounded-md">
-          <select
-            value={order}
-            onChange={(e) => onChange(e)}
-            name="order"
-            className="px-2 py-1 focus:outline-indigo-500 rounded-md"
-          >
-            <option value={""}>Fecha</option>
-            <option value={"asc"}>Antiguos Primero</option>
-            <option value={"desc"}>Nuevos Primero</option>
-          </select>
-        </div>
-
-        <div className="focus:outline-none hover:bg-gray-100 flex border border-gray-300 rounded-md">
-          <select
-            value={category_id}
-            onChange={(e) => onChange(e)}
-            name="category_id"
-            className="px-2 py-1 focus:outline-indigo-500 rounded-md"
-          >
-            <option value={0}>Todas las categorías</option>
-            {categories?.map((category, index) => (
-              <option key={index} value={category.id}>
-                {category.name}
-              </option>
-            ))}
-          </select>
-        </div>
+            <div className="focus:outline-none hover:bg-gray-100 flex border border-gray-300 rounded-md">
+              <select
+                value={location}
+                onChange={(e) => onChange(e)}
+                name="location"
+                className="px-2 py-1 focus rounded-md"
+              >
+                <option value={""}>Ubicaciones</option>
+                {comunidadesAutonomas?.map((location, index) => (
+                  <option key={index} value={location.name}>
+                    {location.name}
+                  </option>
+                ))}
+              </select>
+            </div>{" "}
+            <div className="focus:outline-none hover:bg-gray-100 flex border border-gray-300 rounded-md">
+              <select
+                value={order}
+                onChange={(e) => onChange(e)}
+                name="order"
+                className="px-2 py-1 focus:outline-indigo-500 rounded-md"
+              >
+                <option value={""}>Fecha</option>
+                <option value={"asc"}>Antiguos Primero</option>
+                <option value={"desc"}>Nuevos Primero</option>
+              </select>
+            </div>
+            <div className="focus:outline-none hover:bg-gray-100 flex border border-gray-300 rounded-md">
+              <select
+                value={category_id}
+                onChange={(e) => onChange(e)}
+                name="category_id"
+                className="px-2 py-1 focus:outline-indigo-500 rounded-md"
+              >
+                <option value={0}>Todas las categorías</option>
+                {categories?.map((category, index) => (
+                  <option key={index} value={category.id}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+        )}
       </div>
-    )}
-  </div>
-</form>
-);
+    </form>
+  );
 };
 
 export default SearchBox;
