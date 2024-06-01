@@ -33,6 +33,9 @@ const Swap = ({
   const { category_id, sortBy, order } = formData;
   useEffect(() => {
     window.scrollTo(0, 0);
+    const savedPage = localStorage.getItem("currentPage");
+    const page = savedPage ? parseInt(savedPage, 10) : 1;
+    setActive(page);
     get_search_publications("", 1);
   }, []);
 
@@ -55,6 +58,7 @@ const Swap = ({
   const visitPage = (page) => {
     get_search_publications("", page);
     setActive(page);
+    localStorage.setItem("currentPage", page);
   };
 
   const previous_number = () => {
