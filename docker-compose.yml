@@ -18,7 +18,7 @@ services:
       - postgresdb_test:/var/lib/postgresql/data/
   
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "${DB_USER}", "-d", "${DB_NAME}", "-h", "localhost", "-p", "5432"]
+      test: ["CMD", "pg_isready", "-U", "${DB_USER}", "-d", "${DB_NAME}", "-h", "trendyswap.es", "-p", "5432"]
       interval: 1s
       retries: 60
 
@@ -27,6 +27,7 @@ services:
     container_name: '${PROJECT_NAME}_server'
     build: Docker/Django/
     image: '${PROJECT_NAME}_server'
+    restart: always
     depends_on:
       database:
           condition: service_healthy
@@ -50,14 +51,11 @@ services:
             EMAIL_HOST_PASSWORD: ${EMAIL_HOST_PASSWORD}
             EMAIL_USE_TLS: ${EMAIL_USE_TLS}
 
-
-  
-
-
   react_client:
     container_name: '${PROJECT_NAME}_client'
     build: Docker/React-Vite/
     image: '${PROJECT_NAME}_client'
+    restart: always
     depends_on:
       - django_server
     volumes:

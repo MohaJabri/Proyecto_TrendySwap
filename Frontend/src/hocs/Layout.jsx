@@ -23,7 +23,7 @@ const Layout = (props) => {
     if (userId) {
       props.get_owner_user_profile(userId);
       webSocket = new WebSocket(
-        `ws://localhost:8000/ws/notification/${userId}/`
+        `ws://trendyswap.es:8000/ws/notification/${userId}/`
       );
 
       webSocket.onopen = () => {
