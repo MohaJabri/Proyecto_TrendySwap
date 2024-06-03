@@ -7,6 +7,7 @@ import { setHuboCambio } from "../redux/actions/notification";
 import Navbar from "../components/navigation/Navbar";
 import { connect } from "react-redux";
 import { useEffect, useState } from "react";
+const ws_url = import.meta.env.VITE_WS_URL;
 
 const Layout = (props) => {
   const userId = props.user ? props.user.id : null; // Obtener el ID del usuario
@@ -22,9 +23,7 @@ const Layout = (props) => {
 
     if (userId) {
       props.get_owner_user_profile(userId);
-      webSocket = new WebSocket(
-        `ws://localhost:8000/ws/notification/${userId}/`
-      );
+      webSocket = new WebSocket(`${ws_url}/ws/notification/${userId}/`);
 
       webSocket.onopen = () => {
         console.log("WebSocket Client Connected");

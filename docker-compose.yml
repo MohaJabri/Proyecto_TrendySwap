@@ -1,10 +1,8 @@
-version: '3.8'
+version: "3.8"
 
 services:
-
-
   database:
-    container_name: '${PROJECT_NAME}_db'
+    container_name: "${PROJECT_NAME}_db"
     image: postgres:alpine3.18
     restart: always
     environment:
@@ -13,66 +11,78 @@ services:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
-      - '5432:5432'
+      - "5432:5432"
     volumes:
       - postgresdb_test:/var/lib/postgresql/data/
-  
+
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "${DB_USER}", "-d", "${DB_NAME}", "-h", "trendyswap.es", "-p", "5432"]
+      test:
+        [
+          "CMD",
+          "pg_isready",
+          "-U",
+          "${DB_USER}",
+          "-d",
+          "${DB_NAME}",
+          "-h",
+          "trendyswap.es",
+          "-p",
+          "5432",
+        ]
       interval: 1s
       retries: 60
 
-
   django_server:
-    container_name: '${PROJECT_NAME}_server'
+    container_name: "${PROJECT_NAME}_server"
     build: Docker/Django/
-    image: '${PROJECT_NAME}_server'
+    image: "${PROJECT_NAME}_server"
     restart: always
     depends_on:
       database:
-          condition: service_healthy
+        condition: service_healthy
     volumes:
-      - './Backend/:/usr/src/app/'
+      - "./Backend/:/usr/src/app/"
     ports:
-      - '${SERVER_PORT}:8000'
+      - "${SERVER_PORT}:8000"
     environment:
-            SERVER_PORT: ${SERVER_PORT}
-            DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
-            DB_ENGINE: ${DB_ENGINE}
-            DB_NAME: ${DB_NAME}
-            DB_USER: ${DB_USER}
-            DB_PASSWORD: ${DB_PASSWORD}
-            DB_HOST: ${DB_HOST}
-            DB_PORT: ${DB_PORT}
-            EMAIL_BACKEND: ${EMAIL_BACKEND}
-            EMAIL_HOST: ${EMAIL_HOST}
-            EMAIL_PORT: ${EMAIL_PORT}
-            EMAIL_HOST_USER: ${EMAIL_HOST_USER}
-            EMAIL_HOST_PASSWORD: ${EMAIL_HOST_PASSWORD}
-            EMAIL_USE_TLS: ${EMAIL_USE_TLS}
+      SERVER_PORT: ${SERVER_PORT}
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
+      DB_ENGINE: ${DB_ENGINE}
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      EMAIL_BACKEND: ${EMAIL_BACKEND}
+      EMAIL_HOST: ${EMAIL_HOST}
+      EMAIL_PORT: ${EMAIL_PORT}
+      EMAIL_HOST_USER: ${EMAIL_HOST_USER}
+      EMAIL_HOST_PASSWORD: ${EMAIL_HOST_PASSWORD}
+      EMAIL_USE_TLS: ${EMAIL_USE_TLS}
 
   react_client:
-    container_name: '${PROJECT_NAME}_client'
+    container_name: "${PROJECT_NAME}_client"
     build: Docker/React-Vite/
-    image: '${PROJECT_NAME}_client'
+    image: "${PROJECT_NAME}_client"
     restart: always
     depends_on:
       - django_server
     volumes:
-      - './Docker/React-Vite/package.json:/app/package.json'
-      - './Frontend/public:/app/public/'
-      - './Frontend/src:/app/src/'
-      - './Frontend/.eslintrc.cjs:/app/.eslintrc.cjs'
-      - './Frontend/vite.config.js:/app/vite.config.js'
-      - './Frontend/index.html:/app/index.html'
-      - './Frontend/postcss.config.js:/app/postcss.config.js'
-      - './Frontend/tailwind.config.js:/app/tailwind.config.js'
+      - "./Docker/React-Vite/package.json:/app/package.json"
+      - "./Frontend/public:/app/public/"
+      - "./Frontend/src:/app/src/"
+      - "./Frontend/.eslintrc.cjs:/app/.eslintrc.cjs"
+      - "./Frontend/vite.config.js:/app/vite.config.js"
+      - "./Frontend/index.html:/app/index.html"
+      - "./Frontend/postcss.config.js:/app/postcss.config.js"
+      - "./Frontend/tailwind.config.js:/app/tailwind.config.js"
     ports:
-      - '${CLIENT_PORT}:${CLIENT_PORT}'
-    
+      - "${CLIENT_PORT}:${CLIENT_PORT}"
+
     environment:
       VITE_API_URL: ${API_URL}
+      VITE_WS_URL: ${WS_URL}
       VITE_CLIENT_PORT: ${CLIENT_PORT}
-        
+
 volumes:
-  postgresdb_test: 
+  postgresdb_test:
