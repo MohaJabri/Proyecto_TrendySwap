@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { SearchIcon } from "@heroicons/react/solid";
 import { comunidadesAutonomas } from "../../utils/locations";
 import { Input, Button } from "@material-tailwind/react";
@@ -13,10 +13,20 @@ const SearchBox = ({
   location,
 }) => {
   const [showFilters, setShowFilters] = useState(false);
-
+  console.log(showFilters);
   const toggleFilters = () => {
     setShowFilters((prev) => !prev);
   };
+  useEffect(() => {
+    const savedShowFilters = localStorage.getItem("showFilters");
+    if (savedShowFilters !== null) {
+      setShowFilters(JSON.parse(savedShowFilters));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("showFilters", JSON.stringify(showFilters));
+  }, [showFilters]);
 
   return (
     <form className="items-center" onSubmit={(e) => onSubmit(e)}>

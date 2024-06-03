@@ -37,11 +37,11 @@ const Pagination = ({ search, active, visitPage, previous, next }) => {
     <div className="m-4 flex items-center justify-center mt-10 pt-10">
       <div
         onClick={previous}
-        class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 cursor-pointer"
+        className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 cursor-pointer"
       >
-        <span class="sr-only">Previous</span>
+        <span className="sr-only">Previous</span>
         <svg
-          class="h-5 w-5"
+          className="h-5 w-5"
           viewBox="0 0 20 20"
           fill="currentColor"
           aria-hidden="true"
@@ -57,11 +57,11 @@ const Pagination = ({ search, active, visitPage, previous, next }) => {
       {renderPageNumbers()}
       <div
         onClick={next}
-        class="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 cursor-pointer"
+        className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 cursor-pointer"
       >
-        <span class="sr-only">Next</span>
+        <span className="sr-only">Next</span>
         <svg
-          class="h-5 w-5"
+          className="h-5 w-5"
           viewBox="0 0 20 20"
           fill="currentColor"
           aria-hidden="true"

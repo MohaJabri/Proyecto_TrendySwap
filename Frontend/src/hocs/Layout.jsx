@@ -4,7 +4,7 @@ import { check_authenticated, load_user, refresh } from "../redux/actions/auth";
 import { get_owner_user_profile } from "../redux/actions/profile";
 import { setHuboCambio } from "../redux/actions/notification";
 
-
+import Navbar from "../components/navigation/Navbar";
 import { connect } from "react-redux";
 import { useEffect, useState } from "react";
 
@@ -23,7 +23,7 @@ const Layout = (props) => {
     if (userId) {
       props.get_owner_user_profile(userId);
       webSocket = new WebSocket(
-        `ws://trendyswap.es:8000/ws/notification/${userId}/`
+        `ws://localhost:8000/ws/notification/${userId}/`
       );
 
       webSocket.onopen = () => {
@@ -44,10 +44,9 @@ const Layout = (props) => {
 
   return (
     <>
-      
+      <Navbar update={props.huboCambio} />
       <ToastContainer autoClose={5000} />
       {props.children}
-      
     </>
   );
 };
