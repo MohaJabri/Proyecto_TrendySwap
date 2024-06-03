@@ -38,12 +38,12 @@ const PublicationDetail = ({
     <Layout>
       <div>
         {loading ? (
-          <div className="grid grid-rows-3 grid-flow-col gap-4 mx-8">
-            <div className="row-span-3 w-full h-full ...">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mx-4 md:mx-8">
+            <div className="col-span-1 md:col-span-2">
               {/* Image gallery */}
               <ImageGallery photo={publication && publication.photos} />
             </div>
-            <div className=" ...">
+            <div className="col-span-1">
               <h1 className="text-3xl font-bold tracking-tight text-gray-700 dark:text-gray-400">
                 {publication && publication.service_requested}
               </h1>
@@ -60,17 +60,18 @@ const PublicationDetail = ({
                     __html: publication && publication.description,
                   }}
                 />
-              </div>
-            </div>
-            <div className="row-span-2  ...">
-              <div className="mt-10 p-4 sm:px-0 sm:mt-16 lg:mt-0">
-                <div className="mt-6 space-y-4">
-                  <div className="flex items-center">
+                <div className="flex items-center mt-6">
                     <span className="font-bold mr-2 text-gray-600 dark:text-gray-400">
                       Ofrezco:
                     </span>
                     <span>{publication && publication.object_offered}</span>
                   </div>
+              </div>
+            </div>
+            <div className="col-span-1 md:col-span-3">
+              <div className="mt-10 p-4 sm:px-0 sm:mt-16 lg:mt-0">
+                <div className="mt-6 space-y-4">
+                  
                   <div className="flex items-center">
                     <span className="font-bold mr-2 text-gray-600 dark:text-gray-400">
                       Publicado por:
@@ -116,9 +117,8 @@ const PublicationDetail = ({
                     <iframe
                       src={
                         publication &&
-                        mapas.find(
-                          (mapa) => mapa.name === publication?.location
-                        )?.value
+                        mapas.find((mapa) => mapa.name === publication?.location)
+                          ?.value
                       }
                       width="100%"
                       height="325"
