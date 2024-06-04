@@ -16,7 +16,7 @@ const Notifications = ({
     console.log(`Notificación aceptada: ${id}`);
     await send_email(email, id, id_);
     setHuboCambio((prev) => !prev);
-    delete_publication(id);
+    //delete_publication(id);
   };
 
   const handleReject = async (id) => {

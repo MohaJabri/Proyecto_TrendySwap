@@ -264,11 +264,11 @@ function Navbar({
                   </Link>
                 )}
                 <Link
-                    to="/about"
-                    className="text-base font-bold text-gray-700 hover:text-gray-900"
-                  >
-                    Sobre Nosotros
-                  </Link>
+                  to="/about"
+                  className="text-base font-bold text-gray-700 hover:text-gray-900"
+                >
+                  Sobre Nosotros
+                </Link>
               </Popover.Group>
               <div className="flex items-center md:ml-12">
                 {isAuthenticated ? authLinks : guestLinks}
@@ -317,23 +317,35 @@ function Navbar({
                     Intercambiar
                   </Link>
                 </div>
-                <div className="mt-6">
-                  <Link
-                    to="/signup"
-                    className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
-                  >
-                    Registrarse
-                  </Link>
-                  <p className="mt-6 text-center text-base font-medium text-gray-500">
-                    Ya esta registrado?{" "}
+                {!isAuthenticated && (
+                  <div className="mt-6">
                     <Link
-                      to="/login"
-                      className="text-indigo-600 hover:text-indigo-500"
+                      to="/signup"
+                      className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
                     >
-                      Acceder
+                      Registrarse
                     </Link>
-                  </p>
-                </div>
+                    <p className="mt-6 text-center text-base font-medium text-gray-500">
+                      Ya está registrado?{" "}
+                      <Link
+                        to="/login"
+                        className="text-indigo-600 hover:text-indigo-500"
+                      >
+                        Acceder
+                      </Link>
+                    </p>
+                  </div>
+                )}
+                {isAuthenticated && (
+                  <div className="mt-6">
+                    <button
+                      onClick={handleLogout}
+                      className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-red-600 hover:bg-red-700"
+                    >
+                      Cerrar sesión
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           </Popover.Panel>
