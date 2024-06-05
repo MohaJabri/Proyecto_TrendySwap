@@ -183,7 +183,7 @@ function Navbar({
                       "block w-full text-left px-4 py-2 text-sm"
                     )}
                   >
-                    Sign out
+                    Cerrar sesión
                   </button>
                 )}
               </Menu.Item>
@@ -316,36 +316,69 @@ function Navbar({
                   >
                     Intercambiar
                   </Link>
-                </div>
-                {!isAuthenticated && (
-                  <div className="mt-6">
+                  <Link
+                    to="/about"
+                    className="rounded-md text-base font-medium text-gray-900 hover:text-gray-700"
+                  >
+                    Sobre Nosotros
+                  </Link>
+                  {user?.is_staff && (
                     <Link
-                      to="/signup"
-                      className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+                      to="/admin"
+                      className="rounded-md text-base font-medium text-gray-900 hover:text-gray-700"
                     >
-                      Registrarse
+                      Admin
                     </Link>
-                    <p className="mt-6 text-center text-base font-medium text-gray-500">
-                      Ya está registrado?{" "}
+                  )}
+                </div>
+                <div className="mt-6">
+                  {isAuthenticated ? (
+                    <>
                       <Link
-                        to="/login"
-                        className="text-indigo-600 hover:text-indigo-500"
+                        to={`/profile/${user?.id}`}
+                        className="block rounded-md text-base font-medium text-gray-900 hover:text-gray-700"
                       >
-                        Acceder
+                        Ver mi perfil
                       </Link>
-                    </p>
-                  </div>
-                )}
-                {isAuthenticated && (
-                  <div className="mt-6">
-                    <button
-                      onClick={handleLogout}
-                      className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-red-600 hover:bg-red-700"
-                    >
-                      Cerrar sesión
-                    </button>
-                  </div>
-                )}
+                      <Link
+                        to="/add_publication"
+                        className="block rounded-md text-base font-medium text-gray-900 hover:text-gray-700"
+                      >
+                        Publicar
+                      </Link>
+                      <Link
+                        to="/user_publications"
+                        className="block rounded-md text-base font-medium text-gray-900 hover:text-gray-700"
+                      >
+                        Editar Publicaciones
+                      </Link>
+                      <button
+                        onClick={handleLogout}
+                        className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-red-600 hover:bg-red-700 mt-4"
+                      >
+                        Cerrar sesión
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <Link
+                        to="/signup"
+                        className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+                      >
+                        Registrarse
+                      </Link>
+                      <p className="mt-6 text-center text-base font-medium text-gray-500">
+                        Ya está registrado?{" "}
+                        <Link
+                          to="/login"
+                          className="text-indigo-600 hover:text-indigo-500"
+                        >
+                          Acceder
+                        </Link>
+                      </p>
+                    </>
+                  )}
+                </div>
               </div>
             </div>
           </Popover.Panel>
