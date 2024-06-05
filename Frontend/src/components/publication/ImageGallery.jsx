@@ -4,12 +4,12 @@ const backend_url = import.meta.env.VITE_API_URL;
 
 const ImageGallery = ({ photo }) => {
   return (
-    <Carousel transition={{ duration: 2 }} className="h-screen rounded mt-3">
+    <Carousel transition={{ duration: 2 }} className="rounded mt-3" style={{height: 'min-content', maxHeight:'820px', maxWidth:'620px', overflow: 'hidden'}}>
       {photo.map((image, index) => (
-        <div key={index} className="flex  w-full justify-around">
+        <div key={index} className="flex  w-full justify-around" style={{height: 'min-content'}}>
           <img
             src={`${backend_url}${image.image} `}
-            style={{height: 850+'px'}}
+            style={{height: '100%', width: '100%'}}
            
             alt="..."
             className=" object-center object-contain rounded-t-lg rounded-b-lg"
