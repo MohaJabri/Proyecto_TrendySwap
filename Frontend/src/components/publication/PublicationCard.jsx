@@ -1,6 +1,7 @@
 import { cx } from "../../utils/all";
 import { Link } from "react-router-dom";
 import { parseISO, format } from "date-fns";
+import { es } from 'date-fns/locale';
 const backend_url = import.meta.env.VITE_API_URL;
 const PublicationCard = ({ publication, aspect }) => {
   const post = publication;
@@ -144,7 +145,7 @@ const PublicationCard = ({ publication, aspect }) => {
                 &bull;
               </span>
               <time className="truncate text-sm" dateTime={post?.date_created}>
-                {format(parseISO(post?.date_created), "MMMM dd, yyyy")}
+              {format(parseISO(post?.date_created), "dd, MMMM, yyyy", { locale: es })}
               </time>
             </div>
           </div>

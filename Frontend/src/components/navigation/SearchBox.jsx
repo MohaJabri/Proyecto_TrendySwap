@@ -13,7 +13,6 @@ const SearchBox = ({
   location,
 }) => {
   const [showFilters, setShowFilters] = useState(false);
-  console.log(showFilters);
   const toggleFilters = () => {
     setShowFilters((prev) => !prev);
   };
@@ -139,7 +138,7 @@ const SearchBox = ({
                 value={order}
                 onChange={(e) => onChange(e)}
                 name="order"
-                className="px-2 py-1 focus:outline-indigo-500 rounded-md"
+                className="px-2 py-1 focus:outline-teal-500 rounded-md"
               >
                 <option value={""}>Fecha</option>
                 <option value={"asc"}>Antiguos Primero</option>
@@ -151,7 +150,7 @@ const SearchBox = ({
                 value={category_id}
                 onChange={(e) => onChange(e)}
                 name="category_id"
-                className="px-2 py-1 focus:outline-indigo-500 rounded-md"
+                className="px-2 py-1 focus:outline-teal-500 rounded-md"
               >
                 <option value={0}>Todas las categorías</option>
                 {categories?.map((category, index) => (

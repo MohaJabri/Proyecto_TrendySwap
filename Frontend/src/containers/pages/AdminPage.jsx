@@ -77,7 +77,7 @@ const AdminPage = ({ get_search_publications, get_users }) => {
                   type="button"
                   className={`flex items-center justify-center  font-medium rounded-lg text-sm px-4 py-2  focus:outline-none ${
                     show === 0
-                      ? "text-white bg-indigo-600  hover:bg-indigo-700 "
+                      ? "text-white bg-teal-600  hover:bg-teal-700 "
                       : "text-gray-500 bg-gray-200 hover:bg-gray-300 opacity-75"
                   }}`}
                 >
@@ -89,7 +89,7 @@ const AdminPage = ({ get_search_publications, get_users }) => {
                   type="button"
                   className={`flex items-center justify-center  font-medium rounded-lg text-sm px-4 py-2  focus:outline-none ${
                     show === 1
-                      ? "text-white bg-indigo-600  hover:bg-indigo-700 "
+                      ? "text-white bg-teal-600  hover:bg-teal-700 "
                       : "text-gray-500 bg-gray-200 hover:bg-gray-300 opacity-75"
                   }}`}
                 >

@@ -28,8 +28,7 @@ const About = () => {
             <li>Contribución a una economía más sostenible.</li>
           </ul>
 
-          {/* Nueva Sección sobre Trueques */}
-          <div className="text-center">
+          <div >
             <h2 className="text-3xl font-bold text-gray-800 mb-4">Trueques en TrendySwap</h2>
             <p className="text-lg text-gray-600 mb-6">
               En TrendySwap, puedes encontrar una amplia variedad de bienes y servicios para intercambiar. Algunas de las categorías populares incluyen:

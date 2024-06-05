@@ -157,7 +157,7 @@ const Profile = ({
         {(!user || user?.id === profile?.user || user?.is_staff) && (
           <Button
             onClick={handleOpen}
-            className="inline-flex items-center justify-center p-2 border-transparent rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="inline-flex items-center justify-center p-2 border-transparent rounded-full shadow-sm text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -209,7 +209,7 @@ const Profile = ({
                                 name="first_name"
                                 onChange={onChange}
                                 value={first_name}
-                                className="flex-1 block w-full focus:ring-indigo-500 focus:border-indigo-500 min-w-0 rounded-md sm:text-sm border-gray-500 bg-gray-50 border text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 p-2.5"
+                                className="flex-1 block w-full focus:ring-teal-500 focus:border-teal-500 min-w-0 rounded-md sm:text-sm border-gray-500 bg-gray-50 border text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 p-2.5"
                                 placeholder="Nombre"
                                 disabled={
                                   !user || (!isOwner && !user?.is_staff)
@@ -233,7 +233,7 @@ const Profile = ({
                                 name="last_name"
                                 onChange={onChange}
                                 value={last_name}
-                                className="flex-1 block w-full focus:ring-indigo-500 focus:border-indigo-500 min-w-0 rounded-md sm:text-sm border-gray-500 bg-gray-50 border text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 p-2.5"
+                                className="flex-1 block w-full focus:ring-teal-500 focus:border-teal-500 min-w-0 rounded-md sm:text-sm border-gray-500 bg-gray-50 border text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 p-2.5"
                                 placeholder="Apellido"
                                 disabled={
                                   !user ||
@@ -259,7 +259,7 @@ const Profile = ({
                                 name="city"
                                 onChange={onChange}
                                 value={city}
-                                className="flex-1 block w-full focus:ring-indigo-500 focus:border-indigo-500 min-w-0 rounded-md sm:text-sm border-gray-500 bg-gray-50 border text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 p-2.5"
+                                className="flex-1 block w-full focus:ring-teal-500 focus:border-teal-500 min-w-0 rounded-md sm:text-sm border-gray-500 bg-gray-50 border text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 p-2.5"
                                 placeholder="Ciudad"
                                 disabled={
                                   !user ||
@@ -285,7 +285,7 @@ const Profile = ({
                                 name="state"
                                 onChange={onChange}
                                 value={state}
-                                className="flex-1 block w-full focus:ring-indigo-500 focus:border-indigo-500 min-w-0 rounded-md sm:text-sm border-gray-500 bg-gray-50 border text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 p-2.5"
+                                className="flex-1 block w-full focus:ring-teal-500 focus:border-teal-500 min-w-0 rounded-md sm:text-sm border-gray-500 bg-gray-50 border text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 p-2.5"
                                 placeholder="Provincia"
                                 disabled={
                                   !user ||
@@ -309,7 +309,7 @@ const Profile = ({
                               type="file"
                               name="profile_image"
                               onChange={onChange}
-                              className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                              className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm"
                               accept="image/*"
                               disabled={
                                 !user ||
@@ -334,7 +334,7 @@ const Profile = ({
                                 type="text"
                                 name="phone"
                                 placeholder="Teléfono"
-                                className="flex-1 block w-full focus:ring-indigo-500 focus:border-indigo-500 min-w-0 rounded-md sm:text-sm border-gray-500 bg-gray-50 border text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 p-2.5"
+                                className="flex-1 block w-full focus:ring-teal-500 focus:border-teal-500 min-w-0 rounded-md sm:text-sm border-gray-500 bg-gray-50 border text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 p-2.5"
                                 disabled={
                                   !user ||
                                   (user?.id !== profile?.user &&
@@ -364,7 +364,7 @@ const Profile = ({
                           user?.is_staff) && (
                           <>
                             {loading1 ? (
-                              <button className="inline-flex mt-4 float-right items-center px-5 py-3 border ransparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                              <button className="inline-flex mt-4 float-right items-center px-5 py-3 border ransparent text-xs font-medium rounded shadow-sm text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500">
                                 <TailSpin color="#fff" width={20} height={20} />
                               </button>
                             ) : (

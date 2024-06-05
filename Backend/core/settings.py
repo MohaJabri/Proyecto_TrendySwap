@@ -206,7 +206,7 @@ SIMPLE_JWT={
 
 }
 
-DOMAIN = 'trendyswap.es'
+DOMAIN = 'localhost:80'
 
 DJOSER={
     'LOGIN_FIELD':'email',
