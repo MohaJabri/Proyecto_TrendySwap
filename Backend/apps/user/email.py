@@ -35,3 +35,4 @@ class PasswordResetEmail(email.PasswordResetEmail):
 
 class PasswordChangedConfirmationEmail(email.PasswordChangedConfirmationEmail):
     template_name = 'user/PasswordChangedConfirmationEmail.html'
+   
