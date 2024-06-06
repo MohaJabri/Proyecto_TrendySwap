@@ -221,7 +221,13 @@ DJOSER={
         'user':'apps.user.serializers.UserCreateSerializer',
         'current_user':'apps.user.serializers.UserCreateSerializer',
         'user_delete':'djoser.serializers.UserDeleteSerializer',
-    }
+    },
+    'EMAIL': {
+        'activation': 'apps.user.email.ActivationEmail',
+        'confirmation': 'apps.user.email.ConfirmationEmail',
+        'password_reset': 'apps.user.email.PasswordResetEmail',
+        'password_changed_confirmation': 'apps.user.email.PasswordChangedConfirmationEmail',
+    },
 }
 
 REST_FRAMEWORK = {
