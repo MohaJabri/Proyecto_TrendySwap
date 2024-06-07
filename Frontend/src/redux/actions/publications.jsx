@@ -25,7 +25,7 @@ import { setAlert } from "./alert";
 
 const backend_url = import.meta.env.VITE_API_URL;
 
-export const get_publications = (userID, page) => async (dispatch) => {
+export const get_publications = (userID, page, search) => async (dispatch) => {
   const config = {
     headers: {
       Accept: "application/json",
@@ -34,7 +34,7 @@ export const get_publications = (userID, page) => async (dispatch) => {
 
   try {
     const res = await axios.get(
-      `${backend_url}/api/publication/get-publications/?user_id=${userID}&&page=${page}`,
+      `${backend_url}/api/publication/get-publications/?user_id=${userID}&&page=${page}&&search=${search}`,
       config
     );
 

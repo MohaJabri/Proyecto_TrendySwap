@@ -176,7 +176,7 @@ const Profile = ({
         )}
 
         <Dialog
-          className="fixed inset-0 flex items-center justify-center z-[9999]"
+          className="flex items-center justify-center z-[9999]"
           open={open}
           handler={handleOpen}
           animate={{
@@ -184,215 +184,165 @@ const Profile = ({
             unmount: { scale: 0.9, y: -100 },
           }}
         >
-          <div className="bg-white rounded-lg shadow-xl p-6 max-w-md mx-auto">
-            <DialogHeader className="mb-2">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-3xl max-h-screen">
+            <DialogHeader className="text-lg font-semibold">
               Editar información personal
             </DialogHeader>
 
-            <DialogBody className="mb-6">
-              <div className="md:p-8 flex flex-col flex-1">
-                <main className="flex-1">
-                  <div>
-                    <div>
-                      <form onSubmit={onSubmit} className="max-w-3xl mx-auto">
-                        <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm: sm:border-gray-200 sm:pt-5">
-                          <label
-                            htmlFor="first_name"
-                            className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
-                          >
-                            Nombre:
-                          </label>
-                          <div className="mt-1 sm:mt-0 sm:col-span-2">
-                            <div className="max-w-lg flex rounded-md shadow-sm">
-                              <input
-                                type="text"
-                                name="first_name"
-                                onChange={onChange}
-                                value={first_name}
-                                className="flex-1 block w-full focus:ring-teal-500 focus:border-teal-500 min-w-0 rounded-md sm:text-sm border-gray-500 bg-gray-50 border text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 p-2.5"
-                                placeholder="Nombre"
-                                disabled={
-                                  !user || (!isOwner && !user?.is_staff)
-                                }
-                              />
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm: sm:border-gray-200 sm:pt-5">
-                          <label
-                            htmlFor="last_name"
-                            className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
-                          >
-                            Apellido:
-                          </label>
-                          <div className="mt-1 sm:mt-0 sm:col-span-2">
-                            <div className="max-w-lg flex rounded-md shadow-sm">
-                              <input
-                                type="text"
-                                name="last_name"
-                                onChange={onChange}
-                                value={last_name}
-                                className="flex-1 block w-full focus:ring-teal-500 focus:border-teal-500 min-w-0 rounded-md sm:text-sm border-gray-500 bg-gray-50 border text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 p-2.5"
-                                placeholder="Apellido"
-                                disabled={
-                                  !user ||
-                                  (user?.id !== profile?.user &&
-                                    !user?.is_staff)
-                                }
-                              />
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm: sm:border-gray-200 sm:pt-5">
-                          <label
-                            htmlFor="city"
-                            className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
-                          >
-                            Ciudad:
-                          </label>
-                          <div className="mt-1 sm:mt-0 sm:col-span-2">
-                            <div className="max-w-lg flex rounded-md shadow-sm">
-                              <input
-                                type="text"
-                                name="city"
-                                onChange={onChange}
-                                value={city}
-                                className="flex-1 block w-full focus:ring-teal-500 focus:border-teal-500 min-w-0 rounded-md sm:text-sm border-gray-500 bg-gray-50 border text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 p-2.5"
-                                placeholder="Ciudad"
-                                disabled={
-                                  !user ||
-                                  (user?.id !== profile?.user &&
-                                    !user?.is_staff)
-                                }
-                              />
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm: sm:border-gray-200 sm:pt-5">
-                          <label
-                            htmlFor="state"
-                            className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
-                          >
-                            Provincia:
-                          </label>
-                          <div className="mt-1 sm:mt-0 sm:col-span-2">
-                            <div className="max-w-lg flex rounded-md shadow-sm">
-                              <input
-                                type="text"
-                                name="state"
-                                onChange={onChange}
-                                value={state}
-                                className="flex-1 block w-full focus:ring-teal-500 focus:border-teal-500 min-w-0 rounded-md sm:text-sm border-gray-500 bg-gray-50 border text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 p-2.5"
-                                placeholder="Provincia"
-                                disabled={
-                                  !user ||
-                                  (user?.id !== profile?.user &&
-                                    !user?.is_staff)
-                                }
-                              />
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm: sm:border-gray-200 sm:pt-5">
-                          <label
-                            htmlFor="profile_image"
-                            className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
-                          >
-                            Imagen de perfil:
-                          </label>
-                          <div className="mt-1 sm:mt-0 sm:col-span-2">
-                            <input
-                              type="file"
-                              name="profile_image"
-                              onChange={onChange}
-                              className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm"
-                              accept="image/*"
-                              disabled={
-                                !user ||
-                                (user?.id !== profile?.user && !user?.is_staff)
-                              }
-                            />
-                          </div>
-                        </div>
-
-                        <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm: sm:border-gray-200 sm:pt-5">
-                          <label
-                            htmlFor="phone"
-                            className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
-                          >
-                            Teléfono:
-                          </label>
-                          <div className="mt-1 sm:mt-0 sm:col-span-2">
-                            <div className="max-w-lg flex rounded-md shadow-sm">
-                              <input
-                                value={phone}
-                                onChange={onChange}
-                                type="text"
-                                name="phone"
-                                placeholder="Teléfono"
-                                className="flex-1 block w-full focus:ring-teal-500 focus:border-teal-500 min-w-0 rounded-md sm:text-sm border-gray-500 bg-gray-50 border text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 p-2.5"
-                                disabled={
-                                  !user ||
-                                  (user?.id !== profile?.user &&
-                                    !user?.is_staff)
-                                }
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        {(!user || isOwner || user?.is_staff) && (
-                          <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm: sm:border-gray-200 sm:pt-5">
-                            <label
-                              htmlFor="email"
-                              className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
-                            >
-                              Correo electrónico:
-                            </label>
-                            <div className="mt-1 sm:mt-0 sm:col-span-2">
-                              <div className="max-w-lg flex rounded-md shadow-sm">
-                                <p>{profile?.email || "No email provided"}</p>
-                              </div>
-                            </div>
-                          </div>
-                        )}
-                        {(!user ||
-                          user?.id === profile?.user ||
-                          user?.is_staff) && (
-                          <>
-                            {loading1 ? (
-                              <button className="inline-flex mt-4 float-right items-center px-5 py-3 border ransparent text-xs font-medium rounded shadow-sm text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500">
-                                <TailSpin color="#fff" width={20} height={20} />
-                              </button>
-                            ) : (
-                              <div>
-                                <Button
-                                  className="inline-flex mt-4 float-left mr-1"
-                                  color="red"
-                                  onClick={handleOpen}
-                                >
-                                  <span>Cancelar</span>
-                                </Button>
-                                <Button
-                                  color="green"
-                                  onClick={handleOpen}
-                                  type="submit"
-                                  className="inline-flex mt-4 float-right"
-                                >
-                                  <span>Guardar</span>
-                                </Button>
-                              </div>
-                            )}
-                          </>
-                        )}
-                      </form>
+            <DialogBody className="overflow-y-auto max-h-[70vh]">
+              <main>
+                <form onSubmit={onSubmit} className="space-y-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+                    <label
+                      htmlFor="first_name"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Nombre:
+                    </label>
+                    <div className="sm:col-span-2">
+                      <div className="flex rounded-md shadow-sm">
+                        <input
+                          type="text"
+                          name="first_name"
+                          onChange={onChange}
+                          value={first_name}
+                          className="flex-1 block w-full focus:ring-teal-500 focus:border-teal-500 rounded-md sm:text-sm border-gray-300 bg-gray-50 text-gray-900 p-2.5"
+                          placeholder="Nombre"
+                          disabled={!user || (!isOwner && !user?.is_staff)}
+                        />
+                      </div>
                     </div>
                   </div>
-                </main>
-              </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+                    <label
+                      htmlFor="last_name"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Apellido:
+                    </label>
+                    <div className="sm:col-span-2">
+                      <div className="flex rounded-md shadow-sm">
+                        <input
+                          type="text"
+                          name="last_name"
+                          onChange={onChange}
+                          value={last_name}
+                          className="flex-1 block w-full focus:ring-teal-500 focus:border-teal-500 rounded-md sm:text-sm border-gray-300 bg-gray-50 text-gray-900 p-2.5"
+                          placeholder="Apellido"
+                          disabled={!user || (user?.id !== profile?.user && !user?.is_staff)}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+                    <label
+                      htmlFor="city"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Ciudad:
+                    </label>
+                    <div className="sm:col-span-2">
+                      <div className="flex rounded-md shadow-sm">
+                        <input
+                          type="text"
+                          name="city"
+                          onChange={onChange}
+                          value={city}
+                          className="flex-1 block w-full focus:ring-teal-500 focus:border-teal-500 rounded-md sm:text-sm border-gray-300 bg-gray-50 text-gray-900 p-2.5"
+                          placeholder="Ciudad"
+                          disabled={!user || (user?.id !== profile?.user && !user?.is_staff)}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+                    <label
+                      htmlFor="state"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Provincia:
+                    </label>
+                    <div className="sm:col-span-2">
+                      <div className="flex rounded-md shadow-sm">
+                        <input
+                          type="text"
+                          name="state"
+                          onChange={onChange}
+                          value={state}
+                          className="flex-1 block w-full focus:ring-teal-500 focus:border-teal-500 rounded-md sm:text-sm border-gray-300 bg-gray-50 text-gray-900 p-2.5"
+                          placeholder="Provincia"
+                          disabled={!user || (user?.id !== profile?.user && !user?.is_staff)}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+                    <label
+                      htmlFor="profile_image"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Imagen de perfil:
+                    </label>
+                    <div className="sm:col-span-2">
+                      <input
+                        type="file"
+                        name="profile_image"
+                        onChange={onChange}
+                        className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm"
+                        accept="image/*"
+                        disabled={!user || (user?.id !== profile?.user && !user?.is_staff)}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+                    <label
+                      htmlFor="phone"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Teléfono:
+                    </label>
+                    <div className="sm:col-span-2">
+                      <div className="flex rounded-md shadow-sm">
+                        <input
+                          value={phone}
+                          onChange={onChange}
+                          type="text"
+                          name="phone"
+                          placeholder="Teléfono"
+                          className="flex-1 block w-full focus:ring-teal-500 focus:border-teal-500 rounded-md sm:text-sm border-gray-300 bg-gray-50 text-gray-900 p-2.5"
+                          disabled={!user || (user?.id !== profile?.user && !user?.is_staff)}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {(!user || user?.id === profile?.user || user?.is_staff) && (
+                    <div className="flex justify-between mt-6">
+                      <Button
+                        color="red"
+                        onClick={handleOpen}
+                        className="inline-flex"
+                      >
+                        <span>Cancelar</span>
+                      </Button>
+                      <Button
+                        color="green"
+                        type="submit"
+                        className="inline-flex"
+                        onClick={() => setOpen(false)
+                        }
+                      >
+                        <span>Guardar</span>
+                      </Button>
+                    </div>
+                  )}
+                </form>
+              </main>
             </DialogBody>
           </div>
         </Dialog>
@@ -405,17 +355,32 @@ const Profile = ({
       <Layout className="min-h-screen">
         {loading ? (
           <div className="flex justify-center items-center relative min-h-screen">
-            <Card className="w-100 h-[75vh] relative my-2">
+            <Card className="w-full lg:w-2/3 xl:w-1/2 2xl:w-1/3 h-[75vh] relative my-2">
               <CardHeader floated={false} className="h-80 relative">
-                <img
-                  src={`${backend_url}${
-                    isOwner
-                      ? ownerProfile?.profile_image
-                      : profile?.profile_image
-                  }`}
-                  alt="profile-picture"
-                  className="object-contain h-full rounded-t-lg"
-                />
+                {
+                  (ownerProfile?.profile_image !== null && ownerProfile?.profile_image !== undefined) ? (<img
+                    src={`${backend_url}${
+                      isOwner
+                        ? ownerProfile?.profile_image
+                        : profile?.profile_image
+                    }`}
+                    alt="profile-picture"
+                    className="object-cover object-center h-full rounded-t-lg w-full"
+                  />
+                  ): (
+                    <div className="flex items-center justify-center h-full bg-gray-100 rounded-t-lg w-full">
+                      <Typography
+                        color="blue-gray"
+                        className="font-medium"
+                        textGradient
+                      >
+                        No image provided
+                      </Typography>
+                    </div>
+                  )
+
+                }
+                
                 <div className="absolute bottom-2 right-2">
                   {DialogCustomAnimation()}
                 </div>

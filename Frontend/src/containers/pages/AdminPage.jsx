@@ -66,7 +66,7 @@ const AdminPage = ({ get_search_publications, get_users }) => {
                       onChange={(e) => handleSearch(e.target.value)}
                       type="text"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 "
-                      placeholder="Search"
+                      placeholder={show === 0 ? "Buscar publicación" : "Buscar usuario"}
                     />
                   </div>
                 </form>

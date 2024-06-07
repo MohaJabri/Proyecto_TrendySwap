@@ -23,13 +23,29 @@ const UserPublications = ({
 }) => {
   const [previousNumber, setPreviousNumber] = useState(0);
   const [nextNumber, setNextNumber] = useState(0);
+  const [search, setSearch] = useState("");
+  const [showAll, setShowAll] = useState(true);
   const [active, setActive] = useState(1);
 
+  const handleSearch = (searchTerm) => {
+    setSearch(searchTerm);
+    setShowAll(searchTerm.trim() === "");
+    setActive(1);
+  };
+
+  const performSearch = (searchTerm,id) => {
+    
+    get_publications(id, 1, searchTerm);
+  }
   useEffect(() => {
-    if (user) {
-      get_publications(user.id, 1);
+    if (user && showAll) {
+      performSearch("",user.id);
     }
-  }, [user]);
+    else if(user) {
+      performSearch(search,user.id);
+    }
+    
+  }, [user, showAll, search]);
   useEffect(() => {
     if (publications?.meta) {
       setPreviousNumber(publications.meta.previous);
@@ -73,12 +89,15 @@ const UserPublications = ({
 
   return (
     <Layout>
+      {
+        console.log(user?.id)
+      }
       <div className="overflow-x-auto min-h-screen">
         <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
           <div className="w-full md:w-1/2">
             <form className="flex items-center">
               <label htmlFor="simple-search" className="sr-only">
-                Search
+                Buscar
               </label>
               <div className="relative w-full">
                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -96,11 +115,11 @@ const UserPublications = ({
                   </svg>
                 </div>
                 <input
-                  //value={search}
-                  //onChange={(e) => handleSearch(e.target.value)}
+                  value={search}
+                  onChange={(e) => handleSearch(e.target.value)}
                   type="text"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 "
-                  placeholder="Search"
+                  placeholder="Buscar publicación"
                 />
               </div>
             </form>

@@ -130,7 +130,7 @@ const AddPublication = ({
                   </label>
                   <input
                     required
-                    value={service_requested}
+                    value={service_requested && service_requested}
                     onChange={onChange}
                     type="text"
                     name="service_requested"

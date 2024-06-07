@@ -90,9 +90,7 @@ const Publications = ({
               className="px-4 py-3 flex justify-center gap-4 items-center"
             >
               Acciones
-              <Link to="add">
-                <PlusCircleIcon className="h-6 w-6 text-green-300 cursor-pointer" />
-              </Link>
+              
             </th>
           </tr>
         </thead>

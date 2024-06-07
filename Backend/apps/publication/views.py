@@ -130,6 +130,8 @@ class PublicationListView(APIView):
 
     def get(self, request, format=None):
         user_id = request.query_params.get('user_id')
+        search = request.query_params.get('search', '')
+
         user_publications = Publication.objects.all()
 
         # Filtrar por usuario si se proporciona user_id
@@ -139,6 +141,15 @@ class PublicationListView(APIView):
                 user_publications = user_publications.filter(user_id=user_id)
             except ValueError:
                 return Response({'error': 'Invalid user_id'}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Filtrar por término de búsqueda si se proporciona
+        if search:
+            user_publications = user_publications.filter(
+                Q(service_requested__icontains=search) |
+                Q(description__icontains=search) |
+                Q(object_offered__icontains=search) |
+                Q(location__icontains=search)
+            )
 
         sortBy = request.query_params.get('sortBy')
         if not (sortBy == 'date_created' or sortBy == 'service_requested'):
@@ -174,6 +185,7 @@ class PublicationListView(APIView):
             return paginator.get_paginated_response(result_page)
         else:
             return Response({'error': 'No publications found'}, status=status.HTTP_404_NOT_FOUND)
+                          
 
 
 class PublicationSearchView(APIView):

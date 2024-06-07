@@ -71,6 +71,7 @@ const PublicationDetail = ({
                   isAuthenticated &&
                   user.id !== publication.user ? (
                   <div className="mt-10 flex sm:flex-col1">
+
                     <button
                       type="button"
                       onClick={async () => {
@@ -84,7 +85,16 @@ const PublicationDetail = ({
                     </button>
                   </div>
                 ) : (
-                  <span></span>
+                  <Link to={`/update_publication/${publication.id}`}>
+                    
+                    <button
+                    className="w-full flex-1 bg-teal-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-teal-500 sm:w-full"
+                    
+                    
+                    >
+                        Editar
+                    </button>
+                  </Link>
                 )}
               </form>
               <div className="mt-6 space-y-4">

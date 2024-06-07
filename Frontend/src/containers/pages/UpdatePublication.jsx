@@ -54,7 +54,7 @@ const UpdatePublication = ({
         publication.photos.map((photo) => `${backend_url}${photo.image}`)
       );
     }
-  }, [publication]);
+  }, [publication?.id]);
 
   const [isHovered, setIsHovered] = useState(false);
   const {
@@ -145,7 +145,13 @@ const UpdatePublication = ({
                 Actualizar Publicación
               </h3>
             </div>
-            <form onSubmit={onSubmit}>
+            {
+           (!(publication?.id==publicationId))? (
+                <div className="flex justify-center items-center h-64">
+                  <TailSpin color="#000" width={50} height={50} />
+                </div>
+              ) : (
+                <form onSubmit={onSubmit}>
               <div className="grid gap-4 mb-4 sm:grid-cols-2">
                 <div>
                   <label
@@ -360,7 +366,9 @@ const UpdatePublication = ({
                   Actualizar
                 </button>
               )}
-            </form>
+            </form>)
+            }
+            
           </div>
         </div>
       </div>
