@@ -2,8 +2,8 @@
 FROM nginx:alpine
 
 
-RUN ls -la
+RUN pwd
 
-RUN ls -la ./Frontend
+RUN ls -la ../../
 # Copy the static website files to the Nginx document root
-COPY ./Frontend /usr/share/nginx/html
+COPY ./../../../Frontend/dist /usr/share/nginx/html
