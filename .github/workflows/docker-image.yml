@@ -46,7 +46,6 @@ jobs:
       with:
         images: 
           mohajabri/trendyswap_front
-          ghcr.io/${{ github.repository }}
 
     - name: Build and push Docker images
       id: push
