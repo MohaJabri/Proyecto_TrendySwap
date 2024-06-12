@@ -1,9 +1,9 @@
 # Use a lightweight base image
 FROM nginx:alpine
 
-
+WORKDIR /app
 RUN pwd
 
-RUN ls -la /home/runner/work/Proyecto_TrendySwap/
+RUN ls -la
 # Copy the static website files to the Nginx document root
-COPY /home/runner/work/Proyecto_TrendySwap/Frontend/* /usr/share/nginx/html
+COPY ./ /usr/share/nginx/html
