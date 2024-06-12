@@ -3,5 +3,7 @@ FROM nginx:alpine
 
 
 RUN ls -la
+
+RUN ls -la Frontend
 # Copy the static website files to the Nginx document root
-COPY ./ /usr/share/nginx/html
+COPY ./Frontend/dist /usr/share/nginx/html
