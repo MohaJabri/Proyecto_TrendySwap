@@ -31,14 +31,6 @@ jobs:
     - name: Build
       run: npm run build
 
-    - name: Archive production artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: dist-without-markdown
-        path: |
-          dist
-          !dist/**/*.md
-
     - name: Log in to Docker Hub
       uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
       with:
@@ -53,9 +45,6 @@ jobs:
           mohajabri/trendyswap_front
 
     - name: Build and push Docker images
-      uses: actions/download-artifact@v4
-      with:
-        name: dist-without-markdown
       id: push
       uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
       with:
