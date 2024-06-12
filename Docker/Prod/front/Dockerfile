@@ -4,6 +4,6 @@ FROM nginx:alpine
 
 RUN pwd
 
-RUN ls -la ./
+RUN ls -la /tmp/trendyfront
 # Copy the static website files to the Nginx document root
-COPY . /usr/share/nginx/html
+COPY /tmp/trendyfront/* /usr/share/nginx/html
