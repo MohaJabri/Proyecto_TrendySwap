@@ -20,19 +20,6 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-
-    - name: executing remote ssh commands using password
-      uses: appleboy/ssh-action@v1.0.3
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        password: ${{ secrets.PASSWORD }}
-        port: ${{ secrets.PORT }}
-        script: |
-          docker pull mohajabri/trendyswap_front:master
-          docker rm $(docker stop $(docker ps -a -q --filter ancestor=mohajabri/trendyswap_front:master --format="{{.ID}}"))
-          docker run -d -p 80:80 mohajabri/trendyswap_front:master
-
     - name: Set up Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
@@ -65,3 +52,15 @@ jobs:
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
+
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: ${{ secrets.PORT }}
+        script: |
+          docker rm --quiet $(docker stop --quiet $(docker ps -a -q --filter ancestor=mohajabri/trendyswap_front:master --format="{{.ID}}"))
+          docker pull mohajabri/trendyswap_front:master
+          docker run -d -p 80:80 mohajabri/trendyswap_front:master
