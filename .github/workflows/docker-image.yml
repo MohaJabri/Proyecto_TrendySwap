@@ -61,6 +61,6 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
         script: |
-          docker rm --quiet $(docker stop --quiet $(docker ps -a -q --filter ancestor=mohajabri/trendyswap_front:master --format="{{.ID}}"))
+          docker rm $(docker stop $(docker ps -a -q --filter="name=trendyfront"))
           docker pull mohajabri/trendyswap_front:master
-          docker run -d -p 80:80 mohajabri/trendyswap_front:master
+          docker run -d --name trendyfront -p 80:80 mohajabri/trendyswap_front:master
