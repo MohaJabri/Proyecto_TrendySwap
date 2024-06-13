@@ -50,7 +50,6 @@ jobs:
         base64-encoded-secret: ${{ secrets.SSL_KEY }}
         filename: "server.key"
         is-executable: false
-        working-directory: "./Frontend"
 
     - name: CP SSL PEM
       uses: mobiledevops/secret-to-file-action@v1
@@ -58,7 +57,6 @@ jobs:
         base64-encoded-secret: ${{ secrets.SSL_PEM }}
         filename: "server.pem"
         is-executable: false
-        working-directory: "./Frontend"
 
     - name: Build and push Docker images
       id: push
