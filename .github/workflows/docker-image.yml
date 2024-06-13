@@ -7,8 +7,8 @@ on:
     branches: [ master ]
 
 defaults:
- run:
-  working-directory: ./Frontend
+  run:
+    working-directory: ./Frontend
 
 jobs:
   build:
@@ -31,6 +31,13 @@ jobs:
     - name: Build
       run: npm run build
 
+    - name: Set up SSH
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H trendyswap.es >> ~/.ssh/known_hosts
+
     - name: Log in to Docker Hub
       uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
       with:
@@ -52,3 +59,8 @@ jobs:
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
+
+    - name: Deploy via SSH
+      with:
+        context: ./Frontend
+      run: ssh debian@trendyswap.es 'bash -s' < ./deploy-script.sh
