@@ -34,7 +34,7 @@ export const get_publications = (userID, page, search) => async (dispatch) => {
 
   try {
     const res = await axios.get(
-      `${backend_url}/api/publication/get-publications/?user_id=${userID}&&page=${page}&&search=${search}`,
+      `${backend_url}:8000/api/publication/get-publications/?user_id=${userID}&&page=${page}&&search=${search}`,
       config
     );
 
@@ -64,7 +64,7 @@ export const get_publications_by_arrival = () => async (dispatch) => {
 
   try {
     const res = await axios.get(
-      `${backend_url}/api/publication/get-publications?sortBy=date_created&order=desc&limit=6`,
+      `${backend_url}:8000/api/publication/get-publications?sortBy=date_created&order=desc&limit=6`,
       config
     );
 
@@ -94,7 +94,7 @@ export const get_publications_by_sold = () => async (dispatch) => {
 
   try {
     const res = await axios.get(
-      `${backend_url}/api/publication/get-publications?sortBy=sold&order=desc&limit=3`,
+      `${backend_url}:8000/api/publication/get-publications?sortBy=sold&order=desc&limit=3`,
       config
     );
 
@@ -124,7 +124,7 @@ export const get_publication = (publicationId) => async (dispatch) => {
 
   try {
     const res = await axios.get(
-      `${backend_url}/api/publication/get-publication/${publicationId}`,
+      `${backend_url}:8000/api/publication/get-publication/${publicationId}`,
       config
     );
 
@@ -154,7 +154,7 @@ export const get_related_publications = (publicationId) => async (dispatch) => {
 
   try {
     const res = await axios.get(
-      `${backend_url}/api/publication/related/${publicationId}`,
+      `${backend_url}:8000/api/publication/related/${publicationId}`,
       config
     );
 
@@ -193,7 +193,7 @@ export const get_filtered_publications =
 
     try {
       const res = await axios.post(
-        `${backend_url}/api/publication/by/search/`,
+        `${backend_url}:8000/api/publication/by/search/`,
         body,
         config
       );
@@ -234,7 +234,7 @@ export const get_search_publications =
 
     try {
       const res = await axios.post(
-        `${backend_url}/api/publication/search/?page=${page}`,
+        `${backend_url}:8000/api/publication/search/?page=${page}`,
         body,
         config
       );
@@ -288,7 +288,7 @@ export const create_publication =
       }
       try {
         const res = await axios.post(
-          `${backend_url}/api/publication/create/`,
+          `${backend_url}:8000/api/publication/create/`,
           body,
           config
         );
@@ -332,7 +332,7 @@ export const delete_publication = (publicationId) => async (dispatch) => {
 
     try {
       const res = await axios.delete(
-        `${backend_url}/api/publication/delete/${publicationId}`,
+        `${backend_url}:8000/api/publication/delete/${publicationId}`,
         config
       );
 
@@ -388,7 +388,7 @@ export const update_publication =
       }
       try {
         const res = await axios.put(
-          `${backend_url}/api/publication/update/${publicationId}/`,
+          `${backend_url}:8000/api/publication/update/${publicationId}/`,
           body,
           config
         );
