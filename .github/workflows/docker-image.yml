@@ -57,6 +57,8 @@ jobs:
         base64-encoded-secret: ${{ secrets.SSL_PEM }}
         filename: "server.pem"
         is-executable: false
+    - run: ls -la
+    - run: pwd
 
     - name: Build and push Docker images
       id: push
