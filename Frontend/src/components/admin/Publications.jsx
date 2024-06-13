@@ -57,7 +57,6 @@ const Publications = ({
     let newActivePage = active;
 
     if (search_publications.data.length === 1 && totalPages > 1) {
-      //
       newActivePage = active > 1 ? active - 1 : 1;
     }
 
