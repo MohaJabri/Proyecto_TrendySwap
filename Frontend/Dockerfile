@@ -8,10 +8,9 @@ COPY ./sample.conf /etc/nginx/conf.d/sample.conf
 
 RUN mkdir certs
 
-RUN chmod 400 ./server.key
 COPY ./server.key /certs/server.key
+RUN chmod 400 /certs/server.key
 
-RUN chmod 400 ./server.pem
-COPY ./server.pem /certs/server.server_pem
-
+COPY ./server.pem /certs/server.pem
+RUN chmod 400 /certs/server.pem
 
