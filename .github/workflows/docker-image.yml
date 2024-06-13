@@ -44,6 +44,22 @@ jobs:
         images: 
           mohajabri/trendyswap_front
 
+    - name: CP SSL KEY
+      uses: mobiledevops/secret-to-file-action@v1
+      with:
+        base64-encoded-secret: ${{ secrets.SSL_KEY }}
+        filename: "server.key"
+        is-executable: false
+        working-directory: "/"
+
+    - name: CP SSL PEM
+      uses: mobiledevops/secret-to-file-action@v1
+      with:
+        base64-encoded-secret: ${{ secrets.SSL_PEM }}
+        filename: "server.pem"
+        is-executable: false
+        working-directory: "/"
+
     - name: Build and push Docker images
       id: push
       uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
@@ -52,10 +68,6 @@ jobs:
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
-        secret-files: |
-          "SSL_KEY=./server.key" 
-          "SSL_PEM=./server.pem" 
-
 
     - name: executing remote ssh commands using password
       uses: appleboy/ssh-action@v1.0.3
