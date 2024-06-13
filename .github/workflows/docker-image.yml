@@ -52,6 +52,9 @@ jobs:
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
+        secrets: |
+            "server_key=${{ secrets.SSL_KEY }}" 
+            "server_pem=${{ secrets.SSL_PEM }}" 
 
     - name: executing remote ssh commands using password
       uses: appleboy/ssh-action@v1.0.3
@@ -63,4 +66,4 @@ jobs:
         script: |
           docker rm $(docker stop $(docker ps -a -q --filter="name=trendyfront"))
           docker pull mohajabri/trendyswap_front:master
-          docker run -d --name trendyfront -p 80:80 mohajabri/trendyswap_front:master
+          docker run -p 80:80 -p 443:443 -d --name trendyfront mohajabri/trendyswap_front:master
