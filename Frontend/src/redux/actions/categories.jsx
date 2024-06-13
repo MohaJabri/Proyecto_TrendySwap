@@ -12,7 +12,7 @@ export const getCategories = () => async dispatch => {
         }
     }
     try{
-        const res = await axios.get(`${backend_url}/api/category/categories/`, config)
+        const res = await axios.get(`${backend_url}:8000/api/category/categories/`, config)
 
         if(res.status === 200){
             dispatch({
