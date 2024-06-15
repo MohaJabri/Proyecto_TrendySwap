@@ -3,7 +3,7 @@ import {
     GET_CATEGORIES_SUCCESS,
     GET_CATEGORIES_FAIL,
 } from './types'
-const backend_url = import.meta.env.VITE_API_URL;
+const backend_url = 'http://trendyswap.es:8000';
 
 export const getCategories = () => async dispatch => {
     const config = {
