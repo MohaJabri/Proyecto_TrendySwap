@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import PublicationCard from "../publication/PublicationCard";
 const backend_url = import.meta.env.VITE_API_URL;
 export default function NewPublications({ data }) {
+  console.log(backend_url);
   return (
     <div className="bg-white min-h-screen">
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
