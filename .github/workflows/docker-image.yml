@@ -79,3 +79,47 @@ jobs:
           docker rm $(docker stop $(docker ps -a -q --filter="name=trendyfront"))
           docker pull mohajabri/trendyswap_front:master
           docker run -p 80:80 -p 443:443 -d --name trendyfront mohajabri/trendyswap_front:master
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Log in to Docker Hub
+      uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Extract metadata (tags, labels) for Docker
+      id: meta
+      uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+      with:
+        images: 
+          mohajabri/trendyswap_back
+
+    - name: Build and push Docker images
+      id: push
+      uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+      with:
+        context: ./Backend
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        build-args: |
+          SERVER_PORT=${{ secrets.DJANGO_SERVER_PORT }}
+          DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}
+          DB_ENGINE=${{ secrets.DB_ENGINE }}
+          DB_NAME=${{ secrets.DB_NAME }}
+          DB_USER=${{ secrets.DB_USER }}
+          DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+          DB_HOST=${{ secrets.DB_HOST }}
+          DB_PORT=${{ secrets.DB_PORT }}
+          EMAIL_BACKEND=${{ secrets.DJANGO_EMAIL_BACKEND }}
+          EMAIL_HOST=${{ secrets.DJANGO_EMAIL_HOST }}
+          EMAIL_PORT=${{ secrets.DJANGO_EMAIL_PORT }}
+          EMAIL_HOST_USER=${{ secrets.DJANGO_EMAIL_HOST_USER }}
+          EMAIL_HOST_PASSWORD=${{ secrets.DJANGO_EMAIL_HOST_PASSWORD }}
+          EMAIL_USE_TLS=${{ secrets.DJANGO_EMAIL_USE_TLS }}
+
+    
