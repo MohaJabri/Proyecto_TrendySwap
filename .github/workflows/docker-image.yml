@@ -121,3 +121,15 @@ jobs:
           EMAIL_HOST_USER=${{ secrets.DJANGO_EMAIL_HOST_USER }}
           EMAIL_HOST_PASSWORD=${{ secrets.DJANGO_EMAIL_HOST_PASSWORD }}
           EMAIL_USE_TLS=${{ secrets.DJANGO_EMAIL_USE_TLS }}
+    
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: ${{ secrets.PORT }}
+        script: |
+          docker rm $(docker stop $(docker ps -a -q --filter="name=trendyback"))
+          docker pull mohajabri/trendyswap_back:master
+          docker run -p 8000:8000 -d --name trendyback mohajabri/trendyswap_back:master
