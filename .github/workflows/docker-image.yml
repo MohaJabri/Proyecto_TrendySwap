@@ -24,13 +24,11 @@ jobs:
 
     - name: Install dependencies
       run: npm install
-      with:
-        working-directory: ./Frontend
+      working-directory: ./Frontend
 
     - name: Build
       run: npm run build
-      with:
-        working-directory: ./Frontend
+      working-directory: ./Frontend
 
     - name: Log in to Docker Hub
       uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
