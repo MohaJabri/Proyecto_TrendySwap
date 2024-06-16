@@ -6,9 +6,8 @@ on:
   pull_request:
     branches: [ master ]
 
-
 jobs:
-  build:
+  build_frontend:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -79,7 +78,8 @@ jobs:
           docker rm $(docker stop $(docker ps -a -q --filter="name=trendyfront"))
           docker pull mohajabri/trendyswap_front:master
           docker run -p 80:80 -p 443:443 -d --name trendyfront mohajabri/trendyswap_front:master
-  build:
+
+  build_backend:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
@@ -121,5 +121,3 @@ jobs:
           EMAIL_HOST_USER=${{ secrets.DJANGO_EMAIL_HOST_USER }}
           EMAIL_HOST_PASSWORD=${{ secrets.DJANGO_EMAIL_HOST_PASSWORD }}
           EMAIL_USE_TLS=${{ secrets.DJANGO_EMAIL_USE_TLS }}
-
-    
