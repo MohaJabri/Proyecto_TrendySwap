@@ -8,7 +8,7 @@ import {
 } from "../../redux/actions/publications";
 import { TailSpin } from "react-loader-spinner";
 import { comunidadesAutonomas } from "../../utils/locations";
-const backend_url = import.meta.env.VITE_API_URL;
+const backend_url = 'https://trendyswap.es:8000';;
 
 const UpdatePublication = ({
   update_publication,

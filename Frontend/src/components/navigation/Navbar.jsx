@@ -19,7 +19,7 @@ import { get_search_publications } from "../../redux/actions/publications";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import SearchBox from "./SearchBox";
 import { get_notifications } from "../../redux/actions/notification";
-const backend_url = import.meta.env.VITE_API_URL;
+const backend_url = 'https://trendyswap.es:8000';;
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");

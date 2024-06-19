@@ -15,7 +15,7 @@ import {
   CHECK_NOTIFICATIONS_SENDED_FAIL,
 } from "./types";
 
-const backend_url = import.meta.env.VITE_API_URL;
+const backend_url = 'https://trendyswap.es:8000';;
 
 export const get_notifications = () => async (dispatch) => {
   const config = {

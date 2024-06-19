@@ -2,7 +2,7 @@ import { cx } from "../../utils/all";
 import { Link } from "react-router-dom";
 import { parseISO, format } from "date-fns";
 import { es } from 'date-fns/locale';
-const backend_url = import.meta.env.VITE_API_URL;
+const backend_url = 'https://trendyswap.es:8000';;
 const PublicationCard = ({ publication, aspect }) => {
   const post = publication;
   const imageProps = publication.photos[0]?.image;

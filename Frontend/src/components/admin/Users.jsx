@@ -9,7 +9,7 @@ import { get_users, delete_user } from "../../redux/actions/users";
 import { connect } from "react-redux";
 import Pagination from "../navigation/Pagination";
 import { useEffect } from "react";
-const backend_url = import.meta.env.VITE_API_URL;
+const backend_url = 'https://trendyswap.es:8000';;
 const Users = ({
   users,
   delete_user,
