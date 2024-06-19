@@ -28,10 +28,6 @@ DJANGO_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "django_extensions",
-    
-
-    
-    
 ]
 
 PROJECT_APPS=[
@@ -48,7 +44,6 @@ TRENDYSWAP_APPS=[
 ]
 
 THIRD_PARTY_APPS=[
-   
     'rest_framework',
     'corsheaders',
     'rest_framework_simplejwt',
@@ -79,7 +74,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
     ]
 
 ROOT_URLCONF = 'core.urls'
@@ -120,7 +114,6 @@ DATABASES = {
         'PASSWORD': config("DB_PASSWORD"),
         'HOST': config("DB_HOST"),
         'PORT': config("DB_PORT"),
-
     }
 }
 
@@ -179,14 +172,20 @@ CORS_ALLOWED_ORIGINS=[
     'http://localhost',
     'http://trendyswap.es',
     'http://trendyswap.es:8000',
+    'https://trendyswap.es',
+    'https://trendyswap.es:8000',
 ]
 
 CORS_ALLOWED_WHITELIST=[
     'http://localhost:3000',
+    'https://localhost:3000',
+    'https://localhost:8000',
     'http://localhost:8000',
     'http://localhost',
     'http://trendyswap.es',
     'http://trendyswap.es:8000',
+    'https://trendyswap.es',
+    'https://trendyswap.es:8000',
 ]
 
 PASSWORD_HASHERS = [
