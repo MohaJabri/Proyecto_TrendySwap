@@ -40,4 +40,4 @@ COPY ./ /usr/src/app/
 
 RUN pip install -r requirements.txt
 
-CMD ["sh", "-c", "python manage.py makemigrations && python manage.py migrate && python manage.py loaddata categories && python manage.py runserver 0.0.0.0:8000"]
+CMD ["sh", "-c", "python manage.py makemigrations && python manage.py migrate && python manage.py loaddata categories && python manage.py runserver_plus --cert-file server.pem --key-file server.key 0.0.0.0:8000"]
