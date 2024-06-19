@@ -1,13 +1,14 @@
 FROM python:3.10.2-slim-bullseye
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONUNBUFFERED=1
 
+# Definición de argumentos
 ARG SERVER_PORT 
 ARG DJANGO_SECRET_KEY
 ARG DB_ENGINE
 ARG DB_NAME
 ARG DB_USER
 ARG DB_PASSWORD
-ARG ARG DB_HOST
+ARG DB_HOST
 ARG DB_PORT
 ARG EMAIL_BACKEND
 ARG EMAIL_HOST
@@ -16,6 +17,7 @@ ARG EMAIL_HOST_USER
 ARG EMAIL_HOST_PASSWORD
 ARG EMAIL_USE_TLS
 
+# Pasar los argumentos a variables de entorno
 ENV SERVER_PORT=$SERVER_PORT 
 ENV DJANGO_SECRET_KEY=$DJANGO_SECRET_KEY
 ENV DB_ENGINE=$DB_ENGINE
@@ -30,12 +32,12 @@ ENV EMAIL_PORT=$EMAIL_PORT
 ENV EMAIL_HOST_USER=$EMAIL_HOST_USER
 ENV EMAIL_HOST_PASSWORD=$EMAIL_HOST_PASSWORD
 ENV EMAIL_USE_TLS=$EMAIL_USE_TLS
- 
-EXPOSE 	8000
+
+EXPOSE 8000
 
 WORKDIR /usr/src/app
 COPY ./ /usr/src/app/
 
-RUN pip install -r requirements.txt 
+RUN pip install -r requirements.txt
 
-CMD python manage.py runserver 0.0.0.0:8000
+CMD ["sh", "-c", "python manage.py makemigrations && python manage.py migrate && python manage.py loaddata categories && python manage.py runserver 0.0.0.0:8000"]

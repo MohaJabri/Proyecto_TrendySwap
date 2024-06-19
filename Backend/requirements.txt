@@ -1,24 +1,16 @@
 django==4.2.2
-
 django-cors-headers==4.1.0
 djangorestframework==3.14.0
-djoser== 2.2.0
-
+djoser==2.2.0
 Pillow==10.0.1
-
 drf-yasg==1.21.7
-
 PyJWT==2.8.0
-
 psycopg2-binary==2.9.3
-
 django-ckeditor==6.7.0
 pytz==2023.3.post1
-
 argon2-cffi==23.1.0
 python-decouple==3.8
-
 django-storages==1.12.2
-
 channels==4.0.0
 daphne==4.0.0
+migrate
