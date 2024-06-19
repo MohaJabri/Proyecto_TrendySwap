@@ -11,20 +11,23 @@ export const getCategories = () => async dispatch => {
             'Accept': 'application/json'
         }
     }
-    try{
+    try {
         const res = await axios.get(`${backend_url}/api/category/categories/`, config)
+        console.log(res, 'Respuesta')
 
-        if(res.status === 200){
+        if (res.status === 200) {
             dispatch({
                 type: GET_CATEGORIES_SUCCESS,
                 payload: res.data
             })
         }
-        
-    }   
-    catch(err){
+
+    }
+    catch (err) {
         dispatch({
             type: GET_CATEGORIES_FAIL
+
         })
+        console.error(err)
     }
 }
