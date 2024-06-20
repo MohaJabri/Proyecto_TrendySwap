@@ -168,17 +168,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #CORS
 CORS_ALLOW_ALL_ORIGINS = True
 
-CORS_ALLOWED_WHITELIST=[
-    'http://localhost:3000',
-    'https://localhost:3000',
-    'https://localhost:8000',
-    'http://localhost:8000',
-    'http://localhost',
-    'http://trendyswap.es',
-    'http://trendyswap.es:8000',
-    'https://trendyswap.es',
-    'https://trendyswap.es:8000',
-]
+
+
 
 PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.Argon2PasswordHasher',
