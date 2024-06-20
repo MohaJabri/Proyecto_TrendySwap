@@ -214,8 +214,7 @@ DJOSER={
     'EMAIL': {
         'activation': 'apps.user.email.ActivationEmail',
         'confirmation': 'apps.user.email.ConfirmationEmail',
-        'password_reset': 'apps.user.email.PasswordResetEmail',
-        'password_changed_confirmation': 'apps.user.email.PasswordChangedConfirmationEmail',
+        
     },
 }
 
