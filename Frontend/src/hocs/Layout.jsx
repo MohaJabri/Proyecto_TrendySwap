@@ -7,7 +7,7 @@ import { setHuboCambio } from "../redux/actions/notification";
 import Navbar from "../components/navigation/Navbar";
 import { connect } from "react-redux";
 import { useEffect, useState } from "react";
-const ws_url = import.meta.env.VITE_WS_URL;
+const ws_url = "wss://trendyswap.es:8000";
 
 const Layout = (props) => {
   const userId = props.user ? props.user.id : null; // Obtener el ID del usuario
