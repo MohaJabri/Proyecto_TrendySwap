@@ -72,6 +72,7 @@ export const signup =
 
     const config = {
       headers: {
+        Accept: "application/json",
         "Content-Type": "application/json",
       },
     };
@@ -340,6 +341,7 @@ export const reset_password = (email) => async (dispatch) => {
 
   const config = {
     headers: {
+      Accept: "application/json",
       "Content-Type": "application/json",
     },
   };
