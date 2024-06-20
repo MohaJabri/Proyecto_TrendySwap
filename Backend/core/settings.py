@@ -19,6 +19,7 @@ ALLOWED_HOSTS = ['trendyswap.es', 'trendyswap.es:8000', 'localhost', ]
 # Application definition
 
 DJANGO_APPS = [
+    'corsheaders',
     'daphne',
     'apps.notification',
     'django.contrib.admin',
@@ -45,7 +46,7 @@ TRENDYSWAP_APPS=[
 
 THIRD_PARTY_APPS=[
     'rest_framework',
-    'corsheaders',
+    
     'rest_framework_simplejwt',
     'drf_yasg',
     'rest_framework_simplejwt.token_blacklist',

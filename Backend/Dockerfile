@@ -1,5 +1,5 @@
 FROM python:3.10.2-slim-bullseye
-ENV PYTHONUNBUFFERED=1
+ENV PYTHONUNBUFFERED 1
 
 # Definición de argumentos
 ARG SERVER_PORT 
