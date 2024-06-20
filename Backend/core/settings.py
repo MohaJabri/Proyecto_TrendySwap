@@ -195,6 +195,8 @@ PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
 ]
 
+CORS_ALLOW_ALL_HEADERS = True
+
 #SIMPLE_JWT
 SIMPLE_JWT={
     'AUTH_HEADER_TYPES': ('JWT',),
