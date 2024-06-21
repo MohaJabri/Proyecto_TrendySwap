@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import PublicationCard from "../publication/PublicationCard";
-const backend_url = 'https://trendyswap.es:8000';;
+const backend_url = 'http://trendyswap.es:8000';;
 export default function NewPublications({ data }) {
   console.log(backend_url);
   return (

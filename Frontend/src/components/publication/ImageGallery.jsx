@@ -1,6 +1,6 @@
 import { Tab } from "@headlessui/react";
 import { Carousel } from "@material-tailwind/react";
-const backend_url = 'https://trendyswap.es:8000';;
+const backend_url = 'http://trendyswap.es:8000';;
 
 const ImageGallery = ({ photo }) => {
   return (

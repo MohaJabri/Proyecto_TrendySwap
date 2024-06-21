@@ -9,7 +9,7 @@ import {
   GET_OWNER_USER_PROFILE_SUCCESS,
   GET_OWNER_USER_PROFILE_FAIL,
 } from "./types";
-const backend_url = 'https://trendyswap.es:8000';;
+const backend_url = 'http://trendyswap.es:8000';;
 
 export const get_owner_user_profile = (userId) => async (dispatch) => {
   if (localStorage.getItem("access")) {
