@@ -29,6 +29,8 @@ DJANGO_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "django_extensions",
+    "migrate",
+    "Werkzeug",
 ]
 
 PROJECT_APPS=[
