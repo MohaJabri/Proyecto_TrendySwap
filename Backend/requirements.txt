@@ -16,3 +16,4 @@ daphne==4.0.0
 migrate
 django-extensions
 Werkzeug
+gunicorn
