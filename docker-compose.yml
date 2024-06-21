@@ -23,6 +23,7 @@ services:
     container_name: "${PROJECT_NAME}_server"
     build: Docker/Django/
     image: "${PROJECT_NAME}_server"
+    command: sh -c "gunicorn --bind 0.0.0.0:8000 wsgi:${PROJECT_NAME}"
     restart: always
     depends_on:
       database:
