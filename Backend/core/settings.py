@@ -13,7 +13,7 @@ SECRET_KEY = config("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['trendyswap.es', 'trendyswap.es:8000', 'localhost', ]
+ALLOWED_HOSTS = ['trendyswap.es', 'trendyswap.es:8000', 'localhost', 'api.trendyswap.es' ]
 
 
 # Application definition
@@ -39,9 +39,6 @@ PROJECT_APPS=[
 TRENDYSWAP_APPS=[
     'apps.category',
     'apps.publication',
-    
-    
-
 ]
 
 THIRD_PARTY_APPS=[
@@ -169,17 +166,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #CORS
 CORS_ALLOW_ALL_ORIGINS = True
 
-
-
-
 PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.Argon2PasswordHasher',
     'django.contrib.auth.hashers.PBKDF2PasswordHasher',
     'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
     'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
 ]
-
-
 
 #SIMPLE_JWT
 SIMPLE_JWT={
