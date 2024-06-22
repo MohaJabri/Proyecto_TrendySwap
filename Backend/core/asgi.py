@@ -16,7 +16,7 @@ import apps.notification.routing
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
 
 application = ProtocolTypeRouter({
-    "https": get_asgi_application(),
+    "http": get_asgi_application(),
     "websocket": AuthMiddlewareStack(
         URLRouter(
             apps.notification.routing.websocket_urlpatterns
