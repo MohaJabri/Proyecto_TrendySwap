@@ -3,12 +3,13 @@ import {
     GET_CATEGORIES_SUCCESS,
     GET_CATEGORIES_FAIL,
 } from './types'
-const backend_url = 'http://trendyswap.es:8000';
+const backend_url = 'https://api.trendyswap.es';
 
 export const getCategories = () => async dispatch => {
     const config = {
         headers: {
-            'Accept': 'application/json'
+            'Accept': 'application/json',
+
         }
     }
     try {
