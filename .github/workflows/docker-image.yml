@@ -146,4 +146,4 @@ jobs:
         script: |
           docker rm -f trendyback || true
           docker pull mohajabri/trendyswap_back:master
-          docker run -d --name trendyback --network trendyswap_network mohajabri/trendyswap_back:master
+          docker run -d --name trendyback -v media_volume:/usr/src/app/media --network trendyswap_network mohajabri/trendyswap_back:master
