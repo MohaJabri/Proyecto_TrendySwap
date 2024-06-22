@@ -224,7 +224,7 @@ REST_FRAMEWORK = {
 
 AUTH_USER_MODEL = 'user.UserAccount'
 
-EMAIL_BACKEND = config('EMAIL_BACKEND')
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = config('EMAIL_HOST')
 EMAIL_PORT = config('EMAIL_PORT', cast=int)
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
