@@ -15,7 +15,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['trendyswap.es', 'trendyswap.es:8000', 'localhost', 'api.trendyswap.es' ]
 
-
 # Application definition
 
 DJANGO_APPS = [
