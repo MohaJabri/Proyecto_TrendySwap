@@ -42,7 +42,6 @@ TRENDYSWAP_APPS=[
 
 THIRD_PARTY_APPS=[
     'rest_framework',
-    
     'rest_framework_simplejwt',
     'drf_yasg',
     'rest_framework_simplejwt.token_blacklist',
@@ -225,7 +224,7 @@ REST_FRAMEWORK = {
 AUTH_USER_MODEL = 'user.UserAccount'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = "smtp.gmail.com"
 EMAIL_HOST_USER = 'trendyswap@gmail.com'
 EMAIL_HOST_PASSWORD= 'yeil pzrn pxxp kaud'
 EMAIL_PORT = 587
