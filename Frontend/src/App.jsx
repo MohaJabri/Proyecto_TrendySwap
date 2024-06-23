@@ -1,5 +1,6 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes,Switch,Redirect } from "react-router-dom";
+
 import styled from "styled-components";
 import { Provider } from "react-redux";
 import store from "./store";
@@ -42,8 +43,7 @@ function App() {
       <Router>
         <AppContainer>
           <MainContent>
-            <Routes>
-              <Route path="*" element={<Error404 />} />
+            <Switch>
               <Route exact path="/" element={<Home />} />
               {/* Rutas de autenticación */}
               <Route path="/login" element={<Login />} />
@@ -79,7 +79,8 @@ function App() {
               <Route element={<AdminPrivateRoute />}>
                 <Route path="/admin" element={<AdminPage />} />
               </Route>
-            </Routes>
+              <Redirect to="/" />
+            </Switch>
           </MainContent>
           <Footer />
         </AppContainer>
