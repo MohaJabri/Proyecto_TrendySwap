@@ -4,6 +4,7 @@ import { send_email, reject_request } from "../../redux/actions/notification";
 import Layout from "../../hocs/Layout";
 import { setHuboCambio } from "../../redux/actions/notification";
 import { delete_publication } from "../../redux/actions/publications";
+import { Link } from "react-router-dom";
 
 const Notifications = ({
   notifications,
