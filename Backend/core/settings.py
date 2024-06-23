@@ -13,7 +13,7 @@ SECRET_KEY = config("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['trendyswap.es', 'www.trendyswap.es', 'trendyswap.es:8000', 'localhost', 'api.trendyswap.es', 'www.api.trendyswap.es' ]
+ALLOWED_HOSTS = ['trendyswap.es', 'www.trendyswap.es', 'localhost']
 
 USE_X_FORWARDED_HOST = True
 

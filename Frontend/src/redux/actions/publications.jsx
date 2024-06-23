@@ -23,7 +23,7 @@ import {
 } from "./types";
 import { setAlert } from "./alert";
 
-const backend_url = 'https://api.trendyswap.es:8000';;
+const backend_url = 'https://trendyswap.es';
 
 export const get_publications = (userID, page, search) => async (dispatch) => {
   const config = {
