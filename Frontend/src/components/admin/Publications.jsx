@@ -12,7 +12,7 @@ import {
 import { connect } from "react-redux";
 import Pagination from "../navigation/Pagination";
 import { useEffect } from "react";
-const backend_url = 'https://trendyswap.es';
+const backend_url = 'https://trendyswap.es/backend';
 
 const Publications = ({
   search_publications,

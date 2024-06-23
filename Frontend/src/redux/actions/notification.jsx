@@ -15,7 +15,7 @@ import {
   CHECK_NOTIFICATIONS_SENDED_FAIL,
 } from "./types";
 
-const backend_url = 'https://trendyswap.es';
+const backend_url = 'https://trendyswap.es/backend';
 
 export const get_notifications = () => async (dispatch) => {
   const config = {

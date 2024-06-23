@@ -183,7 +183,7 @@ SIMPLE_JWT={
     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
 }
 
-DOMAIN = 'trendyswap.es'
+DOMAIN = 'trendyswap.es/backend'
 
 DJOSER = {
     'LOGIN_FIELD': 'email',
@@ -195,7 +195,7 @@ DJOSER = {
     'SET_USERNAME_RETYPE': True,
     'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
     'USERNAME_RESET_CONFIRM_URL': 'email/reset/confirm/{uid}/{token}',
-    'ACTIVATION_URL': 'https://trendyswap.es/activate/{uid}/{token}',
+    'ACTIVATION_URL': 'https://trendyswap.es/backend/activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': True,
     'SERIALIZERS': {
         'user_create': 'apps.user.serializers.UserCreateSerializer',

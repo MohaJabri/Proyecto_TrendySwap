@@ -8,7 +8,7 @@ import {
 } from "../../redux/actions/publications";
 import { TailSpin } from "react-loader-spinner";
 import { comunidadesAutonomas } from "../../utils/locations";
-const backend_url = 'https://trendyswap.es';
+const backend_url = 'https://trendyswap.es/backend';
 
 const UpdatePublication = ({
   update_publication,

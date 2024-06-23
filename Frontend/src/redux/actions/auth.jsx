@@ -21,7 +21,7 @@ import {
 } from "./types";
 import { setAlert } from "./alert";
 import axios from "axios";
-const backend_url = 'https://trendyswap.es';
+const backend_url = 'https://trendyswap.es/backend';
 
 export const check_authenticated = () => async (dispatch) => {
   if (localStorage.getItem("access")) {
