@@ -70,14 +70,14 @@ const SearchBox = ({
               )}
             </button>
           </div>
-          <div className="relative w-full gap-2 md:w-max">
+          <div className="relative w-full md:w-[150px] lg:w-[300px] gap-2">
             <Input
               type="search"
               name="search"
               onChange={(e) => onChange(e)}
               value={search}
               containerProps={{
-                className: "min-w-[288px]",
+                className: "min-w-[144px] md:min-w-[150px] lg:min-w-[300px]",
               }}
               className="!border-t-blue-gray-300 pl-9 placeholder:text-blue-gray-300 focus:!border-blue-gray-300"
               placeholder="Que quieres buscar?"
