@@ -265,12 +265,12 @@ function Navbar({
                 )}
                 <Link
                   to="/about"
-                  className="hiddentext-base font-bold text-gray-700 hover:text-gray-900"
+                  className="hidden text-base font-bold text-gray-700 hover:text-gray-900"
                 >
                   Sobre Nosotros
                 </Link>
               </Popover.Group>
-              <div className="flex items-center md:ml-12">
+              <div className="hidden flex items-center md:ml-12">
                 {isAuthenticated ? authLinks : guestLinks}
               </div>
             </div>
