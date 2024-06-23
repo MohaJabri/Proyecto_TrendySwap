@@ -332,7 +332,7 @@ export const delete_publication = (publicationId) => async (dispatch) => {
 
     try {
       const res = await axios.delete(
-        `${backend_url}/api/publication/delete/${publicationId}`,
+        `${backend_url}/api/publication/delete/${publicationId}/`,
         config
       );
 
