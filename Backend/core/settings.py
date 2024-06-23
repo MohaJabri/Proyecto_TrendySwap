@@ -182,7 +182,7 @@ SIMPLE_JWT={
 
 }
 
-DOMAIN = 'trendyswap.es'
+DOMAIN = 'https://api.trendyswap.es'
 
 DJOSER={
     'LOGIN_FIELD':'email',
