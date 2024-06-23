@@ -18,6 +18,7 @@ import { getCategories } from "../../redux/actions/categories";
 import { get_search_publications } from "../../redux/actions/publications";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import SearchBox from "./SearchBox";
+import SearchBoxMenu from "./SearchBoxMenu";
 import { get_notifications } from "../../redux/actions/notification";
 const backend_url = 'https://trendyswap.es/backend';
 
@@ -300,7 +301,7 @@ function Navbar({
                       alt="Workflow"
                     />
                   </Link>
-                  <SearchBox
+                  <SearchBoxMenu
                   order={order}
                   search={search}
                   category
