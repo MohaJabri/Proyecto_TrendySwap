@@ -3,7 +3,7 @@ import {
     GET_CATEGORIES_SUCCESS,
     GET_CATEGORIES_FAIL,
 } from './types'
-const backend_url = 'https://api.trendyswap.es';
+const backend_url = 'https://api.trendyswap.es:8000';
 
 export const getCategories = () => async dispatch => {
     const config = {
