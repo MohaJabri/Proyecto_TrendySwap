@@ -24,7 +24,7 @@ import {
 import { TailSpin } from "react-loader-spinner";
 import Layout from "../../hocs/Layout";
 
-const backend_url = 'https://trendyswap.es';
+const backend_url = 'https://trendyswap.es/backend';
 
 const Profile = ({
   user,
