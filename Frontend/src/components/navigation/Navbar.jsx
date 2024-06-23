@@ -236,11 +236,11 @@ function Navbar({
                 <MenuIcon className="h-6 w-6" aria-hidden="true" />
               </Popover.Button>
             </div>
-            <div className="hidden md:flex-1 md:flex md:items-center md:justify-between">
+            <div className="md:flex-1 md:flex md:items-center md:justify-between">
               <Popover.Group as="nav" className="space-x-10 flex items-center">
                 <Link
                   to="/swap"
-                  className="text-base font-bold text-teal-600 hover:text-teal-900"
+                  className="hidden text-base font-bold text-teal-600 hover:text-teal-900"
                 >
                   Swap
                 </Link>
@@ -258,14 +258,14 @@ function Navbar({
                 {user?.is_staff && (
                   <Link
                     to="/admin"
-                    className="text-base font-bold text-gray-700 hover:text-gray-900"
+                    className="hidden text-base font-bold text-gray-700 hover:text-gray-900"
                   >
                     Admin
                   </Link>
                 )}
                 <Link
                   to="/about"
-                  className="text-base font-bold text-gray-700 hover:text-gray-900"
+                  className="hiddentext-base font-bold text-gray-700 hover:text-gray-900"
                 >
                   Sobre Nosotros
                 </Link>
@@ -339,6 +339,13 @@ function Navbar({
                         className="block rounded-md text-base font-medium text-gray-900 hover:text-gray-700"
                       >
                         Ver mi perfil
+                      </Link>
+
+                      <Link
+                        to="/notifications"
+                        className="block rounded-md text-base font-medium text-gray-900 hover:text-gray-700"
+                      >
+                        Notificaciones
                       </Link>
                       <Link
                         to="/add_publication"

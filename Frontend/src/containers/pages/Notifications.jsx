@@ -44,7 +44,9 @@ const Notifications = ({
                   Solicitando: {notification.service_requested}
                 </p>
                 <p className="text-gray-700 text-base">
+                  <Link to={`/profile/${notification.user_from}`}>
                   Solicitante: {notification.user_from_full_name}
+                  </Link>
                 </p>
               </div>
               <div className="px-6 py-4 flex justify-center">
