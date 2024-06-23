@@ -294,7 +294,7 @@ function Navbar({
             <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
               <div className="pt-5 pb-6 px-5 sm:pb-8">
                 <div className="flex items-center justify-between">
-                  <Link>
+                  <Link to="/">
                     <img
                       className="h-8 w-auto"
                       src="https://icons.veryicon.com/png/o/miscellaneous/mirror-icon/swap-8.png"
