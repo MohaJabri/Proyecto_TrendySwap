@@ -64,7 +64,7 @@ export const get_publications_by_arrival = () => async (dispatch) => {
 
   try {
     const res = await axios.get(
-      `${backend_url}/api/publication/get-publications?sortBy=date_created&order=desc&limit=6`,
+      `${backend_url}/api/publication/get-publications/?sortBy=date_created&order=desc&limit=6`,
       config
     );
 
@@ -94,7 +94,7 @@ export const get_publications_by_sold = () => async (dispatch) => {
 
   try {
     const res = await axios.get(
-      `${backend_url}/api/publication/get-publications?sortBy=sold&order=desc&limit=3`,
+      `${backend_url}/api/publication/get-publications/?sortBy=sold&order=desc&limit=3`,
       config
     );
 
