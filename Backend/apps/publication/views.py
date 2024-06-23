@@ -208,9 +208,8 @@ class PublicationSearchView(APIView):
         if search:
             search_results = search_results.filter(
                 Q(service_requested__icontains=search) |
-                Q(description__icontains=search) |
-                Q(object_offered__icontains=search) |
-                Q(location__icontains=search)
+                Q(object_offered__icontains=search)
+                
             )
 
         if location:
