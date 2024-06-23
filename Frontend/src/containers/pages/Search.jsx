@@ -93,37 +93,7 @@ const Search = ({
       <div className="bg-white">
         <div>
           {/* Mobile filter dialog */}
-          <Transition.Root show={mobileFiltersOpen} as={Fragment}>
-            <Dialog
-              as="div"
-              className="fixed inset-0 flex z-40 lg:hidden"
-              onClose={setMobileFiltersOpen}
-            >
-              <Transition.Child
-                as={Fragment}
-                enter="transition-opacity ease-linear duration-300"
-                enterFrom="opacity-0"
-                enterTo="opacity-100"
-                leave="transition-opacity ease-linear duration-300"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
-              >
-                <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-25" />
-              </Transition.Child>
-
-              <Transition.Child
-                as={Fragment}
-                enter="transition ease-in-out duration-300 transform"
-                enterFrom="translate-x-full"
-                enterTo="translate-x-0"
-                leave="transition ease-in-out duration-300 transform"
-                leaveFrom="translate-x-0"
-                leaveTo="translate-x-full"
-              >
-                
-              </Transition.Child>
-            </Dialog>
-          </Transition.Root>
+          
 
           <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="relative z-10 flex items-baseline justify-between pt-16 pb-6 border-b border-gray-200">
