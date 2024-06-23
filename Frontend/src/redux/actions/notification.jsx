@@ -27,7 +27,7 @@ export const get_notifications = () => async (dispatch) => {
 
   try {
     const res = await axios.get(
-      `${backend_url}/api/notification/get-notifications`,
+      `${backend_url}/api/notification/get-notifications/`,
       config
     );
 
