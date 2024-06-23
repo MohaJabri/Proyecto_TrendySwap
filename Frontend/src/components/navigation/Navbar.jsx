@@ -236,11 +236,11 @@ function Navbar({
                 <MenuIcon className="h-6 w-6" aria-hidden="true" />
               </Popover.Button>
             </div>
-            <div className="md:flex-1 md:flex md:items-center md:justify-between">
+            <div className="hidden md:flex-1 md:flex md:items-center md:justify-between">
               <Popover.Group as="nav" className="space-x-10 flex items-center">
                 <Link
                   to="/swap"
-                  className="hidden text-base font-bold text-teal-600 hover:text-teal-900"
+                  className="text-base font-bold text-teal-600 hover:text-teal-900"
                 >
                   Swap
                 </Link>
@@ -258,19 +258,19 @@ function Navbar({
                 {user?.is_staff && (
                   <Link
                     to="/admin"
-                    className="hidden text-base font-bold text-gray-700 hover:text-gray-900"
+                    className="text-base font-bold text-gray-700 hover:text-gray-900"
                   >
                     Admin
                   </Link>
                 )}
                 <Link
                   to="/about"
-                  className="hidden text-base font-bold text-gray-700 hover:text-gray-900"
+                  className="text-base font-bold text-gray-700 hover:text-gray-900"
                 >
                   Sobre Nosotros
                 </Link>
               </Popover.Group>
-              <div className="hidden flex items-center md:ml-12">
+              <div className="flex items-center md:ml-12">
                 {isAuthenticated ? authLinks : guestLinks}
               </div>
             </div>
@@ -301,6 +301,16 @@ function Navbar({
                     />
                   </div>
                   <div className="-mr-2">
+                  <SearchBox
+                  order={order}
+                  search={search}
+                  category
+                  _id={category_id}
+                  location={location}
+                  onChange={onChange}
+                  onSubmit={onSubmit}
+                  categories={categories}
+                />
                     <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-teal-500">
                       <span className="sr-only">Close menu</span>
                       <XIcon className="h-6 w-6" aria-hidden="true" />
