@@ -181,7 +181,7 @@ SIMPLE_JWT={
     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
 }
 
-DOMAIN = 'https://api.trendyswap.es'
+DOMAIN = 'api.trendyswap.es'
 
 DJOSER={
     'LOGIN_FIELD':'email',
