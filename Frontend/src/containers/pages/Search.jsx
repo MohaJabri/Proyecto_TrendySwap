@@ -8,6 +8,7 @@ import { get_publications, get_search_publications } from "../../redux/actions/p
 import { get_filtered_publications } from "../../redux/actions/publications";
 import PublicationCard from "../../components/publication/PublicationCard";
 import Layout from "../../hocs/Layout";
+import Pagination from "../../components/navigation/Pagination";
 
 const Search = ({
   get_search_publications,
