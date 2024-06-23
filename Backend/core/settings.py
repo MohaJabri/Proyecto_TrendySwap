@@ -179,7 +179,6 @@ SIMPLE_JWT={
     "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
-
 }
 
 DOMAIN = 'https://api.trendyswap.es'
