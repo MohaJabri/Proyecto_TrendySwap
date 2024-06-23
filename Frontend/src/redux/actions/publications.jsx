@@ -124,7 +124,7 @@ export const get_publication = (publicationId) => async (dispatch) => {
 
   try {
     const res = await axios.get(
-      `${backend_url}/api/publication/get-publication/${publicationId}`,
+      `${backend_url}/api/publication/get-publication/${publicationId}/`,
       config
     );
 
