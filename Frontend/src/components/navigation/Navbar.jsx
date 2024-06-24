@@ -20,7 +20,7 @@ import { useNavigate, Link, useLocation } from "react-router-dom";
 import SearchBox from "./SearchBox";
 import SearchBoxMenu from "./SearchBoxMenu";
 import { get_notifications } from "../../redux/actions/notification";
-const backend_url = 'https://trendyswap.es/backend';
+const backend_url = "https://trendyswap.es/backend";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -240,6 +240,9 @@ function Navbar({
             <div className="hidden md:flex-1 md:flex md:items-center md:justify-between">
               <Popover.Group as="nav" className="space-x-10 flex items-center">
                 <Link
+                  onClick={() => {
+                    localStorage.setItem("currentPage", 1);
+                  }}
                   to="/swap"
                   className="text-base font-bold text-teal-600 hover:text-teal-900"
                 >
@@ -302,17 +305,16 @@ function Navbar({
                     />
                   </Link>
                   <SearchBoxMenu
-                  order={order}
-                  search={search}
-                  category
-                  _id={category_id}
-                  location={location}
-                  onChange={onChange}
-                  onSubmit={onSubmit}
-                  categories={categories}
-                />
+                    order={order}
+                    search={search}
+                    category
+                    _id={category_id}
+                    location={location}
+                    onChange={onChange}
+                    onSubmit={onSubmit}
+                    categories={categories}
+                  />
                   <div className="-mr-2">
-                  
                     <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-teal-500">
                       <span className="sr-only">Close menu</span>
                       <XIcon className="h-6 w-6" aria-hidden="true" />
