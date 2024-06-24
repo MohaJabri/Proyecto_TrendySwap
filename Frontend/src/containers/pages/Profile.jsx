@@ -369,7 +369,7 @@ const Profile = ({
       <Layout className="min-h-screen">
         {loading ? (
           <div className="flex justify-center items-center relative min-h-screen">
-            <Card className="w-full lg:w-2/3 xl:w-1/2 2xl:w-1/3 h-[75vh] relative my-2">
+            <Card className="w-96 lg:w-2/3 xl:w-1/2 2xl:w-1/3 h-100 relative my-2">
               <CardHeader floated={false} className="h-80 relative">
                 {(isOwner && ownerProfile?.profile_image) ||
                 (!isOwner && profile?.profile_image) ? (
