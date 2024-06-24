@@ -75,30 +75,34 @@ const PublicationDetail = ({
             <div className="col-span-1 md:col-span-2  p-4 sm:px-0 sm:mt-16 lg:mt-0">
               <div className="mt-6 space-y-4">
                 <form className="mt-6">
-                  {isAuthenticated && (user.id !== publication.user || user.is_staff) ? (
-                    !notification_sent.notification_sent ? (
-                      <div className="mt-10 flex sm:flex-col1">
-                        <button
-                          type="button"
-                          onClick={async () => {
-                            await create_notification(publicationId);
-                            await send_notification(publication.user, user.id);
-                            check_notifications_sended(publicationId);
-                          }}
-                          className="w-full flex-1 bg-teal-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-teal-500 sm:w-full"
-                        >
-                          Solicitar
-                        </button>
-                      </div>
-                    ) : null
-                  ) : (
-                    <Link to={`/update_publication/${publication.id}`}>
-                      <button className="w-full flex-1 bg-teal-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-teal-500 sm:w-full">
-                        Editar
-                      </button>
-                    </Link>
-                  )}
+                  {isAuthenticated ? (
+                      user.id !== publication.user || user.is_staff ? (
+                          !notification_sent.notification_sent ? (
+                              <div className="mt-10 flex sm:flex-col1">
+                                <button
+                                    type="button"
+                                    onClick={async () => {
+                                      await create_notification(publicationId);
+                                      await send_notification(publication.user, user.id);
+                                      check_notifications_sended(publicationId);
+                                    }}
+                                    className="w-full flex-1 bg-teal-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-teal-500 sm:w-full"
+                                >
+                                  Solicitar
+                                </button>
+                              </div>
+                          ) : null
+                      ) : (
+                          <Link to={`/update_publication/${publication.id}`}>
+                            <button
+                                className="w-full flex-1 bg-teal-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-teal-500 sm:w-full">
+                              Editar
+                            </button>
+                          </Link>
+                      )
+                  ) : null}
                 </form>
+
 
                 <div className="mt-6 space-y-4">
                   <div className="flex items-center">
@@ -107,8 +111,8 @@ const PublicationDetail = ({
                         Publicado por:
                       </span>
                       <Link
-                        to={`/profile/${publication && publication.user}`}
-                        className="text-teal-600 hover:text-teal-800 cursor-pointer"
+                          to={`/profile/${publication && publication.user}`}
+                          className="text-teal-600 hover:text-teal-800 cursor-pointer"
                       >
                         <span>
                           {publication && publication.user_full_name}{" "}
@@ -117,9 +121,9 @@ const PublicationDetail = ({
                       <span className="mx-2">el día</span>
                       <span>
                         {publication &&
-                          new Date(
-                            publication.date_created
-                          ).toLocaleDateString()}
+                            new Date(
+                                publication.date_created
+                            ).toLocaleDateString()}
                       </span>
                       <span className="mx-2">en</span>
                       <span>{publication && publication.location}</span>
@@ -128,7 +132,7 @@ const PublicationDetail = ({
                 </div>
                 <div className="mt-2 w-full">
                   <iframe
-                    src={
+                      src={
                       publication &&
                       mapas.find((mapa) => mapa.name === publication?.location)
                         ?.value
