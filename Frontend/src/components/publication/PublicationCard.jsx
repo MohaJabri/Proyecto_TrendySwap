@@ -9,13 +9,13 @@ const PublicationCard = ({ publication, aspect }) => {
 
   return (
     <>
-      <div className={cx("group cursor-pointer")}>
+      <Link className={cx("group cursor-pointer")}>
         <div
           className={cx(
             " overflow-hidden rounded-md bg-gray-100 transition-all hover:scale-105"
           )}
         >
-          <Link
+          <div
             className={cx(
               "relative block",
               aspect === "landscape"
@@ -54,7 +54,7 @@ const PublicationCard = ({ publication, aspect }) => {
                 />
               </svg>
             )}
-          </Link>
+          </div>
         </div>
 
         <div className={cx("flex items-center")}>
@@ -150,7 +150,7 @@ const PublicationCard = ({ publication, aspect }) => {
             </div>
           </div>
         </div>
-      </div>
+      </Link>
     </>
   );
 };

@@ -40,6 +40,9 @@ const Swap = ({
   }, []);
 
   useEffect(() => {
+    const savedPage = localStorage.getItem("currentPage");
+    const page = savedPage ? parseInt(savedPage, 10) : 1;
+    setActive(page);
     if (publications?.meta) {
       setPreviousNumber(publications.meta.previous);
       setNextNumber(publications.meta.next);
