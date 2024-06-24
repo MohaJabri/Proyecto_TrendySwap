@@ -12,6 +12,7 @@ const PublicationCard = ({ publication, aspect }) => {
       <Link
         to={`/publication/${publication.id}`}
         className={cx("group cursor-pointer")}
+        target="_blank"
       >
         <div
           className={cx(
