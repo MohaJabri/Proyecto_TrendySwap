@@ -30,6 +30,9 @@ const Search = ({
   }, []);
 
   useEffect(() => {
+    const savedPage = localStorage.getItem("currentPage");
+    const page = savedPage ? parseInt(savedPage, 10) : 1;
+    setActive(page);
     if (search_publications?.meta) {
       setPreviousNumber(search_publications.meta.previous);
       setNextNumber(search_publications.meta.next);

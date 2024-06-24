@@ -1,15 +1,18 @@
 import { cx } from "../../utils/all";
 import { Link } from "react-router-dom";
 import { parseISO, format } from "date-fns";
-import { es } from 'date-fns/locale';
-const backend_url = 'https://trendyswap.es/backend';
+import { es } from "date-fns/locale";
+const backend_url = "https://trendyswap.es/backend";
 const PublicationCard = ({ publication, aspect }) => {
   const post = publication;
   const imageProps = publication.photos[0]?.image;
 
   return (
     <>
-      <Link className={cx("group cursor-pointer")}>
+      <Link
+        to={`/publication/${publication.id}`}
+        className={cx("group cursor-pointer")}
+      >
         <div
           className={cx(
             " overflow-hidden rounded-md bg-gray-100 transition-all hover:scale-105"
@@ -24,7 +27,6 @@ const PublicationCard = ({ publication, aspect }) => {
                 ? "aspect-[5/4]"
                 : "aspect-square"
             )}
-            to={`/publication/${publication.id}`}
           >
             {imageProps ? (
               <img
@@ -145,7 +147,9 @@ const PublicationCard = ({ publication, aspect }) => {
                 &bull;
               </span>
               <time className="truncate text-sm" dateTime={post?.date_created}>
-              {format(parseISO(post?.date_created), "dd, MMMM, yyyy", { locale: es })}
+                {format(parseISO(post?.date_created), "dd, MMMM, yyyy", {
+                  locale: es,
+                })}
               </time>
             </div>
           </div>

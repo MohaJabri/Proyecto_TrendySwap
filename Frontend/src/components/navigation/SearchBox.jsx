@@ -111,6 +111,10 @@ const SearchBox = ({
             size="md"
             className="mt-1 rounded-lg sm:mt-0 bg-teal-600"
             type="submit"
+            onClick={() => {
+              localStorage.setItem("currentPage", 1);
+              
+            }}
           >
             Buscar
           </Button>
