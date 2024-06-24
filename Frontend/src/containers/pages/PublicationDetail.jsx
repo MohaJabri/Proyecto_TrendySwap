@@ -75,7 +75,7 @@ const PublicationDetail = ({
             <div className="col-span-1 md:col-span-2  p-4 sm:px-0 sm:mt-16 lg:mt-0">
               <div className="mt-6 space-y-4">
                 <form className="mt-6">
-                  {isAuthenticated && user.id !== publication.user && !user.is_staff ? (
+                  {isAuthenticated && user.id !== publication.user ? (
                     !notification_sent.notification_sent ? (
                       <div className="mt-10 flex sm:flex-col1">
                         <button
