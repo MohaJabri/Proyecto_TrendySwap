@@ -8,6 +8,7 @@ const Pagination = ({ search, active, visitPage, previous, next }) => {
   }
 
   const handlePageClick = (pageNumber) => {
+    window.scrollTo(0, 0);
     visitPage(pageNumber);
   };
 
