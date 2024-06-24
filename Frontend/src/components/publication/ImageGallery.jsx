@@ -4,7 +4,7 @@ const backend_url = 'https://trendyswap.es/backend';
 
 const ImageGallery = ({ photo }) => {
   return (
-    <Carousel transition={{ duration: 2 }} className="rounded mt-3" style={{height: 'min-content', maxHeight:'820px', maxWidth:'620px', overflow: 'hidden'}}>
+    <Carousel transition={{ duration: 2 }} className="rounded mt-3 bg-gray-400" style={{height: 'min-content', maxHeight:'820px', maxWidth:'620px', overflow: 'hidden'}}>
       {photo.map((image, index) => (
         <div key={index} className="flex  w-full justify-around" style={{height: 'min-content'}}>
           <img
