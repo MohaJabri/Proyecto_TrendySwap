@@ -147,7 +147,7 @@ const UserPublications = ({
                 scope="col"
                 className="px-4 py-3 flex justify-center gap-4 items-center"
               >
-                Actions
+                Acciones
                 <Link to="/add_publication">
                   <PlusCircleIcon className="h-6 w-6 text-green-300 cursor-pointer" />
                 </Link>
