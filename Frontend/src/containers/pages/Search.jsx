@@ -44,8 +44,10 @@ const Search = ({
 
   const previous_number = () => {
     if (previousNumber) {
+
       get_search_publications("", previousNumber);
       setActive(active - 1);
+      window.scrollTo(0, 0);
     }
   };
 
@@ -53,6 +55,7 @@ const Search = ({
     if (nextNumber) {
       get_search_publications("", nextNumber);
       setActive(active + 1);
+      window.scrollTo(0, 0);
     }
   };
   
