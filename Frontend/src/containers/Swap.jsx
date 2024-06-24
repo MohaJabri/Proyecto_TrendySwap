@@ -120,16 +120,7 @@ const Swap = ({
               <h1 className="text-4xl font-bold tracking-tight text-gray-700 dark:text-gray-400">
                 Publicaciones
               </h1>
-              <div className="flex items-center">
-                <button
-                  type="button"
-                  className="p-2 -m-2 ml-4 sm:ml-6 text-gray-400 hover:text-gray-500 lg:hidden"
-                  onClick={() => setMobileFiltersOpen(true)}
-                >
-                  <span className="sr-only">Filters</span>
-                  <FilterIcon className="w-5 h-5" aria-hidden="true" />
-                </button>
-              </div>
+              
             </div>
 
             <section aria-labelledby="products-heading" className="pt-6 pb-24">

@@ -242,6 +242,7 @@ function Navbar({
                 <Link
                   onClick={() => {
                     localStorage.setItem("currentPage", 1);
+                    get_search_publications("", 1);
                   }}
                   to="/swap"
                   className="text-base font-bold text-teal-600 hover:text-teal-900"
@@ -327,6 +328,7 @@ function Navbar({
                   <Link
                     onClick={() => {
                       localStorage.setItem("currentPage", 1);
+                      get_search_publications("", 1);
                     }}
                     to="/swap"
                     className="rounded-md text-base font-medium text-gray-900 hover:text-gray-700"
