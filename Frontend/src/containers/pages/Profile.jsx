@@ -24,7 +24,7 @@ import {
 import { TailSpin } from "react-loader-spinner";
 import Layout from "../../hocs/Layout";
 
-const backend_url = 'https://trendyswap.es/backend';
+const backend_url = "https://trendyswap.es/backend";
 
 const Profile = ({
   user,
@@ -230,7 +230,10 @@ const Profile = ({
                           value={last_name}
                           className="flex-1 block w-full focus:ring-teal-500 focus:border-teal-500 rounded-md sm:text-sm border-gray-300 bg-gray-50 text-gray-900 p-2.5"
                           placeholder="Apellido"
-                          disabled={!user || (user?.id !== profile?.user && !user?.is_staff)}
+                          disabled={
+                            !user ||
+                            (user?.id !== profile?.user && !user?.is_staff)
+                          }
                         />
                       </div>
                     </div>
@@ -252,7 +255,10 @@ const Profile = ({
                           value={city}
                           className="flex-1 block w-full focus:ring-teal-500 focus:border-teal-500 rounded-md sm:text-sm border-gray-300 bg-gray-50 text-gray-900 p-2.5"
                           placeholder="Ciudad"
-                          disabled={!user || (user?.id !== profile?.user && !user?.is_staff)}
+                          disabled={
+                            !user ||
+                            (user?.id !== profile?.user && !user?.is_staff)
+                          }
                         />
                       </div>
                     </div>
@@ -274,7 +280,10 @@ const Profile = ({
                           value={state}
                           className="flex-1 block w-full focus:ring-teal-500 focus:border-teal-500 rounded-md sm:text-sm border-gray-300 bg-gray-50 text-gray-900 p-2.5"
                           placeholder="Provincia"
-                          disabled={!user || (user?.id !== profile?.user && !user?.is_staff)}
+                          disabled={
+                            !user ||
+                            (user?.id !== profile?.user && !user?.is_staff)
+                          }
                         />
                       </div>
                     </div>
@@ -294,7 +303,10 @@ const Profile = ({
                         onChange={onChange}
                         className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm"
                         accept="image/*"
-                        disabled={!user || (user?.id !== profile?.user && !user?.is_staff)}
+                        disabled={
+                          !user ||
+                          (user?.id !== profile?.user && !user?.is_staff)
+                        }
                       />
                     </div>
                   </div>
@@ -315,7 +327,10 @@ const Profile = ({
                           name="phone"
                           placeholder="Teléfono"
                           className="flex-1 block w-full focus:ring-teal-500 focus:border-teal-500 rounded-md sm:text-sm border-gray-300 bg-gray-50 text-gray-900 p-2.5"
-                          disabled={!user || (user?.id !== profile?.user && !user?.is_staff)}
+                          disabled={
+                            !user ||
+                            (user?.id !== profile?.user && !user?.is_staff)
+                          }
                         />
                       </div>
                     </div>
@@ -334,8 +349,7 @@ const Profile = ({
                         color="green"
                         type="submit"
                         className="inline-flex"
-                        onClick={() => setOpen(false)
-                        }
+                        onClick={() => setOpen(false)}
                       >
                         <span>Guardar</span>
                       </Button>
@@ -357,8 +371,9 @@ const Profile = ({
           <div className="flex justify-center items-center relative min-h-screen">
             <Card className="w-full lg:w-2/3 xl:w-1/2 2xl:w-1/3 h-[75vh] relative my-2">
               <CardHeader floated={false} className="h-80 relative">
-                {
-                  (ownerProfile?.profile_image !== null && ownerProfile?.profile_image !== undefined) ? (<img
+                {(isOwner && ownerProfile?.profile_image) ||
+                (!isOwner && profile?.profile_image) ? (
+                  <img
                     src={`${backend_url}${
                       isOwner
                         ? ownerProfile?.profile_image
@@ -367,20 +382,18 @@ const Profile = ({
                     alt="profile-picture"
                     className="object-cover object-center h-full rounded-t-lg w-full"
                   />
-                  ): (
-                    <div className="flex items-center justify-center h-full bg-gray-100 rounded-t-lg w-full">
-                      <Typography
-                        color="blue-gray"
-                        className="font-medium"
-                        textGradient
-                      >
-                        No image provided
-                      </Typography>
-                    </div>
-                  )
+                ) : (
+                  <div className="flex items-center justify-center h-full bg-gray-100 rounded-t-lg w-full">
+                    <Typography
+                      color="blue-gray"
+                      className="font-medium"
+                      textGradient
+                    >
+                      Sin imagen de perfil
+                    </Typography>
+                  </div>
+                )}
 
-                }
-                
                 <div className="absolute bottom-2 right-2">
                   {DialogCustomAnimation()}
                 </div>
@@ -393,7 +406,7 @@ const Profile = ({
                 >
                   {first_name || "Nombre"} {last_name || "Apellido"}
                 </Typography>
-                {(!user || isOwner || user?.is_staff) && (
+                {((!user || isOwner || user?.is_staff)&& phone) && (
                   <Typography
                     color="blue-gray"
                     className="font-medium"
