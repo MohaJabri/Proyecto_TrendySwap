@@ -406,7 +406,7 @@ const Profile = ({
                 >
                   {first_name || "Nombre"} {last_name || "Apellido"}
                 </Typography>
-                {((!user || isOwner || user?.is_staff)&& phone) && (
+                {(!user || isOwner || user?.is_staff) && phone && (
                   <Typography
                     color="blue-gray"
                     className="font-medium"
@@ -425,14 +425,16 @@ const Profile = ({
                     {profile?.email || "No email provided"}
                   </Typography>
                 )}
-
-                <Typography
-                  color="blue-gray"
-                  className="font-medium"
-                  textGradient
-                >
-                  {city || "Ciudad"} ({state || "Provincia"})
-                </Typography>
+                {(city || state) && (
+                  <Typography
+                    color="blue-gray"
+                    className="font-medium"
+                    textGradient
+                  >
+                    {city && city} {city && state && `(${state})`}
+                    {!city && state && `(${state})`}
+                  </Typography>
+                )}
               </CardBody>
             </Card>
           </div>
